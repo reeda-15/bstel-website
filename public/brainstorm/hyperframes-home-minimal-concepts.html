@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BSTEL Minimal Home Animation Concepts</title>
+    <style>
+      :root {
+        --ink: #160b2d;
+        --deep: #24114a;
+        --purple: #4b2e83;
+        --green: #89c430;
+        --soft: #d8d0e8;
+        --muted: #655d76;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: #f8f6fc;
+        color: var(--ink);
+        font-family: Arial, sans-serif;
+      }
+
+      .page {
+        min-height: 100vh;
+        padding: 34px;
+      }
+
+      .head {
+        align-items: end;
+        display: flex;
+        gap: 24px;
+        justify-content: space-between;
+        margin: 0 auto 24px;
+        max-width: 1320px;
+      }
+
+      .eyebrow {
+        color: var(--purple);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-size: clamp(28px, 3vw, 42px);
+        line-height: 1.08;
+        margin: 8px 0 0;
+      }
+
+      .head p {
+        color: var(--muted);
+        line-height: 1.55;
+        margin: 0;
+        max-width: 420px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin: 0 auto;
+        max-width: 1320px;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid #e4deef;
+        border-radius: 8px;
+        box-shadow: 0 20px 54px rgba(36, 17, 74, 0.08);
+        overflow: hidden;
+      }
+
+      .composition {
+        aspect-ratio: 16 / 10.5;
+        color: #fff;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .hero-copy {
+        left: 32px;
+        max-width: 360px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .hero-copy small {
+        align-items: center;
+        background: rgba(255,255,255,.09);
+        border: 1px solid rgba(255,255,255,.16);
+        border-radius: 999px;
+        display: inline-flex;
+        font-size: 11px;
+        font-weight: 800;
+        gap: 7px;
+        padding: 7px 10px;
+      }
+
+      .hero-copy small::before {
+        background: var(--green);
+        border-radius: 50%;
+        content: "";
+        height: 7px;
+        width: 7px;
+      }
+
+      .hero-copy strong {
+        display: block;
+        font-size: 34px;
+        line-height: 1.08;
+        margin-top: 18px;
+      }
+
+      .hero-copy span {
+        color: rgba(255,255,255,.72);
+        display: block;
+        font-size: 13px;
+        line-height: 1.55;
+        margin-top: 14px;
+      }
+
+      .btns {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .btn {
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 800;
+        padding: 11px 14px;
+      }
+
+      .btn.primary { background: var(--green); color: var(--ink); }
+      .btn.secondary { border: 1px solid rgba(255,255,255,.24); color: #fff; }
+
+      .body {
+        padding: 18px 18px 20px;
+      }
+
+      .body h2 {
+        font-size: 20px;
+        margin: 0 0 8px;
+      }
+
+      .body p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.55;
+        margin: 0;
+      }
+
+      .chip {
+        background: rgba(255,255,255,.1);
+        border: 1px solid rgba(255,255,255,.16);
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 800;
+        padding: 8px 10px;
+        position: absolute;
+        right: 24px;
+        top: 24px;
+        z-index: 3;
+      }
+
+      .field {
+        background:
+          linear-gradient(90deg, rgba(22,11,45,.96), rgba(22,11,45,.78) 42%, rgba(22,11,45,.24)),
+          linear-gradient(135deg, #100720, #24114a 58%, #4b2e83);
+      }
+
+      .grid-lines {
+        background-image:
+          linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
+        background-size: 42px 42px;
+        inset: 0;
+        position: absolute;
+      }
+
+      .thin-route {
+        animation: lineDrift 5s ease-in-out infinite alternate;
+        background: linear-gradient(90deg, transparent, rgba(137,196,48,.9), rgba(167,139,219,.65), transparent);
+        height: 2px;
+        left: -12%;
+        position: absolute;
+        width: 125%;
+      }
+
+      .thin-route.one { top: 33%; transform: rotate(-4deg); }
+      .thin-route.two { top: 58%; animation-delay: -1.5s; opacity: .7; transform: rotate(3deg); }
+      .thin-route.three { top: 76%; animation-delay: -3s; opacity: .45; transform: rotate(-2deg); }
+
+      .node {
+        animation: nodePulse 2.8s ease-in-out infinite;
+        background: var(--green);
+        border-radius: 50%;
+        box-shadow: 0 0 28px rgba(137,196,48,.75);
+        height: 10px;
+        position: absolute;
+        width: 10px;
+      }
+
+      .node.a { left: 58%; top: 32%; }
+      .node.b { animation-delay: -1s; background: #a78bdb; left: 74%; top: 58%; }
+      .node.c { animation-delay: -2s; left: 86%; top: 73%; }
+
+      .breathing-map {
+        height: 72%;
+        opacity: .5;
+        position: absolute;
+        right: 5%;
+        top: 14%;
+        width: 40%;
+      }
+
+      .map-dot {
+        animation: dotBreath 3.6s ease-in-out infinite;
+        background: rgba(221,216,232,.44);
+        border-radius: 50%;
+        height: 7px;
+        position: absolute;
+        width: 7px;
+      }
+
+      .map-dot.full { background: var(--green); box-shadow: 0 0 14px rgba(137,196,48,.55); }
+      .map-dot.partial { background: #a78bdb; }
+
+      .radar {
+        background:
+          radial-gradient(circle at 74% 48%, rgba(137,196,48,.18), transparent 22%),
+          linear-gradient(90deg, rgba(22,11,45,.98), rgba(22,11,45,.84) 48%, rgba(36,17,74,.52)),
+          #160b2d;
+      }
+
+      .ring {
+        animation: ringOut 4.2s ease-out infinite;
+        border: 1px solid rgba(137,196,48,.58);
+        border-radius: 999px;
+        height: 44px;
+        position: absolute;
+        right: 20%;
+        top: 44%;
+        transform: translate(50%, -50%);
+        width: 44px;
+      }
+
+      .ring.two { animation-delay: -1.4s; }
+      .ring.three { animation-delay: -2.8s; }
+
+      .quiet-sweep {
+        animation: sweep 5.2s ease-in-out infinite;
+        background: linear-gradient(90deg, transparent, rgba(137,196,48,.13), transparent);
+        bottom: -30%;
+        position: absolute;
+        right: 18%;
+        top: -30%;
+        transform: rotate(-17deg);
+        width: 20%;
+      }
+
+      .plasma {
+        background:
+          linear-gradient(90deg, rgba(22,11,45,.98), rgba(22,11,45,.86) 40%, rgba(22,11,45,.38)),
+          linear-gradient(120deg, #1a1a4d, #4d1a80);
+      }
+
+      .soft-wave {
+        animation: waveFloat 4.6s ease-in-out infinite alternate;
+        border-radius: 50%;
+        filter: blur(2px);
+        height: 86px;
+        position: absolute;
+        right: 12%;
+        top: 24%;
+        width: 420px;
+      }
+
+      .soft-wave.one {
+        background: linear-gradient(90deg, transparent, rgba(102,51,204,.65), transparent);
+        transform: rotate(-8deg);
+      }
+
+      .soft-wave.two {
+        animation-delay: -1.8s;
+        background: linear-gradient(90deg, transparent, rgba(137,196,48,.38), transparent);
+        top: 56%;
+        transform: rotate(5deg);
+      }
+
+      @keyframes lineDrift {
+        to { translate: 4% 0; }
+      }
+
+      @keyframes nodePulse {
+        0%, 100% { opacity: .55; scale: .75; }
+        50% { opacity: 1; scale: 1.14; }
+      }
+
+      @keyframes dotBreath {
+        0%, 100% { opacity: .48; transform: scale(.84); }
+        50% { opacity: 1; transform: scale(1.08); }
+      }
+
+      @keyframes ringOut {
+        from { height: 44px; opacity: .8; width: 44px; }
+        to { height: 320px; opacity: 0; width: 320px; }
+      }
+
+      @keyframes sweep {
+        0% { opacity: 0; translate: -220% 0; }
+        20%, 70% { opacity: 1; }
+        100% { opacity: 0; translate: 260% 0; }
+      }
+
+      @keyframes waveFloat {
+        to { translate: 5% 10px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .thin-route, .node, .map-dot, .ring, .quiet-sweep, .soft-wave { animation: none; }
+      }
+
+      @media (max-width: 980px) {
+        .head { align-items: start; flex-direction: column; }
+        .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="head">
+        <div>
+          <span class="eyebrow">HyperFrames brainstorm</span>
+          <h1>Minimal animated home hero concepts</h1>
+        </div>
+        <p>Three restrained motion directions for BSTEL’s homepage hero. Each is HTML/CSS and HyperFrames-style with composition metadata.</p>
+      </header>
+
+      <section class="grid">
+        <article class="card">
+          <div class="composition field" data-composition-id="home-minimal-route-field" data-start="0" data-duration="6" data-width="1440" data-height="900">
+            <span class="chip">01 / Route Field</span>
+            <span class="grid-lines"></span>
+            <span class="thin-route one"></span>
+            <span class="thin-route two"></span>
+            <span class="thin-route three"></span>
+            <span class="node a"></span>
+            <span class="node b"></span>
+            <span class="node c"></span>
+            <div class="hero-copy">
+              <small>Trusted by leading operators since 2007</small>
+              <strong>Telecom infrastructure, built end to end.</strong>
+              <span>Fibre-optic design, deployment and maintenance with 24x7 NOC support.</span>
+              <div class="btns"><b class="btn primary">Request a Quote</b><b class="btn secondary">Explore Services</b></div>
+            </div>
+          </div>
+          <div class="body">
+            <h2>Route Field</h2>
+            <p>Minimal grid, thin fibre routes, and a few breathing nodes. Best balance of business seriousness and motion.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="composition radar" data-composition-id="home-minimal-noc-radar" data-start="0" data-duration="6" data-width="1440" data-height="900">
+            <span class="chip">02 / NOC Radar</span>
+            <span class="grid-lines"></span>
+            <span class="quiet-sweep"></span>
+            <span class="ring"></span>
+            <span class="ring two"></span>
+            <span class="ring three"></span>
+            <div class="breathing-map" id="breathing-map"></div>
+            <div class="hero-copy">
+              <small>24x7 NOC monitored</small>
+              <strong>Reliable networks for operators who cannot afford downtime.</strong>
+              <span>Coverage, uptime and escalation support across core central and western India markets.</span>
+              <div class="btns"><b class="btn primary">Request a Quote</b><b class="btn secondary">Coverage Map</b></div>
+            </div>
+          </div>
+          <div class="body">
+            <h2>NOC Radar</h2>
+            <p>Quiet monitoring rings and a faint coverage map. Best if you want the homepage to communicate support and uptime first.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="composition plasma" data-composition-id="home-minimal-plasma-lines" data-start="0" data-duration="6" data-width="1440" data-height="900">
+            <span class="chip">03 / Plasma Lines</span>
+            <span class="grid-lines"></span>
+            <span class="soft-wave one"></span>
+            <span class="soft-wave two"></span>
+            <span class="node a"></span>
+            <span class="node b"></span>
+            <div class="hero-copy">
+              <small>IP-1 licensed telecom infrastructure provider</small>
+              <strong>Fibre routes, engineered for scale.</strong>
+              <span>A softer version of the prompt shader: atmospheric, minimal, and less literal.</span>
+              <div class="btns"><b class="btn primary">Request a Quote</b><b class="btn secondary">Services</b></div>
+            </div>
+          </div>
+          <div class="body">
+            <h2>Plasma Lines</h2>
+            <p>Closest to the shader prompt, but calmer: flowing purple energy lines with a minimal telecom feel.</p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const bitmap = [
+        "....ooo....",
+        "...oooo....",
+        "..oooooo...",
+        ".ooooooo...",
+        "ooooooo....",
+        ".oooooo....",
+        "..oooo.....",
+        "..ooo......",
+      ];
+
+      const map = document.getElementById("breathing-map");
+      bitmap.forEach((row, y) => {
+        row.split("").forEach((cell, x) => {
+          if (cell === ".") return;
+          const dot = document.createElement("span");
+          const isCore = x > 2 && x < 7 && y > 2 && y < 6;
+          const isPartial = x <= 2 || y <= 2;
+          dot.className = `map-dot ${isCore ? "full" : isPartial ? "partial" : ""}`;
+          dot.style.left = `${x * 9 + 18}%`;
+          dot.style.top = `${y * 10 + 8}%`;
+          dot.style.animationDelay = `${(x + y) * 90}ms`;
+          map.appendChild(dot);
+        });
+      });
+    </script>
+  </body>
+</html>

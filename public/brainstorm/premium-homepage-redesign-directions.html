@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BSTEL Premium Homepage Directions</title>
+  <style>
+    :root {
+      --ink: #160b2d;
+      --deep: #24114a;
+      --purple: #4b2e83;
+      --green: #89c430;
+      --line: #e8e2f3;
+      --muted: #655d76;
+      --paper: #fbfafd;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Arial, sans-serif;
+    }
+    main {
+      margin: 0 auto;
+      max-width: 1320px;
+      padding: 34px 28px 56px;
+    }
+    h1 {
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.05;
+      margin: 0;
+      max-width: 880px;
+    }
+    .intro {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 14px 0 28px;
+      max-width: 780px;
+    }
+    .directions {
+      display: grid;
+      gap: 22px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .direction {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: 0 18px 42px rgba(36, 17, 74, .08);
+      overflow: hidden;
+    }
+    .mock {
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      min-height: 520px;
+    }
+    .topbar {
+      background: var(--deep);
+      color: #ded7ee;
+      font-size: 10px;
+      padding: 6px 18px;
+    }
+    .nav {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 18px;
+    }
+    .logo {
+      align-items: center;
+      display: flex;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .05em;
+    }
+    .logo i {
+      background: linear-gradient(135deg, var(--green), #a78bdb);
+      border-radius: 5px;
+      display: block;
+      height: 22px;
+      width: 26px;
+    }
+    .links {
+      display: flex;
+      gap: 10px;
+    }
+    .links span {
+      background: #f2eef9;
+      border-radius: 999px;
+      display: block;
+      height: 7px;
+      width: 36px;
+    }
+    .hero {
+      min-height: 300px;
+      overflow: hidden;
+      padding: 34px 18px 24px;
+      position: relative;
+    }
+    .eyebrow {
+      align-items: center;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      color: #fff;
+      display: inline-flex;
+      font-size: 10px;
+      font-weight: 800;
+      gap: 6px;
+      padding: 6px 10px;
+    }
+    .eyebrow i {
+      background: var(--green);
+      border-radius: 50%;
+      display: block;
+      height: 6px;
+      width: 6px;
+    }
+    .hero h2 {
+      color: #fff;
+      font-size: 32px;
+      line-height: 1.06;
+      margin: 16px 0 10px;
+      max-width: 330px;
+    }
+    .hero p {
+      color: #d8d1eb;
+      font-size: 12px;
+      line-height: 1.55;
+      margin: 0;
+      max-width: 330px;
+    }
+    .buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .button {
+      border-radius: 6px;
+      display: block;
+      height: 34px;
+      width: 104px;
+    }
+    .primary { background: var(--green); }
+    .secondary {
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.28);
+    }
+    .proof {
+      display: grid;
+      gap: 1px;
+      grid-template-columns: repeat(4, 1fr);
+      margin: 0 18px 18px;
+    }
+    .proof span {
+      background: #f8f6fc;
+      border: 1px solid var(--line);
+      min-height: 48px;
+      padding: 9px;
+    }
+    .proof b {
+      display: block;
+      font-size: 16px;
+    }
+    .proof small {
+      color: var(--muted);
+      display: block;
+      font-size: 9px;
+      margin-top: 3px;
+    }
+    .section-row {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 0 18px 18px;
+    }
+    .service {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 84px;
+      padding: 11px;
+    }
+    .service i {
+      background: #efe9f8;
+      border-radius: 5px;
+      display: block;
+      height: 22px;
+      margin-bottom: 10px;
+      width: 22px;
+    }
+    .service strong {
+      display: block;
+      font-size: 11px;
+      line-height: 1.2;
+    }
+    .service small {
+      color: var(--muted);
+      display: block;
+      font-size: 9px;
+      margin-top: 5px;
+    }
+    .body {
+      padding: 18px;
+    }
+    .body h3 {
+      font-size: 18px;
+      margin: 0 0 8px;
+    }
+    .body p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 0;
+    }
+    .tag {
+      color: var(--green);
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .a .hero {
+      background:
+        linear-gradient(90deg, rgba(22,11,45,.98), rgba(22,11,45,.76) 58%, rgba(22,11,45,.38)),
+        radial-gradient(circle at 80% 30%, rgba(137,196,48,.24), transparent 28%),
+        linear-gradient(135deg, #12091f, #2a1758);
+    }
+    .route {
+      border: 2px solid rgba(137,196,48,.5);
+      border-bottom: 0;
+      border-left: 0;
+      border-radius: 50%;
+      height: 180px;
+      position: absolute;
+      right: -24px;
+      top: 54px;
+      transform: rotate(-16deg);
+      width: 280px;
+    }
+    .route.two {
+      border-color: rgba(167,139,219,.46);
+      height: 130px;
+      right: 44px;
+      top: 118px;
+      transform: rotate(12deg);
+      width: 230px;
+    }
+    .node {
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 0 8px rgba(137,196,48,.16);
+      height: 13px;
+      position: absolute;
+      right: 88px;
+      top: 92px;
+      width: 13px;
+    }
+    .node.two {
+      background: #a78bdb;
+      right: 182px;
+      top: 196px;
+    }
+    .b .hero {
+      background:
+        linear-gradient(90deg, rgba(22,11,45,.98), rgba(22,11,45,.84) 48%, rgba(22,11,45,.52)),
+        linear-gradient(135deg, #12091f, #372066);
+    }
+    .map {
+      bottom: 20px;
+      display: grid;
+      gap: 7px;
+      grid-template-columns: repeat(11, 8px);
+      position: absolute;
+      right: 28px;
+      transform: rotate(-8deg);
+      width: 158px;
+    }
+    .dot {
+      background: rgba(230,225,242,.75);
+      border-radius: 50%;
+      height: 8px;
+      width: 8px;
+    }
+    .dot.full { background: var(--green); }
+    .dot.key { background: #a78bdb; }
+    .coverage-panel {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 8px;
+      bottom: 28px;
+      color: #fff;
+      font-size: 11px;
+      padding: 12px;
+      position: absolute;
+      right: 178px;
+      width: 132px;
+    }
+    .c .hero {
+      background:
+        linear-gradient(90deg, rgba(22,11,45,.98), rgba(22,11,45,.83) 52%, rgba(22,11,45,.54)),
+        linear-gradient(135deg, #130b20, #2f2051);
+    }
+    .dashboard {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 9px;
+      bottom: 26px;
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      position: absolute;
+      right: 24px;
+      width: 220px;
+    }
+    .metric {
+      background: rgba(255,255,255,.1);
+      border-radius: 6px;
+      height: 36px;
+    }
+    .line {
+      background: linear-gradient(90deg, var(--green), #a78bdb);
+      border-radius: 99px;
+      height: 5px;
+      margin: 14px 10px 0;
+      width: 70%;
+    }
+    @media (max-width: 1050px) {
+      .directions { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Premium homepage redesign directions</h1>
+    <p class="intro">Choose the overall feel first. All options keep BSTEL professional, reduce animation intensity, strengthen trust metrics, and make coverage/services easier to scan.</p>
+
+    <div class="directions">
+      <article class="direction a">
+        <div class="mock">
+          <div class="topbar">IP-1 Licensed Telecom Infrastructure Provider</div>
+          <div class="nav"><div class="logo"><i></i> BSTEL</div><div class="links"><span></span><span></span><span></span></div></div>
+          <div class="hero">
+            <div class="route"></div><div class="route two"></div><div class="node"></div><div class="node two"></div>
+            <span class="eyebrow"><i></i> Trusted since 2007</span>
+            <h2>Telecom infrastructure, built end to end.</h2>
+            <p>Subtle fiber route motion behind a calm enterprise hero. The copy remains the focus.</p>
+            <div class="buttons"><span class="button primary"></span><span class="button secondary"></span></div>
+          </div>
+          <div class="proof"><span><b>17+</b><small>Years</small></span><span><b>130+</b><small>Districts</small></span><span><b>24x7</b><small>NOC</small></span><span><b>IP-1</b><small>Licensed</small></span></div>
+          <div class="section-row"><div class="service"><i></i><strong>Fiber rollout</strong><small>Design to delivery</small></div><div class="service"><i></i><strong>O&M support</strong><small>Always-on ops</small></div><div class="service"><i></i><strong>Survey work</strong><small>Field execution</small></div></div>
+        </div>
+        <div class="body">
+          <span class="tag">Direction A</span>
+          <h3>Subtle Fiber Network</h3>
+          <p>Best if you want the hero to feel modern and technical, but not animation-heavy. Recommended for the homepage.</p>
+        </div>
+      </article>
+
+      <article class="direction b">
+        <div class="mock">
+          <div class="topbar">IP-1 Licensed Telecom Infrastructure Provider</div>
+          <div class="nav"><div class="logo"><i></i> BSTEL</div><div class="links"><span></span><span></span><span></span></div></div>
+          <div class="hero">
+            <div class="coverage-panel">Coverage strength<br><strong>6 states / 130+ districts</strong></div>
+            <div class="map">
+              <span class="dot"></span><span class="dot"></span><span class="dot full"></span><span class="dot full"></span><span class="dot full"></span><span class="dot"></span><span class="dot"></span><span class="dot key"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="dot"></span><span class="dot full"></span><span class="dot full"></span><span class="dot full"></span><span class="dot full"></span><span class="dot full"></span><span class="dot key"></span><span class="dot key"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="dot"></span><span class="dot"></span><span class="dot full"></span><span class="dot full"></span><span class="dot full"></span><span class="dot full"></span><span class="dot full"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="dot"></span><span class="dot"></span><span class="dot key"></span><span class="dot full"></span><span class="dot full"></span><span class="dot full"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <span class="eyebrow"><i></i> Geographic footprint</span>
+            <h2>Network reach across six states.</h2>
+            <p>Coverage map becomes the hero proof instead of a later supporting section.</p>
+            <div class="buttons"><span class="button primary"></span><span class="button secondary"></span></div>
+          </div>
+          <div class="proof"><span><b>MH</b><small>Full</small></span><span><b>MP</b><small>Full</small></span><span><b>CG</b><small>Full</small></span><span><b>UP/GJ</b><small>Key</small></span></div>
+          <div class="section-row"><div class="service"><i></i><strong>Coverage</strong><small>State map first</small></div><div class="service"><i></i><strong>Districts</strong><small>Fast scanning</small></div><div class="service"><i></i><strong>Routes</strong><small>Custom build</small></div></div>
+        </div>
+        <div class="body">
+          <span class="tag">Direction B</span>
+          <h3>Coverage-Led Enterprise</h3>
+          <p>Best if BSTEL wants to lead with geographic credibility. Strong business signal, slightly less emotional.</p>
+        </div>
+      </article>
+
+      <article class="direction c">
+        <div class="mock">
+          <div class="topbar">IP-1 Licensed Telecom Infrastructure Provider</div>
+          <div class="nav"><div class="logo"><i></i> BSTEL</div><div class="links"><span></span><span></span><span></span></div></div>
+          <div class="hero">
+            <div class="dashboard"><div class="metric"><div class="line"></div></div><div class="metric"><div class="line"></div></div><div class="metric"><div class="line"></div></div></div>
+            <span class="eyebrow"><i></i> 24x7 monitored operations</span>
+            <h2>Infrastructure partner for operator-grade uptime.</h2>
+            <p>A quiet command-center style hero, supported by operational service cards and trust metrics.</p>
+            <div class="buttons"><span class="button primary"></span><span class="button secondary"></span></div>
+          </div>
+          <div class="proof"><span><b>99%</b><small>Ops focus</small></span><span><b>24x7</b><small>NOC</small></span><span><b>SLA</b><small>Ready</small></span><span><b>O&M</b><small>Support</small></span></div>
+          <div class="section-row"><div class="service"><i></i><strong>NOC support</strong><small>Monitoring</small></div><div class="service"><i></i><strong>Maintenance</strong><small>Response</small></div><div class="service"><i></i><strong>Projects</strong><small>Delivery</small></div></div>
+        </div>
+        <div class="body">
+          <span class="tag">Direction C</span>
+          <h3>Operations Dashboard</h3>
+          <p>Best if the site should feel like a managed services partner. More corporate and less map-focused.</p>
+        </div>
+      </article>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BSTEL Premium Homepage Directions V2</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #f3f5f8;
+      color: #111827;
+      font-family: Inter, Arial, sans-serif;
+    }
+    main {
+      margin: 0 auto;
+      max-width: 1440px;
+      padding: 34px 26px 70px;
+    }
+    h1 {
+      font-size: clamp(30px, 4vw, 48px);
+      letter-spacing: 0;
+      line-height: 1.05;
+      margin: 0;
+    }
+    .intro {
+      color: #5b6472;
+      font-size: 16px;
+      line-height: 1.65;
+      margin: 12px 0 28px;
+      max-width: 840px;
+    }
+    .grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .concept {
+      background: #fff;
+      border: 1px solid #dde3ec;
+      border-radius: 12px;
+      box-shadow: 0 22px 60px rgba(17, 24, 39, .08);
+      overflow: hidden;
+    }
+    .preview {
+      min-height: 610px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar {
+      align-items: center;
+      display: flex;
+      font-size: 11px;
+      justify-content: space-between;
+      padding: 7px 28px;
+    }
+    .nav {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 28px;
+      position: relative;
+      z-index: 2;
+    }
+    .brand {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: .06em;
+    }
+    .mark {
+      border-radius: 7px;
+      display: block;
+      height: 30px;
+      width: 34px;
+    }
+    .links {
+      display: flex;
+      gap: 18px;
+    }
+    .links span {
+      border-radius: 99px;
+      display: block;
+      height: 8px;
+      width: 46px;
+    }
+    .nav-cta {
+      border-radius: 8px;
+      height: 36px;
+      width: 112px;
+    }
+    .hero {
+      display: grid;
+      gap: 28px;
+      grid-template-columns: minmax(0, .92fr) minmax(300px, 1fr);
+      min-height: 366px;
+      padding: 46px 28px 34px;
+      position: relative;
+      z-index: 1;
+    }
+    .copy {
+      align-self: center;
+      position: relative;
+      z-index: 2;
+    }
+    .pill {
+      align-items: center;
+      border-radius: 999px;
+      display: inline-flex;
+      font-size: 11px;
+      font-weight: 800;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding: 7px 12px;
+    }
+    .pill i {
+      border-radius: 50%;
+      display: block;
+      height: 7px;
+      width: 7px;
+    }
+    h2 {
+      font-size: clamp(34px, 4vw, 54px);
+      letter-spacing: 0;
+      line-height: 1.02;
+      margin: 0 0 14px;
+      max-width: 560px;
+    }
+    p {
+      font-size: 15px;
+      line-height: 1.65;
+      margin: 0;
+      max-width: 500px;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .btn {
+      border-radius: 8px;
+      height: 44px;
+      width: 134px;
+    }
+    .btn.small { width: 112px; }
+    .proof {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 0 28px 26px;
+      position: relative;
+      z-index: 2;
+    }
+    .proof span {
+      border-radius: 8px;
+      min-height: 72px;
+      padding: 14px;
+    }
+    .proof b {
+      display: block;
+      font-size: 22px;
+      line-height: 1;
+    }
+    .proof small {
+      display: block;
+      font-size: 11px;
+      margin-top: 7px;
+    }
+    .services {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 0 28px 30px;
+    }
+    .service {
+      border-radius: 9px;
+      min-height: 116px;
+      padding: 16px;
+    }
+    .icon {
+      border-radius: 7px;
+      display: block;
+      height: 30px;
+      margin-bottom: 16px;
+      width: 30px;
+    }
+    .service strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.25;
+    }
+    .service small {
+      display: block;
+      font-size: 11px;
+      line-height: 1.4;
+      margin-top: 8px;
+    }
+    .body {
+      border-top: 1px solid #e5e9f0;
+      padding: 22px 24px 24px;
+    }
+    .tag {
+      display: block;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      margin-bottom: 9px;
+      text-transform: uppercase;
+    }
+    .body h3 {
+      font-size: 22px;
+      margin: 0 0 8px;
+    }
+    .body p {
+      color: #667085;
+      font-size: 14px;
+    }
+
+    .visual {
+      align-self: center;
+      min-height: 270px;
+      position: relative;
+    }
+    .map-card,
+    .ops-card,
+    .route-card,
+    .permit-card {
+      border-radius: 16px;
+      position: absolute;
+    }
+    .dots {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(12, 9px);
+    }
+    .dot {
+      border-radius: 50%;
+      height: 9px;
+      width: 9px;
+    }
+    .route-line {
+      border: 2px solid;
+      border-bottom: 0;
+      border-left: 0;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .concept-a .preview {
+      background:
+        radial-gradient(circle at 85% 24%, rgba(171, 213, 74, .22), transparent 28%),
+        linear-gradient(135deg, #0b1220 0%, #111827 48%, #1d2433 100%);
+      color: #fff;
+    }
+    .concept-a .bar { background: #080d17; color: #cbd5e1; }
+    .concept-a .nav { background: rgba(255,255,255,.04); border-bottom: 1px solid rgba(255,255,255,.08); }
+    .concept-a .mark { background: linear-gradient(135deg, #abd54a, #35c2b7); }
+    .concept-a .links span { background: rgba(255,255,255,.18); }
+    .concept-a .nav-cta, .concept-a .btn:first-child { background: #abd54a; }
+    .concept-a .btn.small { border: 1px solid rgba(255,255,255,.24); }
+    .concept-a .pill { background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.16); color: #e5eefc; }
+    .concept-a .pill i { background: #abd54a; }
+    .concept-a p { color: #cbd5e1; }
+    .concept-a .proof span, .concept-a .service { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); }
+    .concept-a .proof small, .concept-a .service small { color: #aab6c7; }
+    .concept-a .icon { background: rgba(171,213,74,.18); }
+    .concept-a .route-line { border-color: rgba(171,213,74,.58); height: 190px; right: 28px; top: 34px; transform: rotate(-14deg); width: 360px; }
+    .concept-a .route-line.two { border-color: rgba(53,194,183,.48); height: 145px; right: 104px; top: 98px; transform: rotate(12deg); width: 290px; }
+    .concept-a .map-card { background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.16); bottom: 12px; padding: 18px; right: 44px; }
+    .concept-a .dot { background: rgba(255,255,255,.32); }
+    .concept-a .dot.on { background: #abd54a; box-shadow: 0 0 14px rgba(171,213,74,.6); }
+    .concept-a .dot.key { background: #35c2b7; }
+    .concept-a .tag { color: #7aa41f; }
+
+    .concept-b .preview {
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.96), rgba(255,255,255,.78) 50%, rgba(255,255,255,.12)),
+        radial-gradient(circle at 78% 38%, rgba(50, 86, 194, .22), transparent 30%),
+        linear-gradient(135deg, #edf3fb, #f8fbff);
+      color: #0f172a;
+    }
+    .concept-b .bar { background: #183153; color: #dbeafe; }
+    .concept-b .nav { background: rgba(255,255,255,.8); border-bottom: 1px solid #dbe5f2; }
+    .concept-b .mark { background: linear-gradient(135deg, #3256c2, #24a36a); }
+    .concept-b .links span { background: #dbe5f2; }
+    .concept-b .nav-cta, .concept-b .btn:first-child { background: #3256c2; }
+    .concept-b .btn.small { border: 1px solid #cbd7e7; }
+    .concept-b .pill { background: #eef4ff; border: 1px solid #dbe6ff; color: #2447a5; }
+    .concept-b .pill i { background: #24a36a; }
+    .concept-b p { color: #536171; }
+    .concept-b .proof span, .concept-b .service { background: rgba(255,255,255,.78); border: 1px solid #dfe7f2; }
+    .concept-b .proof small, .concept-b .service small { color: #6b7280; }
+    .concept-b .icon { background: #eef4ff; }
+    .concept-b .map-card { background: rgba(255,255,255,.9); border: 1px solid #dfe7f2; box-shadow: 0 24px 60px rgba(24,49,83,.14); padding: 22px; right: 22px; top: 18px; }
+    .concept-b .dot { background: #d8dfeb; }
+    .concept-b .dot.on { background: #24a36a; }
+    .concept-b .dot.key { background: #3256c2; }
+    .concept-b .ops-card { background: #183153; bottom: 20px; color: #fff; left: 14px; padding: 18px; width: 190px; }
+    .concept-b .ops-card b { display: block; font-size: 28px; }
+    .concept-b .ops-card small { color: #bfd3ee; }
+    .concept-b .tag { color: #3256c2; }
+
+    .concept-c .preview {
+      background:
+        radial-gradient(circle at 78% 26%, rgba(255, 176, 77, .24), transparent 26%),
+        linear-gradient(135deg, #16161a 0%, #26262c 50%, #3a332a 100%);
+      color: #fff;
+    }
+    .concept-c .bar { background: #0d0d10; color: #d7d7db; }
+    .concept-c .nav { background: rgba(255,255,255,.045); border-bottom: 1px solid rgba(255,255,255,.09); }
+    .concept-c .mark { background: linear-gradient(135deg, #ffb04d, #98d84f); }
+    .concept-c .links span { background: rgba(255,255,255,.18); }
+    .concept-c .nav-cta, .concept-c .btn:first-child { background: #ffb04d; }
+    .concept-c .btn.small { border: 1px solid rgba(255,255,255,.22); }
+    .concept-c .pill { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); color: #f4f4f5; }
+    .concept-c .pill i { background: #ffb04d; }
+    .concept-c p { color: #d4d4d8; }
+    .concept-c .proof span, .concept-c .service { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); }
+    .concept-c .proof small, .concept-c .service small { color: #b8bac2; }
+    .concept-c .icon { background: rgba(255,176,77,.18); }
+    .concept-c .ops-card { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); box-shadow: 0 28px 70px rgba(0,0,0,.28); padding: 18px; right: 18px; top: 10px; width: 310px; }
+    .concept-c .meter { background: rgba(255,255,255,.11); border-radius: 8px; height: 48px; margin-bottom: 10px; overflow: hidden; }
+    .concept-c .meter i { background: linear-gradient(90deg, #ffb04d, #98d84f); display: block; height: 5px; margin: 22px 14px; width: 72%; }
+    .concept-c .route-line { border-color: rgba(255,176,77,.52); height: 160px; right: 34px; top: 138px; transform: rotate(16deg); width: 330px; }
+    .concept-c .tag { color: #c78225; }
+
+    .concept-d .preview {
+      background:
+        radial-gradient(circle at 80% 24%, rgba(121, 82, 179, .2), transparent 26%),
+        linear-gradient(135deg, #fbf7f1 0%, #f7f4fb 55%, #edf7f1 100%);
+      color: #1f1338;
+    }
+    .concept-d .bar { background: #2f1a54; color: #eee8f9; }
+    .concept-d .nav { background: rgba(255,255,255,.72); border-bottom: 1px solid rgba(47,26,84,.12); }
+    .concept-d .mark { background: linear-gradient(135deg, #7952b3, #8bc541); }
+    .concept-d .links span { background: rgba(47,26,84,.14); }
+    .concept-d .nav-cta, .concept-d .btn:first-child { background: #8bc541; }
+    .concept-d .btn.small { border: 1px solid rgba(47,26,84,.18); }
+    .concept-d .pill { background: rgba(255,255,255,.74); border: 1px solid rgba(47,26,84,.12); color: #4b2e83; }
+    .concept-d .pill i { background: #8bc541; }
+    .concept-d p { color: #60546f; }
+    .concept-d .proof span, .concept-d .service { background: rgba(255,255,255,.72); border: 1px solid rgba(47,26,84,.12); }
+    .concept-d .proof small, .concept-d .service small { color: #756b81; }
+    .concept-d .icon { background: rgba(121,82,179,.12); }
+    .concept-d .permit-card { background: rgba(255,255,255,.78); border: 1px solid rgba(47,26,84,.14); box-shadow: 0 28px 70px rgba(47,26,84,.12); padding: 22px; right: 16px; top: 18px; width: 300px; }
+    .concept-d .permit-card .row { align-items: center; display: flex; gap: 12px; margin: 14px 0; }
+    .concept-d .permit-card i { background: #8bc541; border-radius: 50%; display: block; height: 14px; width: 14px; }
+    .concept-d .permit-card span { background: rgba(47,26,84,.12); border-radius: 999px; display: block; height: 8px; width: 180px; }
+    .concept-d .route-line { border-color: rgba(121,82,179,.34); height: 190px; right: -20px; top: 118px; transform: rotate(-18deg); width: 390px; }
+    .concept-d .tag { color: #7952b3; }
+
+    @media (max-width: 1100px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      main { padding: 24px 14px 48px; }
+      .hero { grid-template-columns: 1fr; }
+      .visual { min-height: 220px; }
+      .proof, .services { grid-template-columns: 1fr 1fr; }
+      .links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Premium homepage redesign directions V2</h1>
+    <p class="intro">These are more finished art directions with changed color systems. Pick the one that feels most like BSTEL: operator-grade, trustworthy, and polished without feeling like a generic startup page.</p>
+
+    <div class="grid">
+      <article class="concept concept-a">
+        <div class="preview">
+          <div class="bar"><span>IP-1 Licensed Telecom Infrastructure Provider</span><span>+91 98227 04786</span></div>
+          <div class="nav"><div class="brand"><i class="mark"></i>BSTEL</div><div class="links"><span></span><span></span><span></span></div><div class="nav-cta"></div></div>
+          <section class="hero">
+            <div class="copy">
+              <div class="pill"><i></i> Operator-grade fiber partner</div>
+              <h2>Build and maintain the routes operators rely on.</h2>
+              <p>Dark graphite, lime signal accents, subtle fiber arcs. Premium and technical without looking over-animated.</p>
+              <div class="actions"><div class="btn"></div><div class="btn small"></div></div>
+            </div>
+            <div class="visual">
+              <div class="route-line"></div><div class="route-line two"></div>
+              <div class="map-card"><div class="dots">
+                <i class="dot"></i><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot key"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i>
+                <i class="dot"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot key"></i><i class="dot key"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i>
+                <i class="dot"></i><i class="dot"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i>
+              </div></div>
+            </div>
+          </section>
+          <div class="proof"><span><b>17+</b><small>Years in telecom</small></span><span><b>130+</b><small>District footprint</small></span><span><b>24x7</b><small>NOC monitored</small></span><span><b>IP-1</b><small>Licensed provider</small></span></div>
+          <div class="services"><div class="service"><i class="icon"></i><strong>Fiber route deployment</strong><small>Design, survey and rollout</small></div><div class="service"><i class="icon"></i><strong>Network maintenance</strong><small>Field support and uptime</small></div><div class="service"><i class="icon"></i><strong>Managed operations</strong><small>NOC-backed execution</small></div></div>
+        </div>
+        <div class="body"><span class="tag">Option A</span><h3>Graphite Signal</h3><p>Best overall balance: premium, modern, telecom-specific, and not too colorful.</p></div>
+      </article>
+
+      <article class="concept concept-b">
+        <div class="preview">
+          <div class="bar"><span>IP-1 Licensed Telecom Infrastructure Provider</span><span>Coverage across 6 states</span></div>
+          <div class="nav"><div class="brand"><i class="mark"></i>BSTEL</div><div class="links"><span></span><span></span><span></span></div><div class="nav-cta"></div></div>
+          <section class="hero">
+            <div class="copy">
+              <div class="pill"><i></i> Six-state coverage</div>
+              <h2>Telecom infrastructure with proven geographic reach.</h2>
+              <p>Clean white enterprise style with blue and green accents. More polished corporate, less dark-tech.</p>
+              <div class="actions"><div class="btn"></div><div class="btn small"></div></div>
+            </div>
+            <div class="visual">
+              <div class="map-card"><div class="dots">
+                <i class="dot"></i><i class="dot"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot key"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i>
+                <i class="dot"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot key"></i><i class="dot key"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i>
+                <i class="dot"></i><i class="dot"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i>
+                <i class="dot"></i><i class="dot"></i><i class="dot key"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i>
+              </div></div>
+              <div class="ops-card"><b>130+</b><small>districts covered through full-state and key-district operations</small></div>
+            </div>
+          </section>
+          <div class="proof"><span><b>MH</b><small>Full coverage</small></span><span><b>MP</b><small>Full coverage</small></span><span><b>CG</b><small>Full coverage</small></span><span><b>UP/GJ</b><small>Key districts</small></span></div>
+          <div class="services"><div class="service"><i class="icon"></i><strong>Coverage planning</strong><small>Routes and districts</small></div><div class="service"><i class="icon"></i><strong>Operator projects</strong><small>Scalable execution</small></div><div class="service"><i class="icon"></i><strong>Regional teams</strong><small>On-ground support</small></div></div>
+        </div>
+        <div class="body"><span class="tag">Option B</span><h3>White Enterprise Map</h3><p>Most corporate and polished. Good if you want the site to feel larger, cleaner, and more procurement-friendly.</p></div>
+      </article>
+
+      <article class="concept concept-c">
+        <div class="preview">
+          <div class="bar"><span>IP-1 Licensed Telecom Infrastructure Provider</span><span>24x7 NOC support</span></div>
+          <div class="nav"><div class="brand"><i class="mark"></i>BSTEL</div><div class="links"><span></span><span></span><span></span></div><div class="nav-cta"></div></div>
+          <section class="hero">
+            <div class="copy">
+              <div class="pill"><i></i> Monitored infrastructure</div>
+              <h2>Network delivery with operational discipline.</h2>
+              <p>Charcoal and amber gives a premium industrial feel. Strong for maintenance, NOC and uptime messaging.</p>
+              <div class="actions"><div class="btn"></div><div class="btn small"></div></div>
+            </div>
+            <div class="visual">
+              <div class="ops-card"><div class="meter"><i></i></div><div class="meter"><i></i></div><div class="meter"><i></i></div><div class="meter"><i></i></div></div>
+              <div class="route-line"></div>
+            </div>
+          </section>
+          <div class="proof"><span><b>24x7</b><small>NOC support</small></span><span><b>O&M</b><small>Field response</small></span><span><b>SLA</b><small>Ready delivery</small></span><span><b>2007</b><small>Operating since</small></span></div>
+          <div class="services"><div class="service"><i class="icon"></i><strong>NOC monitoring</strong><small>Always-on visibility</small></div><div class="service"><i class="icon"></i><strong>Preventive O&M</strong><small>Reduced downtime</small></div><div class="service"><i class="icon"></i><strong>Field response</strong><small>Regional execution</small></div></div>
+        </div>
+        <div class="body"><span class="tag">Option C</span><h3>Command Center</h3><p>Feels serious and operational. Best if BSTEL wants to emphasize reliability and managed service maturity.</p></div>
+      </article>
+
+      <article class="concept concept-d">
+        <div class="preview">
+          <div class="bar"><span>IP-1 Licensed Telecom Infrastructure Provider</span><span>Design / rollout / maintenance</span></div>
+          <div class="nav"><div class="brand"><i class="mark"></i>BSTEL</div><div class="links"><span></span><span></span><span></span></div><div class="nav-cta"></div></div>
+          <section class="hero">
+            <div class="copy">
+              <div class="pill"><i></i> End-to-end execution</div>
+              <h2>From route planning to live network support.</h2>
+              <p>Warm light premium palette. Softer and approachable while still professional.</p>
+              <div class="actions"><div class="btn"></div><div class="btn small"></div></div>
+            </div>
+            <div class="visual">
+              <div class="permit-card"><strong>Project readiness</strong><div class="row"><i></i><span></span></div><div class="row"><i></i><span></span></div><div class="row"><i></i><span></span></div><div class="row"><i></i><span></span></div></div>
+              <div class="route-line"></div>
+            </div>
+          </section>
+          <div class="proof"><span><b>Survey</b><small>Route readiness</small></span><span><b>ROW</b><small>Support flow</small></span><span><b>Build</b><small>Deployment</small></span><span><b>Maintain</b><small>Ongoing support</small></span></div>
+          <div class="services"><div class="service"><i class="icon"></i><strong>Route survey</strong><small>Field feasibility</small></div><div class="service"><i class="icon"></i><strong>Project rollout</strong><small>Delivery control</small></div><div class="service"><i class="icon"></i><strong>Lifecycle support</strong><small>Long-term partner</small></div></div>
+        </div>
+        <div class="body"><span class="tag">Option D</span><h3>Warm Infrastructure</h3><p>More approachable and distinctive. Less common for telecom, but could stand out if tuned carefully.</p></div>
+      </article>
+    </div>
+  </main>
+</body>
+</html>

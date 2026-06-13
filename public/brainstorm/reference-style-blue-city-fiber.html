@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BSTEL Reference Style Blue City Fiber</title>
+  <style>
+    :root {
+      --ink: #111827;
+      --muted: #64748b;
+      --blue: #2f6bff;
+      --blue-soft: #8db5ff;
+      --green: #84c63a;
+      --line: #e5edf8;
+      --paper: #f8fbff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #f6faff;
+      color: var(--ink);
+      font-family: Inter, Arial, sans-serif;
+    }
+    main {
+      margin: 0 auto;
+      max-width: 1480px;
+      padding: 34px 26px 72px;
+    }
+    h1 {
+      font-size: clamp(31px, 4vw, 52px);
+      line-height: 1.04;
+      margin: 0;
+      max-width: 1040px;
+    }
+    .intro {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+      margin: 14px 0 30px;
+      max-width: 920px;
+    }
+    .concepts {
+      display: grid;
+      gap: 26px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .concept {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 30px 80px rgba(30, 78, 160, .08);
+      overflow: hidden;
+    }
+    .screen {
+      background:
+        radial-gradient(circle at 75% 20%, rgba(75,135,255,.14), transparent 32%),
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,.95), transparent 34%),
+        linear-gradient(180deg, #fbfdff 0%, #f7fbff 52%, #eff6ff 100%);
+      min-height: 650px;
+      overflow: hidden;
+      position: relative;
+    }
+    .nav {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 22px 32px;
+      position: relative;
+      z-index: 5;
+    }
+    .brand {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+    .logo {
+      background: linear-gradient(135deg, var(--blue), #78b7ff);
+      border-radius: 9px;
+      box-shadow: 0 14px 30px rgba(47,107,255,.18);
+      height: 34px;
+      width: 38px;
+    }
+    .links {
+      display: flex;
+      gap: 18px;
+    }
+    .links i {
+      background: #e3edf9;
+      border-radius: 999px;
+      display: block;
+      height: 8px;
+      width: 48px;
+    }
+    .nav-cta {
+      background: var(--blue);
+      border-radius: 999px;
+      box-shadow: 0 16px 34px rgba(47,107,255,.22);
+      height: 38px;
+      width: 126px;
+    }
+    .hero {
+      display: grid;
+      gap: 34px;
+      grid-template-columns: minmax(0, .82fr) minmax(360px, 1.18fr);
+      min-height: 414px;
+      padding: 44px 32px 24px;
+      position: relative;
+      z-index: 2;
+    }
+    .copy {
+      align-self: center;
+      max-width: 540px;
+      position: relative;
+      z-index: 4;
+    }
+    .copy::before {
+      background: radial-gradient(circle at 20% 50%, rgba(255,255,255,.96), rgba(255,255,255,.84) 58%, rgba(255,255,255,0) 76%);
+      content: "";
+      inset: -44px -110px -44px -34px;
+      pointer-events: none;
+      position: absolute;
+      z-index: -1;
+    }
+    .pill {
+      align-items: center;
+      background: rgba(255,255,255,.82);
+      border: 1px solid #dbeafe;
+      border-radius: 999px;
+      color: #1d4ed8;
+      display: inline-flex;
+      font-size: 11px;
+      font-weight: 900;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 8px 13px;
+    }
+    .pill i {
+      background: var(--green);
+      border-radius: 50%;
+      display: block;
+      height: 7px;
+      width: 7px;
+    }
+    h2 {
+      font-size: clamp(38px, 4vw, 58px);
+      letter-spacing: 0;
+      line-height: 1.02;
+      margin: 0 0 16px;
+    }
+    .copy p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.72;
+      margin: 0;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 26px;
+    }
+    .btn {
+      border-radius: 999px;
+      height: 46px;
+      width: 142px;
+    }
+    .btn.primary {
+      background: var(--blue);
+      box-shadow: 0 18px 38px rgba(47,107,255,.24);
+    }
+    .btn.secondary {
+      background: rgba(255,255,255,.6);
+      border: 1px solid #d6e2f1;
+      width: 122px;
+    }
+    .visual {
+      align-self: stretch;
+      min-height: 380px;
+      overflow: hidden;
+      position: relative;
+    }
+    svg {
+      display: block;
+      height: 100%;
+      position: absolute;
+      width: 100%;
+    }
+    .skyline {
+      fill: none;
+      stroke: rgba(86,119,168,.32);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.6;
+    }
+    .skyline .light {
+      stroke: rgba(86,119,168,.18);
+    }
+    .connection {
+      animation: draw 5.8s ease-in-out infinite;
+      fill: none;
+      stroke: rgba(47,107,255,.18);
+      stroke-dasharray: 720;
+      stroke-dashoffset: 720;
+      stroke-linecap: round;
+      stroke-width: 1.2;
+    }
+    .connection.two { animation-delay: .8s; }
+    .connection.three { animation-delay: 1.3s; }
+    @keyframes draw {
+      0% { opacity: 0; stroke-dashoffset: 720; }
+      18%, 72% { opacity: 1; }
+      58% { stroke-dashoffset: 0; }
+      100% { opacity: 0; stroke-dashoffset: -720; }
+    }
+    .fiber {
+      animation: fiberFlow 6s ease-in-out infinite;
+      fill: none;
+      filter: drop-shadow(0 6px 12px rgba(47,107,255,.2));
+      stroke-linecap: round;
+    }
+    .fiber.main {
+      stroke: rgba(47,107,255,.78);
+      stroke-width: 4.2;
+    }
+    .fiber.soft {
+      animation-delay: .4s;
+      stroke: rgba(141,181,255,.46);
+      stroke-width: 2;
+    }
+    .fiber.glow {
+      animation-delay: 1s;
+      stroke: rgba(255,255,255,.9);
+      stroke-width: 1.5;
+    }
+    @keyframes fiberFlow {
+      0%, 100% { opacity: .48; transform: translateX(-18px); }
+      50% { opacity: 1; transform: translateX(22px); }
+    }
+    .wifi-bubble {
+      animation: bubbleFloat 4.8s ease-in-out infinite;
+      background: rgba(255,255,255,.9);
+      border-radius: 50%;
+      box-shadow: 0 18px 46px rgba(47,107,255,.16);
+      height: 74px;
+      position: absolute;
+      width: 74px;
+      z-index: 3;
+    }
+    .wifi-bubble::before,
+    .wifi-bubble::after {
+      border: 3px solid var(--blue);
+      border-bottom: 0;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      border-radius: 50% 50% 0 0;
+      content: "";
+      left: 50%;
+      position: absolute;
+      top: 22px;
+      transform: translateX(-50%);
+    }
+    .wifi-bubble::before {
+      height: 22px;
+      width: 34px;
+    }
+    .wifi-bubble::after {
+      height: 12px;
+      top: 32px;
+      width: 20px;
+    }
+    .wifi-bubble i {
+      background: var(--blue);
+      border-radius: 50%;
+      bottom: 21px;
+      display: block;
+      height: 6px;
+      left: 50%;
+      position: absolute;
+      transform: translateX(-50%);
+      width: 6px;
+    }
+    @keyframes bubbleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+    .node {
+      animation: pulse 2.6s ease-in-out infinite;
+      background: #fff;
+      border: 3px solid var(--blue);
+      border-radius: 50%;
+      box-shadow: 0 0 0 8px rgba(47,107,255,.11), 0 10px 24px rgba(47,107,255,.16);
+      height: 18px;
+      position: absolute;
+      width: 18px;
+      z-index: 3;
+    }
+    .node.small {
+      height: 10px;
+      opacity: .42;
+      width: 10px;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.16); }
+    }
+    .spark {
+      animation: spark 5.2s ease-in-out infinite;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 18px rgba(47,107,255,.72);
+      height: 7px;
+      position: absolute;
+      width: 7px;
+      z-index: 4;
+    }
+    @keyframes spark {
+      0%, 100% { opacity: .2; transform: translate(0, 0); }
+      50% { opacity: 1; transform: translate(22px, -10px); }
+    }
+    .metrics {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 0 32px 24px;
+      position: relative;
+      z-index: 4;
+    }
+    .metric {
+      background: rgba(255,255,255,.78);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      min-height: 78px;
+      padding: 15px;
+    }
+    .metric b {
+      display: block;
+      font-size: 22px;
+      line-height: 1;
+    }
+    .metric small {
+      color: var(--muted);
+      display: block;
+      font-size: 11px;
+      margin-top: 8px;
+    }
+    .body {
+      border-top: 1px solid var(--line);
+      padding: 22px 24px 24px;
+    }
+    .tag {
+      color: var(--blue);
+      display: block;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .body h3 {
+      font-size: 22px;
+      margin: 0 0 8px;
+    }
+    .body p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.58;
+      margin: 0;
+    }
+    .full-bleed .hero {
+      display: block;
+      min-height: 444px;
+    }
+    .full-bleed .copy {
+      max-width: 510px;
+      padding-top: 40px;
+    }
+    .full-bleed .visual {
+      inset: 0;
+      min-height: 0;
+      position: absolute;
+      z-index: 1;
+    }
+    .full-bleed .copy::before {
+      background: linear-gradient(90deg, rgba(255,255,255,.98), rgba(255,255,255,.9) 54%, rgba(255,255,255,0));
+      inset: -50px -180px -70px -32px;
+    }
+    .full-bleed .city-svg {
+      inset: 30px -80px -20px 260px;
+      width: calc(100% - 180px);
+    }
+    .full-bleed .wifi-bubble { right: 246px; top: 88px; }
+    .full-bleed .n1 { right: 118px; top: 210px; }
+    .full-bleed .n2 { right: 466px; top: 232px; }
+    .full-bleed .n3 { right: 315px; top: 332px; }
+    .full-bleed .s1 { bottom: 74px; left: 54px; }
+    .full-bleed .s2 { bottom: 98px; right: 220px; animation-delay: 1s; }
+    .full-bleed .s3 { bottom: 152px; right: 78px; animation-delay: 1.8s; }
+    .split .visual {
+      background: rgba(255,255,255,.5);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+    }
+    .split .city-svg {
+      inset: 8px -48px -28px -12px;
+    }
+    .split .wifi-bubble { right: 236px; top: 42px; }
+    .split .n1 { right: 72px; top: 166px; }
+    .split .n2 { right: 356px; top: 178px; }
+    .split .n3 { right: 236px; top: 244px; }
+    .split .s1 { bottom: 72px; left: 32px; }
+    .split .s2 { bottom: 108px; right: 174px; animation-delay: 1s; }
+    .split .s3 { bottom: 156px; right: 54px; animation-delay: 1.8s; }
+    .bottom-stage .screen {
+      min-height: 690px;
+    }
+    .bottom-stage .hero {
+      display: block;
+      min-height: 322px;
+      padding-bottom: 0;
+    }
+    .bottom-stage .copy {
+      max-width: 720px;
+      text-align: left;
+    }
+    .bottom-stage .copy::before { display: none; }
+    .bottom-stage .visual {
+      height: 310px;
+      margin: 0 32px 24px;
+      min-height: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .bottom-stage .city-svg {
+      inset: -20px -30px -30px -30px;
+    }
+    .bottom-stage .wifi-bubble { left: 50%; top: 36px; transform: translateX(-50%); }
+    .bottom-stage .n1 { left: 18%; top: 168px; }
+    .bottom-stage .n2 { left: 40%; top: 154px; }
+    .bottom-stage .n3 { right: 14%; top: 156px; }
+    .bottom-stage .s1 { bottom: 68px; left: 8%; }
+    .bottom-stage .s2 { bottom: 94px; right: 28%; animation-delay: 1s; }
+    .bottom-stage .s3 { bottom: 128px; right: 8%; animation-delay: 1.8s; }
+    @media (max-width: 1180px) {
+      .concepts { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      main { padding: 24px 14px 48px; }
+      .hero { grid-template-columns: 1fr; }
+      .visual { min-height: 310px; }
+      .links { display: none; }
+      .metrics { grid-template-columns: 1fr 1fr; }
+      .full-bleed .visual { opacity: .55; }
+      .full-bleed .city-svg { inset: 110px -180px -20px 0; width: 150%; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Reference-style blue city and fiber concepts</h1>
+    <p class="intro">These follow your screenshot closely: white airy background, pale SVG city skyline, glowing WiFi/network nodes, arc connections, and blue fiber-optic streams flowing along the bottom. The difference between options is only layout placement.</p>
+
+    <div class="concepts">
+      <article class="concept full-bleed">
+        <div class="screen">
+          <div class="nav"><div class="brand"><span class="logo"></span>BSTEL</div><div class="links"><i></i><i></i><i></i></div><span class="nav-cta"></span></div>
+          <section class="hero">
+            <div class="visual">
+              <svg class="city-svg" viewBox="0 0 780 430" aria-hidden="true">
+                <path class="connection" d="M72 254 C 140 128, 264 144, 326 224" />
+                <path class="connection two" d="M326 224 C 380 74, 548 70, 622 224" />
+                <path class="connection three" d="M145 260 C 254 90, 504 44, 692 180" />
+                <g class="skyline" transform="translate(48 146)">
+                  <path class="light" d="M0 210 H700" />
+                  <path d="M18 210 V164 H44 V210 M58 210 V142 H92 V210 M106 210 V178 H138 V210" />
+                  <path d="M158 210 V116 H202 V210 M168 116 L180 92 L192 116" />
+                  <path d="M222 210 V150 H258 V210 M276 210 V118 H322 V210 M286 118 V96 H312 V118" />
+                  <path d="M342 210 V74 H402 V210 M356 74 V48 H388 V74 M368 48 V24 H376 V48" />
+                  <path d="M424 210 V112 H466 V210 M434 112 V86 H456 V112 M480 210 V142 H514 V210" />
+                  <path d="M538 210 V70 H582 V210 M546 70 V46 H574 V70 M590 210 V134 H628 V210" />
+                  <path d="M650 210 V102 L678 36 L706 102 V210 M662 148 H694 M668 118 H688" />
+                  <path class="light" d="M28 180 H38 M66 156 H84 M166 142 H194 M286 138 H312 M356 100 H388 M438 132 H456 M548 94 H574 M666 164 H692" />
+                </g>
+                <path class="fiber soft" d="M-40 356 C 150 292, 246 370, 402 310 S 630 230, 820 282" />
+                <path class="fiber main" d="M-48 382 C 130 330, 240 396, 408 338 S 632 262, 818 322" />
+                <path class="fiber glow" d="M-34 404 C 156 354, 284 410, 434 362 S 648 306, 816 350" />
+                <path class="fiber soft" d="M-58 416 C 160 384, 282 432, 468 386 S 668 340, 830 382" />
+              </svg>
+              <span class="wifi-bubble"><i></i></span>
+              <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span>
+              <span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span>
+            </div>
+            <div class="copy">
+              <span class="pill"><i></i> High-speed citywide connectivity</span>
+              <h2>Telecom infrastructure for always-connected cities.</h2>
+              <p>Premium white hero with a full-bleed pale skyline and flowing blue fiber streams, while the headline stays protected by a clean white fade.</p>
+              <div class="actions"><span class="btn primary"></span><span class="btn secondary"></span></div>
+            </div>
+          </section>
+          <div class="metrics"><span class="metric"><b>130+</b><small>Districts</small></span><span class="metric"><b>24x7</b><small>NOC support</small></span><span class="metric"><b>IP-1</b><small>Licensed</small></span><span class="metric"><b>17+</b><small>Years</small></span></div>
+        </div>
+        <div class="body"><span class="tag">Option A</span><h3>Full-Bleed Reference Hero</h3><p>Closest to the screenshot. The illustration fills the hero but text remains protected with a white reading fade.</p></div>
+      </article>
+
+      <article class="concept split">
+        <div class="screen">
+          <div class="nav"><div class="brand"><span class="logo"></span>BSTEL</div><div class="links"><i></i><i></i><i></i></div><span class="nav-cta"></span></div>
+          <section class="hero">
+            <div class="copy">
+              <span class="pill"><i></i> Text-safe network illustration</span>
+              <h2>Fiber, WiFi and coverage designed for business speed.</h2>
+              <p>The skyline and fiber streams sit in a right-side visual panel, so animation never crosses the hero copy.</p>
+              <div class="actions"><span class="btn primary"></span><span class="btn secondary"></span></div>
+            </div>
+            <div class="visual">
+              <svg class="city-svg" viewBox="0 0 780 430" aria-hidden="true">
+                <path class="connection" d="M72 254 C 140 128, 264 144, 326 224" />
+                <path class="connection two" d="M326 224 C 380 74, 548 70, 622 224" />
+                <path class="connection three" d="M145 260 C 254 90, 504 44, 692 180" />
+                <g class="skyline" transform="translate(48 146)">
+                  <path class="light" d="M0 210 H700" />
+                  <path d="M18 210 V164 H44 V210 M58 210 V142 H92 V210 M106 210 V178 H138 V210" />
+                  <path d="M158 210 V116 H202 V210 M168 116 L180 92 L192 116" />
+                  <path d="M222 210 V150 H258 V210 M276 210 V118 H322 V210 M286 118 V96 H312 V118" />
+                  <path d="M342 210 V74 H402 V210 M356 74 V48 H388 V74 M368 48 V24 H376 V48" />
+                  <path d="M424 210 V112 H466 V210 M434 112 V86 H456 V112 M480 210 V142 H514 V210" />
+                  <path d="M538 210 V70 H582 V210 M546 70 V46 H574 V70 M590 210 V134 H628 V210" />
+                  <path d="M650 210 V102 L678 36 L706 102 V210 M662 148 H694 M668 118 H688" />
+                </g>
+                <path class="fiber soft" d="M-40 356 C 150 292, 246 370, 402 310 S 630 230, 820 282" />
+                <path class="fiber main" d="M-48 382 C 130 330, 240 396, 408 338 S 632 262, 818 322" />
+                <path class="fiber glow" d="M-34 404 C 156 354, 284 410, 434 362 S 648 306, 816 350" />
+              </svg>
+              <span class="wifi-bubble"><i></i></span>
+              <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span>
+              <span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span>
+            </div>
+          </section>
+          <div class="metrics"><span class="metric"><b>Fiber</b><small>Backbone</small></span><span class="metric"><b>WiFi</b><small>Coverage</small></span><span class="metric"><b>24x7</b><small>Monitoring</small></span><span class="metric"><b>SLA</b><small>Business-ready</small></span></div>
+        </div>
+        <div class="body"><span class="tag">Option B</span><h3>Right Panel Skyline</h3><p>Best for readability and implementation. It keeps the reference look but avoids text overlap completely.</p></div>
+      </article>
+
+      <article class="concept bottom-stage">
+        <div class="screen">
+          <div class="nav"><div class="brand"><span class="logo"></span>BSTEL</div><div class="links"><i></i><i></i><i></i></div><span class="nav-cta"></span></div>
+          <section class="hero">
+            <div class="copy">
+              <span class="pill"><i></i> Spacious Apple-style hero</span>
+              <h2>Seamless internet coverage, from skyline to street level.</h2>
+              <p>This version makes the text the first focus, then places the skyline and fiber animation as a wide cinematic band below.</p>
+              <div class="actions"><span class="btn primary"></span><span class="btn secondary"></span></div>
+            </div>
+          </section>
+          <div class="visual">
+            <svg class="city-svg" viewBox="0 0 920 350" aria-hidden="true">
+              <path class="connection" d="M86 214 C 210 72, 336 92, 430 182" />
+              <path class="connection two" d="M430 182 C 510 40, 706 44, 820 172" />
+              <path class="connection three" d="M180 220 C 340 46, 626 20, 858 150" />
+              <g class="skyline" transform="translate(70 86) scale(1.12)">
+                <path class="light" d="M0 210 H700" />
+                <path d="M18 210 V164 H44 V210 M58 210 V142 H92 V210 M106 210 V178 H138 V210" />
+                <path d="M158 210 V116 H202 V210 M168 116 L180 92 L192 116" />
+                <path d="M222 210 V150 H258 V210 M276 210 V118 H322 V210 M286 118 V96 H312 V118" />
+                <path d="M342 210 V74 H402 V210 M356 74 V48 H388 V74 M368 48 V24 H376 V48" />
+                <path d="M424 210 V112 H466 V210 M434 112 V86 H456 V112 M480 210 V142 H514 V210" />
+                <path d="M538 210 V70 H582 V210 M546 70 V46 H574 V70 M590 210 V134 H628 V210" />
+                <path d="M650 210 V102 L678 36 L706 102 V210 M662 148 H694 M668 118 H688" />
+              </g>
+              <path class="fiber soft" d="M-60 270 C 160 214, 280 302, 486 238 S 734 176, 980 232" />
+              <path class="fiber main" d="M-68 296 C 150 252, 292 322, 500 270 S 744 224, 976 276" />
+              <path class="fiber glow" d="M-44 322 C 184 282, 344 336, 546 298 S 770 264, 974 304" />
+            </svg>
+            <span class="wifi-bubble"><i></i></span>
+            <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span>
+            <span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span>
+          </div>
+          <div class="metrics"><span class="metric"><b>6</b><small>States</small></span><span class="metric"><b>130+</b><small>Districts</small></span><span class="metric"><b>IP-1</b><small>Licensed</small></span><span class="metric"><b>24x7</b><small>NOC</small></span></div>
+        </div>
+        <div class="body"><span class="tag">Option C</span><h3>Cinematic Bottom Band</h3><p>Most spacious and premium. Text gets the top, illustration becomes a wide hero band below.</p></div>
+      </article>
+    </div>
+  </main>
+</body>
+</html>

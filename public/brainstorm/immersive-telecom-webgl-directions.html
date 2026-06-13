@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Immersive Telecom WebGL Directions</title>
+  <style>
+    :root {
+      --ink: #170c2f;
+      --purple: #4b2e83;
+      --violet: #7b5bd6;
+      --green: #89c430;
+      --mint: #29d8a0;
+      --line: rgba(75,46,131,.14);
+      --muted: #63596f;
+      --paper: #fbfaff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(123,91,214,.12), transparent 30%),
+        radial-gradient(circle at 86% 12%, rgba(137,196,48,.14), transparent 28%),
+        #f8f7fc;
+      color: var(--ink);
+      font-family: Inter, Arial, sans-serif;
+    }
+    main {
+      margin: 0 auto;
+      max-width: 1480px;
+      padding: 34px 26px 70px;
+    }
+    h1 {
+      font-size: clamp(32px, 4vw, 54px);
+      letter-spacing: 0;
+      line-height: 1.03;
+      margin: 0;
+      max-width: 1030px;
+    }
+    .intro {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+      margin: 14px 0 30px;
+      max-width: 940px;
+    }
+    .concepts {
+      display: grid;
+      gap: 26px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .concept {
+      background: rgba(255,255,255,.76);
+      border: 1px solid rgba(75,46,131,.12);
+      border-radius: 14px;
+      box-shadow: 0 28px 70px rgba(36,17,74,.10);
+      overflow: hidden;
+    }
+    .screen {
+      min-height: 670px;
+      overflow: hidden;
+      position: relative;
+    }
+    .top {
+      align-items: center;
+      display: flex;
+      font-size: 11px;
+      justify-content: space-between;
+      padding: 8px 26px;
+      position: relative;
+      z-index: 5;
+    }
+    .nav {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 26px;
+      position: relative;
+      z-index: 5;
+    }
+    .brand {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+    .logo {
+      background: linear-gradient(135deg, var(--purple), var(--green));
+      border-radius: 8px;
+      box-shadow: 0 10px 28px rgba(75,46,131,.18);
+      height: 32px;
+      width: 36px;
+    }
+    .navlinks {
+      display: flex;
+      gap: 14px;
+    }
+    .navlinks i {
+      background: rgba(75,46,131,.12);
+      border-radius: 999px;
+      display: block;
+      height: 8px;
+      width: 46px;
+    }
+    .nav-cta {
+      background: var(--green);
+      border-radius: 8px;
+      height: 38px;
+      width: 118px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      min-height: 390px;
+      padding: 46px 26px 22px;
+      position: relative;
+      z-index: 2;
+    }
+    .copy {
+      align-self: center;
+      position: relative;
+      z-index: 4;
+    }
+    .pill {
+      align-items: center;
+      border-radius: 999px;
+      display: inline-flex;
+      font-size: 11px;
+      font-weight: 900;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding: 8px 13px;
+    }
+    .pill i {
+      background: var(--green);
+      border-radius: 50%;
+      display: block;
+      height: 7px;
+      width: 7px;
+    }
+    h2 {
+      font-size: clamp(38px, 4vw, 58px);
+      letter-spacing: 0;
+      line-height: 1.02;
+      margin: 0 0 14px;
+      max-width: 570px;
+    }
+    .copy p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.68;
+      margin: 0;
+      max-width: 480px;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .btn {
+      border-radius: 8px;
+      height: 46px;
+      width: 138px;
+    }
+    .btn.primary { background: var(--green); box-shadow: 0 16px 34px rgba(137,196,48,.28); }
+    .btn.secondary { border: 1px solid rgba(75,46,131,.18); width: 120px; }
+    .scene {
+      min-height: 330px;
+      position: relative;
+    }
+    .glass {
+      backdrop-filter: blur(18px);
+      background: rgba(255,255,255,.58);
+      border: 1px solid rgba(255,255,255,.64);
+      border-radius: 18px;
+      box-shadow: 0 26px 60px rgba(36,17,74,.14);
+      position: absolute;
+    }
+    .glass.dark {
+      background: rgba(37,19,76,.48);
+      border-color: rgba(255,255,255,.15);
+      color: #fff;
+    }
+    .glass h4 {
+      font-size: 13px;
+      margin: 0 0 12px;
+    }
+    .glass .bar {
+      border-radius: 999px;
+      display: block;
+      height: 7px;
+      margin-top: 8px;
+    }
+    .metrics {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 0 26px 24px;
+      position: relative;
+      z-index: 3;
+    }
+    .metric {
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,.66);
+      border: 1px solid rgba(75,46,131,.12);
+      border-radius: 12px;
+      min-height: 78px;
+      padding: 15px;
+    }
+    .metric b {
+      display: block;
+      font-size: 23px;
+      line-height: 1;
+    }
+    .metric small {
+      color: var(--muted);
+      display: block;
+      font-size: 11px;
+      margin-top: 8px;
+    }
+    .services {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 0 26px 30px;
+      position: relative;
+      z-index: 3;
+    }
+    .service {
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(75,46,131,.12);
+      border-radius: 12px;
+      min-height: 116px;
+      padding: 16px;
+    }
+    .service i {
+      background: linear-gradient(135deg, rgba(75,46,131,.14), rgba(137,196,48,.18));
+      border-radius: 8px;
+      display: block;
+      height: 32px;
+      margin-bottom: 14px;
+      width: 32px;
+    }
+    .service strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.25;
+    }
+    .service small {
+      color: var(--muted);
+      display: block;
+      font-size: 11px;
+      line-height: 1.45;
+      margin-top: 8px;
+    }
+    .body {
+      border-top: 1px solid rgba(75,46,131,.12);
+      padding: 22px 24px 24px;
+    }
+    .tag {
+      color: var(--purple);
+      display: block;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .body h3 {
+      font-size: 22px;
+      margin: 0 0 8px;
+    }
+    .body p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.58;
+      margin: 0;
+    }
+    .particle {
+      animation: float 5.8s ease-in-out infinite;
+      background: rgba(137,196,48,.78);
+      border-radius: 50%;
+      box-shadow: 0 0 18px rgba(137,196,48,.55);
+      height: 8px;
+      position: absolute;
+      width: 8px;
+    }
+    .particle.p2 { animation-delay: .8s; background: rgba(123,91,214,.72); box-shadow: 0 0 18px rgba(123,91,214,.45); }
+    .particle.p3 { animation-delay: 1.5s; background: rgba(41,216,160,.72); box-shadow: 0 0 18px rgba(41,216,160,.48); }
+    @keyframes float {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      50% { transform: translate3d(10px, -18px, 0); }
+    }
+    .orbit {
+      border: 1px solid rgba(123,91,214,.28);
+      border-radius: 50%;
+      position: absolute;
+      transform: rotate(-18deg);
+    }
+    .flow {
+      animation: stream 3.6s ease-in-out infinite;
+      background: linear-gradient(90deg, transparent, rgba(137,196,48,.82), rgba(123,91,214,.72), transparent);
+      border-radius: 999px;
+      height: 3px;
+      position: absolute;
+      transform-origin: left center;
+    }
+    @keyframes stream {
+      0%, 100% { opacity: .25; transform: translateX(-20px) scaleX(.78) rotate(var(--r)); }
+      50% { opacity: 1; transform: translateX(22px) scaleX(1.08) rotate(var(--r)); }
+    }
+
+    .nebula .screen {
+      background:
+        radial-gradient(circle at 80% 25%, rgba(137,196,48,.18), transparent 24%),
+        radial-gradient(circle at 72% 70%, rgba(41,216,160,.16), transparent 27%),
+        linear-gradient(135deg, #ffffff 0%, #f8f4ff 48%, #eef8f4 100%);
+    }
+    .nebula .top { background: #2c1653; color: #f3edff; }
+    .nebula .nav { background: rgba(255,255,255,.66); border-bottom: 1px solid rgba(75,46,131,.10); }
+    .nebula .pill { background: rgba(255,255,255,.72); border: 1px solid rgba(75,46,131,.12); color: var(--purple); }
+    .nebula .orb {
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.92), rgba(137,196,48,.36) 22%, rgba(123,91,214,.42) 54%, rgba(75,46,131,.12) 75%),
+        rgba(255,255,255,.24);
+      border-radius: 50%;
+      box-shadow: inset -28px -34px 80px rgba(75,46,131,.18), 0 34px 80px rgba(75,46,131,.2);
+      height: 250px;
+      position: absolute;
+      right: 92px;
+      top: 24px;
+      width: 250px;
+    }
+    .nebula .orbit.one { height: 270px; right: 78px; top: 14px; width: 300px; }
+    .nebula .orbit.two { height: 180px; right: 56px; top: 78px; transform: rotate(22deg); width: 360px; }
+    .nebula .glass.plan {
+      padding: 18px;
+      right: 36px;
+      top: 226px;
+      width: 190px;
+    }
+    .nebula .glass.coverage {
+      padding: 16px;
+      right: 286px;
+      top: 186px;
+      width: 160px;
+    }
+    .nebula .glass .bar { background: linear-gradient(90deg, var(--green), var(--violet)); }
+    .nebula .flow.f1 { --r: -11deg; right: 70px; top: 132px; width: 360px; }
+    .nebula .flow.f2 { --r: 18deg; right: 54px; top: 206px; width: 320px; }
+    .nebula .particle { right: 126px; top: 86px; }
+    .nebula .particle.p2 { right: 348px; top: 172px; }
+    .nebula .particle.p3 { right: 238px; top: 284px; }
+
+    .mesh .screen {
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.98), rgba(255,255,255,.82) 47%, rgba(255,255,255,.1)),
+        radial-gradient(circle at 84% 28%, rgba(75,46,131,.25), transparent 28%),
+        linear-gradient(135deg, #fff, #f3f0fb);
+    }
+    .mesh .top { background: #24114a; color: #f3edff; }
+    .mesh .nav { background: rgba(255,255,255,.82); border-bottom: 1px solid rgba(75,46,131,.1); }
+    .mesh .pill { background: #f3effb; border: 1px solid rgba(75,46,131,.12); color: var(--purple); }
+    .mesh .scene-grid {
+      background-image:
+        linear-gradient(rgba(75,46,131,.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(75,46,131,.12) 1px, transparent 1px);
+      background-size: 34px 34px;
+      border-radius: 26px;
+      height: 300px;
+      position: absolute;
+      right: 12px;
+      top: 18px;
+      transform: perspective(680px) rotateX(58deg) rotateZ(-20deg);
+      transform-origin: center;
+      width: 520px;
+    }
+    .mesh .node {
+      background: #fff;
+      border: 5px solid var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 0 12px rgba(137,196,48,.12), 0 18px 38px rgba(75,46,131,.16);
+      height: 28px;
+      position: absolute;
+      width: 28px;
+    }
+    .mesh .n1 { right: 122px; top: 70px; }
+    .mesh .n2 { right: 310px; top: 148px; border-color: var(--violet); }
+    .mesh .n3 { right: 214px; top: 238px; border-color: var(--mint); }
+    .mesh .glass {
+      padding: 18px;
+      right: 30px;
+      top: 214px;
+      width: 250px;
+    }
+    .mesh .glass .bar { background: linear-gradient(90deg, var(--purple), var(--green)); }
+    .mesh .flow.f1 { --r: -21deg; right: 96px; top: 122px; width: 330px; }
+    .mesh .flow.f2 { --r: 29deg; right: 104px; top: 214px; width: 260px; }
+    .mesh .particle { right: 168px; top: 98px; }
+    .mesh .particle.p2 { right: 302px; top: 184px; }
+    .mesh .particle.p3 { right: 234px; top: 260px; }
+
+    .wifi .screen {
+      background:
+        radial-gradient(circle at 70% 36%, rgba(255,255,255,.22), transparent 22%),
+        linear-gradient(135deg, #2a1454 0%, #4b2e83 46%, #7b5bd6 100%);
+      color: #fff;
+    }
+    .wifi .top { background: rgba(16,7,34,.68); color: #eee8ff; }
+    .wifi .nav { background: rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.13); }
+    .wifi .navlinks i { background: rgba(255,255,255,.2); }
+    .wifi .copy p { color: #e0d9f4; }
+    .wifi .pill { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); color: #fff; }
+    .wifi .btn.secondary { border-color: rgba(255,255,255,.28); }
+    .wifi .metric, .wifi .service {
+      background: rgba(255,255,255,.1);
+      border-color: rgba(255,255,255,.14);
+    }
+    .wifi .metric small, .wifi .service small { color: #d6cdec; }
+    .wifi .rings {
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 50%;
+      height: 340px;
+      position: absolute;
+      right: 56px;
+      top: 0;
+      width: 340px;
+    }
+    .wifi .rings::before,
+    .wifi .rings::after {
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%;
+      content: "";
+      inset: 42px;
+      position: absolute;
+    }
+    .wifi .rings::after { inset: 94px; }
+    .wifi .tower {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 18px;
+      bottom: 26px;
+      left: 146px;
+      padding: 20px;
+      position: absolute;
+      width: 230px;
+    }
+    .wifi .tower i {
+      background: linear-gradient(180deg, var(--green), transparent);
+      border-radius: 999px;
+      display: block;
+      height: 110px;
+      margin: 0 auto;
+      width: 8px;
+    }
+    .wifi .glass {
+      padding: 18px;
+      right: 28px;
+      top: 214px;
+      width: 210px;
+    }
+    .wifi .glass .bar { background: linear-gradient(90deg, var(--green), #fff); }
+    .wifi .particle { right: 164px; top: 72px; }
+    .wifi .particle.p2 { right: 310px; top: 150px; }
+    .wifi .particle.p3 { right: 228px; top: 276px; }
+    .wifi .tag { color: #5f8e17; }
+
+    @media (max-width: 1180px) {
+      .concepts { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      main { padding: 24px 14px 48px; }
+      .hero { grid-template-columns: 1fr; }
+      .scene { min-height: 280px; }
+      .metrics, .services { grid-template-columns: 1fr 1fr; }
+      .navlinks { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Immersive telecom and WiFi service concepts</h1>
+    <p class="intro">These are WebGL/Three.js-inspired homepage directions: flowing data streams, glassmorphism service panels, wireless coverage symbols, and white-purple branding with green interaction accents. They are design previews first, not the final homepage.</p>
+
+    <div class="concepts">
+      <article class="concept nebula">
+        <div class="screen">
+          <div class="top"><span>IP-1 Licensed Telecom Infrastructure Provider</span><span>Fiber / WiFi / Business Networks</span></div>
+          <div class="nav"><div class="brand"><span class="logo"></span>BSTEL</div><div class="navlinks"><i></i><i></i><i></i></div><span class="nav-cta"></span></div>
+          <section class="hero">
+            <div class="copy">
+              <span class="pill"><i></i> Seamless high-speed connectivity</span>
+              <h2>Always-connected networks for modern businesses.</h2>
+              <p>Clean white-purple atmosphere with a luminous network globe, soft particles, and floating panels for plans, coverage and service proof.</p>
+              <div class="actions"><span class="btn primary"></span><span class="btn secondary"></span></div>
+            </div>
+            <div class="scene">
+              <div class="orb"></div>
+              <div class="orbit one"></div>
+              <div class="orbit two"></div>
+              <span class="flow f1"></span><span class="flow f2"></span>
+              <span class="particle"></span><span class="particle p2"></span><span class="particle p3"></span>
+              <div class="glass plan"><h4>Business WiFi Plans</h4><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+              <div class="glass coverage"><h4>Coverage Areas</h4><span class="bar"></span><span class="bar"></span></div>
+            </div>
+          </section>
+          <div class="metrics"><span class="metric"><b>1Gbps</b><small>High-speed ready</small></span><span class="metric"><b>24x7</b><small>NOC monitored</small></span><span class="metric"><b>130+</b><small>District footprint</small></span><span class="metric"><b>IP-1</b><small>Licensed provider</small></span></div>
+          <div class="services"><span class="service"><i></i><strong>Fiber broadband</strong><small>Fast business-grade routes</small></span><span class="service"><i></i><strong>Managed WiFi</strong><small>Secure access and coverage</small></span><span class="service"><i></i><strong>Enterprise networks</strong><small>Reliable infrastructure delivery</small></span></div>
+        </div>
+        <div class="body"><span class="tag">Concept A</span><h3>Network Nebula</h3><p>The most premium product-launch style. Feels modern, luminous and immersive while staying clean.</p></div>
+      </article>
+
+      <article class="concept mesh">
+        <div class="screen">
+          <div class="top"><span>IP-1 Licensed Telecom Infrastructure Provider</span><span>Coverage / Routes / SLA</span></div>
+          <div class="nav"><div class="brand"><span class="logo"></span>BSTEL</div><div class="navlinks"><i></i><i></i><i></i></div><span class="nav-cta"></span></div>
+          <section class="hero">
+            <div class="copy">
+              <span class="pill"><i></i> Digital infrastructure grid</span>
+              <h2>Fiber, WiFi and coverage designed as one network.</h2>
+              <p>A lighter enterprise page with a 3D grid plane, glowing nodes, flowing data routes and crisp glass panels.</p>
+              <div class="actions"><span class="btn primary"></span><span class="btn secondary"></span></div>
+            </div>
+            <div class="scene">
+              <div class="scene-grid"></div>
+              <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span>
+              <span class="flow f1"></span><span class="flow f2"></span>
+              <span class="particle"></span><span class="particle p2"></span><span class="particle p3"></span>
+              <div class="glass"><h4>Live network coverage</h4><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+            </div>
+          </section>
+          <div class="metrics"><span class="metric"><b>6</b><small>States served</small></span><span class="metric"><b>130+</b><small>Districts</small></span><span class="metric"><b>17+</b><small>Years</small></span><span class="metric"><b>24x7</b><small>Support</small></span></div>
+          <div class="services"><span class="service"><i></i><strong>Coverage planning</strong><small>State and district footprint</small></span><span class="service"><i></i><strong>Data routes</strong><small>Fiber backbone execution</small></span><span class="service"><i></i><strong>Business solutions</strong><small>Scalable managed networks</small></span></div>
+        </div>
+        <div class="body"><span class="tag">Concept B</span><h3>Infrastructure Mesh</h3><p>Best balance of professional and futuristic. It gives the WebGL feeling without becoming too flashy.</p></div>
+      </article>
+
+      <article class="concept wifi">
+        <div class="screen">
+          <div class="top"><span>IP-1 Licensed Telecom Infrastructure Provider</span><span>WiFi / Internet / Managed Connectivity</span></div>
+          <div class="nav"><div class="brand"><span class="logo"></span>BSTEL</div><div class="navlinks"><i></i><i></i><i></i></div><span class="nav-cta"></span></div>
+          <section class="hero">
+            <div class="copy">
+              <span class="pill"><i></i> Wireless coverage experience</span>
+              <h2>Fast, secure WiFi that reaches every corner.</h2>
+              <p>A stronger purple brand world with wireless signal rings, floating service cards and active green CTAs.</p>
+              <div class="actions"><span class="btn primary"></span><span class="btn secondary"></span></div>
+            </div>
+            <div class="scene">
+              <div class="rings"></div>
+              <div class="tower"><i></i></div>
+              <span class="particle"></span><span class="particle p2"></span><span class="particle p3"></span>
+              <div class="glass dark"><h4>Secure managed WiFi</h4><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+            </div>
+          </section>
+          <div class="metrics"><span class="metric"><b>WiFi</b><small>Managed coverage</small></span><span class="metric"><b>Fiber</b><small>High-speed backbone</small></span><span class="metric"><b>SLA</b><small>Business reliability</small></span><span class="metric"><b>24x7</b><small>Monitoring</small></span></div>
+          <div class="services"><span class="service"><i></i><strong>Home and business WiFi</strong><small>Strong wireless coverage</small></span><span class="service"><i></i><strong>Secure connectivity</strong><small>Stable always-on access</small></span><span class="service"><i></i><strong>Support plans</strong><small>Monitoring and maintenance</small></span></div>
+        </div>
+        <div class="body"><span class="tag">Concept C</span><h3>Wireless Pulse</h3><p>Best if WiFi/internet services should become a major public-facing part of the brand.</p></div>
+      </article>
+    </div>
+  </main>
+</body>
+</html>

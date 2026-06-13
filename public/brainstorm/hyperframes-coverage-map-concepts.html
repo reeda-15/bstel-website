@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BSTEL Coverage Map HyperFrames Concepts</title>
+    <style>
+      :root {
+        --ink: #160b2d;
+        --deep: #24114a;
+        --purple: #4b2e83;
+        --violet: #a78bdb;
+        --soft: #ddd8e8;
+        --green: #89c430;
+        --paper: #f8f6fc;
+        --muted: #655d76;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: #ffffff;
+        color: var(--ink);
+        font-family: Arial, sans-serif;
+      }
+
+      .stage {
+        min-height: 100vh;
+        padding: 34px;
+      }
+
+      .head {
+        align-items: end;
+        display: flex;
+        gap: 24px;
+        justify-content: space-between;
+        margin: 0 auto 24px;
+        max-width: 1320px;
+      }
+
+      .eyebrow {
+        color: var(--purple);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.6px;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-size: clamp(28px, 3vw, 42px);
+        line-height: 1.05;
+        margin: 8px 0 0;
+        max-width: 720px;
+      }
+
+      .head p {
+        color: var(--muted);
+        line-height: 1.55;
+        margin: 0;
+        max-width: 420px;
+      }
+
+      .concept-grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin: 0 auto;
+        max-width: 1320px;
+      }
+
+      .concept {
+        background: #ffffff;
+        border: 1px solid #e6e0f0;
+        border-radius: 8px;
+        box-shadow: 0 22px 54px rgba(36, 17, 74, 0.08);
+        overflow: hidden;
+      }
+
+      .composition {
+        aspect-ratio: 16 / 12;
+        background:
+          radial-gradient(circle at 50% 45%, rgba(137, 196, 48, 0.08), transparent 34%),
+          linear-gradient(180deg, #ffffff, #fbfaff);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .composition.dark {
+        background:
+          radial-gradient(circle at 52% 46%, rgba(137, 196, 48, 0.16), transparent 32%),
+          linear-gradient(135deg, #130923, #23114a 54%, #342061);
+      }
+
+      .map {
+        height: 86%;
+        left: 50%;
+        position: absolute;
+        top: 49%;
+        transform: translate(-50%, -50%);
+        width: 78%;
+      }
+
+      .dot {
+        animation: dotRise 900ms ease both;
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+
+      .full { fill: var(--green); }
+      .partial { fill: var(--violet); }
+      .none { fill: var(--soft); }
+      .dark .none { fill: rgba(221, 216, 232, 0.34); }
+
+      .route {
+        fill: none;
+        stroke: rgba(137, 196, 48, 0.85);
+        stroke-linecap: round;
+        stroke-width: 3.2;
+        stroke-dasharray: 18 15;
+        animation: routeFlow 3.8s linear infinite;
+        filter: drop-shadow(0 0 10px rgba(137, 196, 48, 0.42));
+      }
+
+      .route.violet {
+        stroke: rgba(167, 139, 219, 0.78);
+        stroke-dasharray: 12 18;
+        animation-duration: 4.6s;
+      }
+
+      .sweep {
+        animation: sweep 4.4s ease-in-out infinite;
+        background: linear-gradient(90deg, transparent, rgba(137, 196, 48, 0.2), transparent);
+        bottom: -20%;
+        left: -45%;
+        position: absolute;
+        top: -20%;
+        transform: rotate(-18deg);
+        width: 36%;
+      }
+
+      .pulse {
+        animation: pulse 2.8s ease-out infinite;
+        border: 1px solid rgba(137, 196, 48, 0.8);
+        border-radius: 999px;
+        height: 54px;
+        left: 50%;
+        position: absolute;
+        top: 45%;
+        transform: translate(-50%, -50%);
+        width: 54px;
+      }
+
+      .pulse.two {
+        animation-delay: 1.35s;
+      }
+
+      .body {
+        padding: 18px 18px 20px;
+      }
+
+      .body h2 {
+        font-size: 20px;
+        margin: 0 0 8px;
+      }
+
+      .body p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.55;
+        margin: 0;
+      }
+
+      .legend {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        left: 18px;
+        position: absolute;
+        right: 18px;
+        bottom: 12px;
+      }
+
+      .legend span {
+        align-items: center;
+        color: var(--muted);
+        display: inline-flex;
+        font-size: 11px;
+        gap: 6px;
+      }
+
+      .dark .legend span { color: rgba(255, 255, 255, 0.72); }
+
+      .legend i {
+        border-radius: 50%;
+        display: block;
+        height: 10px;
+        width: 10px;
+      }
+
+      .legend .full-key { background: var(--green); }
+      .legend .partial-key { background: var(--violet); }
+      .legend .none-key { background: var(--soft); }
+
+      .label-chip {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(36, 17, 74, 0.12);
+        border-radius: 999px;
+        color: var(--deep);
+        font-size: 11px;
+        font-weight: 800;
+        left: 18px;
+        padding: 8px 10px;
+        position: absolute;
+        top: 18px;
+      }
+
+      .dark .label-chip {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.16);
+        color: #ffffff;
+      }
+
+      @keyframes dotRise {
+        from { opacity: 0; transform: translateY(8px) scale(0.75); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      @keyframes routeFlow {
+        to { stroke-dashoffset: -132; }
+      }
+
+      @keyframes sweep {
+        0% { transform: translateX(-30%) rotate(-18deg); opacity: 0; }
+        18% { opacity: 1; }
+        72% { opacity: 1; }
+        100% { transform: translateX(410%) rotate(-18deg); opacity: 0; }
+      }
+
+      @keyframes pulse {
+        from { height: 54px; opacity: 0.65; width: 54px; }
+        to { height: 260px; opacity: 0; width: 260px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .dot, .route, .sweep, .pulse { animation: none; }
+      }
+
+      @media (max-width: 980px) {
+        .head { align-items: start; flex-direction: column; }
+        .concept-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage">
+      <header class="head">
+        <div>
+          <span class="eyebrow">HyperFrames brainstorm</span>
+          <h1>BSTEL coverage map concepts</h1>
+        </div>
+        <p>Three HTML-native animated directions for the coverage map before we implement the production component.</p>
+      </header>
+
+      <section class="concept-grid">
+        <article class="concept">
+          <div class="composition" data-composition-id="coverage-dot-atlas" data-start="0" data-duration="6" data-width="1080" data-height="810">
+            <span class="label-chip">01 / Dot Atlas</span>
+            <svg class="map" viewBox="0 0 520 560" role="img" aria-label="Dot matrix India coverage map">
+              <g id="map-one"></g>
+            </svg>
+            <div class="legend">
+              <span><i class="full-key"></i>Full state coverage</span>
+              <span><i class="partial-key"></i>Key districts</span>
+              <span><i class="none-key"></i>Not yet covered</span>
+            </div>
+          </div>
+          <div class="body">
+            <h2>Dot Atlas</h2>
+            <p>Closest to your reference: clean India silhouette, calm white background, and coverage status as the main story.</p>
+          </div>
+        </article>
+
+        <article class="concept">
+          <div class="composition dark" data-composition-id="coverage-route-pulse" data-start="0" data-duration="6" data-width="1080" data-height="810">
+            <span class="label-chip">02 / Route Pulse</span>
+            <svg class="map" viewBox="0 0 520 560" role="img" aria-label="Coverage map with route pulses">
+              <g id="map-two"></g>
+              <path class="route" d="M122 260 C188 216, 264 250, 336 218 S432 190, 470 230" />
+              <path class="route violet" d="M80 300 C150 330, 230 302, 312 330 S420 360, 470 315" />
+            </svg>
+            <div class="legend">
+              <span><i class="full-key"></i>Full coverage core</span>
+              <span><i class="partial-key"></i>Expansion districts</span>
+              <span><i class="none-key"></i>Future footprint</span>
+            </div>
+          </div>
+          <div class="body">
+            <h2>Route Pulse</h2>
+            <p>More telecom-native: dot map plus animated fibre routes, better if the map should feel connected to the hero animation.</p>
+          </div>
+        </article>
+
+        <article class="concept">
+          <div class="composition dark" data-composition-id="coverage-noc-sweep" data-start="0" data-duration="6" data-width="1080" data-height="810">
+            <span class="label-chip">03 / NOC Sweep</span>
+            <span class="sweep"></span>
+            <span class="pulse"></span>
+            <span class="pulse two"></span>
+            <svg class="map" viewBox="0 0 520 560" role="img" aria-label="Coverage map with monitoring sweep">
+              <g id="map-three"></g>
+            </svg>
+            <div class="legend">
+              <span><i class="full-key"></i>Monitored regions</span>
+              <span><i class="partial-key"></i>District focus</span>
+              <span><i class="none-key"></i>Unserved regions</span>
+            </div>
+          </div>
+          <div class="body">
+            <h2>NOC Sweep</h2>
+            <p>Best for the 24x7 operations story: radar-like monitoring over the same dot coverage silhouette.</p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const bitmap = [
+        "........ooo..............",
+        ".......ooooo.............",
+        "......oooooo.............",
+        "......ooooo..............",
+        "....ooooooooo............",
+        "...ooooooooUUUoo....oo..",
+        "..oooooooUUUUUoooo.oooo.",
+        "..ooooooPPPPUUooooooooo.",
+        ".GGooooPPPPPPoooooooo...",
+        "GGGGooPPPPPPPCCoo.......",
+        "GGGGGoPPPPPPPCCCoo......",
+        ".GGGGMMMMMMMPCCCo.......",
+        "..GGMMMMMMMMMCCCo.......",
+        "....MMMMMMMMMCCoo.......",
+        "....MMMMMMMMooooo.......",
+        ".....AMMMMoooooo........",
+        ".....Aooooooooo.........",
+        "......ooooooooo.........",
+        "......oooooooo..........",
+        "......ooooooo...........",
+        ".......oooooo...........",
+        ".......ooooo............",
+        "........oooo............",
+        "........ooo.............",
+        ".........oo.............",
+        ".........o..............",
+      ];
+
+      const types = {
+        M: "full",
+        P: "full",
+        C: "full",
+        A: "full",
+        U: "partial",
+        G: "partial",
+        o: "none",
+      };
+
+      function drawMap(targetId, size, gap) {
+        const target = document.getElementById(targetId);
+
+        bitmap.forEach((row, y) => {
+          row.split("").forEach((cell, x) => {
+            if (cell === ".") return;
+
+            const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            dot.setAttribute("cx", String(x * gap + 38));
+            dot.setAttribute("cy", String(y * gap + 38));
+            dot.setAttribute("r", String(size));
+            dot.setAttribute("class", `dot ${types[cell] || "none"}`);
+            dot.style.animationDelay = `${(x + y) * 18}ms`;
+            target.appendChild(dot);
+          });
+        });
+      }
+
+      drawMap("map-one", 6.1, 18.2);
+      drawMap("map-two", 5.6, 18.2);
+      drawMap("map-three", 5.6, 18.2);
+    </script>
+  </body>
+</html>

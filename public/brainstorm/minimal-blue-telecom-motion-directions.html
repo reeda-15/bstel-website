@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Minimal Blue Telecom Motion Directions</title>
+  <style>
+    :root {
+      --ink: #101828;
+      --muted: #667085;
+      --blue: #2563eb;
+      --blue-2: #38bdf8;
+      --green: #84cc16;
+      --line: #e6edf7;
+      --paper: #f8fbff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 72% 0%, rgba(37,99,235,.09), transparent 28%),
+        radial-gradient(circle at 12% 14%, rgba(56,189,248,.07), transparent 26%),
+        #f7faff;
+      color: var(--ink);
+      font-family: Inter, Arial, sans-serif;
+    }
+    main {
+      margin: 0 auto;
+      max-width: 1480px;
+      padding: 34px 26px 72px;
+    }
+    h1 {
+      font-size: clamp(31px, 4vw, 52px);
+      letter-spacing: 0;
+      line-height: 1.04;
+      margin: 0;
+      max-width: 1020px;
+    }
+    .intro {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+      margin: 14px 0 30px;
+      max-width: 960px;
+    }
+    .concepts {
+      display: grid;
+      gap: 26px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .concept {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 30px 80px rgba(16,24,40,.08);
+      overflow: hidden;
+    }
+    .screen {
+      background: #fff;
+      min-height: 660px;
+      overflow: hidden;
+      position: relative;
+    }
+    .nav {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 22px 32px;
+      position: relative;
+      z-index: 4;
+    }
+    .brand {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+    .logo {
+      background: linear-gradient(135deg, var(--blue), var(--blue-2));
+      border-radius: 9px;
+      height: 34px;
+      width: 38px;
+    }
+    .links {
+      display: flex;
+      gap: 18px;
+    }
+    .links i {
+      background: #e8eef8;
+      border-radius: 999px;
+      display: block;
+      height: 8px;
+      width: 48px;
+    }
+    .nav-cta {
+      background: var(--blue);
+      border-radius: 999px;
+      box-shadow: 0 16px 34px rgba(37,99,235,.2);
+      height: 38px;
+      width: 126px;
+    }
+    .hero {
+      display: grid;
+      gap: 34px;
+      grid-template-columns: minmax(0, .9fr) minmax(330px, 1.1fr);
+      min-height: 400px;
+      padding: 44px 32px 28px;
+      position: relative;
+      z-index: 2;
+    }
+    .copy {
+      align-self: center;
+      max-width: 540px;
+      position: relative;
+      z-index: 4;
+    }
+    .pill {
+      align-items: center;
+      background: #eef6ff;
+      border: 1px solid #d8eaff;
+      border-radius: 999px;
+      color: #1d4ed8;
+      display: inline-flex;
+      font-size: 11px;
+      font-weight: 900;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 8px 13px;
+    }
+    .pill i {
+      background: var(--green);
+      border-radius: 50%;
+      display: block;
+      height: 7px;
+      width: 7px;
+    }
+    h2 {
+      font-size: clamp(38px, 4vw, 58px);
+      letter-spacing: 0;
+      line-height: 1.02;
+      margin: 0 0 16px;
+    }
+    .copy p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.72;
+      margin: 0;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 26px;
+    }
+    .btn {
+      border-radius: 999px;
+      height: 46px;
+      position: relative;
+      width: 142px;
+    }
+    .btn.primary {
+      background: var(--blue);
+      box-shadow: 0 18px 38px rgba(37,99,235,.22);
+    }
+    .btn.primary::after {
+      background: rgba(255,255,255,.45);
+      border-radius: inherit;
+      content: "";
+      inset: 8px 14px auto auto;
+      height: 8px;
+      position: absolute;
+      width: 28px;
+    }
+    .btn.secondary {
+      border: 1px solid #d7e0ee;
+      width: 122px;
+    }
+    .visual {
+      align-self: center;
+      min-height: 350px;
+      overflow: hidden;
+      position: relative;
+    }
+    .stage {
+      background:
+        linear-gradient(180deg, rgba(248,251,255,.92), rgba(255,255,255,.98)),
+        radial-gradient(circle at 76% 24%, rgba(56,189,248,.16), transparent 28%);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      inset: 0;
+      overflow: hidden;
+      position: absolute;
+    }
+    svg {
+      display: block;
+      height: 100%;
+      position: absolute;
+      width: 100%;
+    }
+    .path {
+      animation: draw 4.8s ease-in-out infinite;
+      fill: none;
+      stroke-linecap: round;
+      stroke-width: 3;
+      stroke-dasharray: 640;
+      stroke-dashoffset: 640;
+    }
+    .path.blue { stroke: rgba(37,99,235,.72); }
+    .path.cyan { stroke: rgba(56,189,248,.72); animation-delay: .55s; }
+    .path.green { stroke: rgba(132,204,22,.72); animation-delay: 1.05s; }
+    @keyframes draw {
+      0% { opacity: 0; stroke-dashoffset: 640; }
+      16%, 72% { opacity: 1; }
+      62% { stroke-dashoffset: 0; }
+      100% { opacity: 0; stroke-dashoffset: -640; }
+    }
+    .node {
+      animation: pulse 2.4s ease-in-out infinite;
+      background: #fff;
+      border: 4px solid var(--blue);
+      border-radius: 50%;
+      box-shadow: 0 0 0 9px rgba(37,99,235,.1), 0 14px 34px rgba(16,24,40,.12);
+      height: 24px;
+      position: absolute;
+      width: 24px;
+      z-index: 3;
+    }
+    .node.green { border-color: var(--green); box-shadow: 0 0 0 9px rgba(132,204,22,.12), 0 14px 34px rgba(16,24,40,.12); }
+    .node.cyan { border-color: var(--blue-2); }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+    .particle {
+      animation: float 5s ease-in-out infinite;
+      background: rgba(37,99,235,.5);
+      border-radius: 50%;
+      height: 7px;
+      position: absolute;
+      width: 7px;
+      z-index: 3;
+    }
+    .particle.green { background: rgba(132,204,22,.72); }
+    .particle.cyan { background: rgba(56,189,248,.62); }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-18px); }
+    }
+    .glass {
+      backdrop-filter: blur(18px);
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(255,255,255,.86);
+      border-radius: 18px;
+      box-shadow: 0 20px 48px rgba(16,24,40,.1);
+      padding: 17px;
+      position: absolute;
+      z-index: 4;
+    }
+    .glass h4 {
+      font-size: 13px;
+      margin: 0 0 12px;
+    }
+    .glass i {
+      background: linear-gradient(90deg, var(--blue), var(--blue-2));
+      border-radius: 999px;
+      display: block;
+      height: 7px;
+      margin-top: 8px;
+    }
+    .metrics {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 0 32px 24px;
+    }
+    .metric {
+      background: #fbfdff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      min-height: 78px;
+      padding: 15px;
+    }
+    .metric b {
+      display: block;
+      font-size: 22px;
+      line-height: 1;
+    }
+    .metric small {
+      color: var(--muted);
+      display: block;
+      font-size: 11px;
+      margin-top: 8px;
+    }
+    .services {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 0 32px 32px;
+    }
+    .service {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      min-height: 112px;
+      padding: 16px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .service:hover {
+      border-color: rgba(37,99,235,.28);
+      box-shadow: 0 16px 36px rgba(16,24,40,.08);
+      transform: translateY(-3px);
+    }
+    .service span {
+      background: #eef6ff;
+      border-radius: 10px;
+      display: block;
+      height: 32px;
+      margin-bottom: 14px;
+      width: 32px;
+    }
+    .service strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.25;
+    }
+    .service small {
+      color: var(--muted);
+      display: block;
+      font-size: 11px;
+      line-height: 1.45;
+      margin-top: 8px;
+    }
+    .body {
+      border-top: 1px solid var(--line);
+      padding: 22px 24px 24px;
+    }
+    .tag {
+      color: var(--blue);
+      display: block;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .body h3 {
+      font-size: 22px;
+      margin: 0 0 8px;
+    }
+    .body p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.58;
+      margin: 0;
+    }
+    .skyline rect,
+    .skyline path {
+      fill: rgba(37,99,235,.08);
+      stroke: rgba(37,99,235,.2);
+      stroke-width: 1;
+    }
+    .skyline .dark {
+      fill: rgba(37,99,235,.13);
+    }
+    .skyline .green {
+      fill: rgba(132,204,22,.16);
+      stroke: rgba(132,204,22,.28);
+    }
+
+    .city .n1 { right: 90px; top: 74px; }
+    .city .n2 { right: 264px; top: 138px; }
+    .city .n3 { right: 168px; top: 248px; }
+    .city .g1 { right: 34px; top: 224px; width: 214px; }
+    .city .g2 { left: 24px; top: 48px; width: 176px; }
+    .city .p1 { right: 118px; top: 58px; }
+    .city .p2 { animation-delay: 1s; right: 314px; top: 170px; }
+    .city .p3 { animation-delay: 1.8s; right: 220px; top: 284px; }
+
+    .ribbon .stage {
+      background:
+        radial-gradient(circle at 80% 20%, rgba(37,99,235,.1), transparent 26%),
+        linear-gradient(180deg, #fbfdff, #fff);
+    }
+    .ribbon .fiber {
+      animation: ribbon 6s ease-in-out infinite;
+      background: linear-gradient(90deg, rgba(37,99,235,.1), rgba(56,189,248,.5), rgba(132,204,22,.5), rgba(37,99,235,.1));
+      border-radius: 999px;
+      filter: blur(.2px);
+      height: 6px;
+      position: absolute;
+      right: -20px;
+      top: 112px;
+      transform: rotate(-12deg);
+      width: 520px;
+      z-index: 2;
+    }
+    .ribbon .fiber.two {
+      animation-delay: 1.2s;
+      opacity: .75;
+      right: -70px;
+      top: 204px;
+      transform: rotate(18deg);
+    }
+    @keyframes ribbon {
+      0%, 100% { transform: translateX(-24px) rotate(var(--rot, -12deg)); opacity: .35; }
+      50% { transform: translateX(26px) rotate(var(--rot, -12deg)); opacity: 1; }
+    }
+    .ribbon .fiber.two { --rot: 18deg; }
+    .ribbon .n1 { right: 118px; top: 98px; }
+    .ribbon .n2 { right: 306px; top: 208px; }
+    .ribbon .n3 { right: 186px; top: 278px; }
+    .ribbon .g1 { right: 36px; top: 242px; width: 226px; }
+    .ribbon .g2 { left: 28px; top: 70px; width: 184px; }
+    .ribbon .p1 { right: 142px; top: 78px; }
+    .ribbon .p2 { animation-delay: 1s; right: 330px; top: 210px; }
+    .ribbon .p3 { animation-delay: 1.8s; right: 238px; top: 294px; }
+
+    .dashboard .stage {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1.1fr .9fr;
+      padding: 20px;
+    }
+    .dashboard-card {
+      background: rgba(255,255,255,.82);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 18px 42px rgba(16,24,40,.08);
+      min-height: 120px;
+      padding: 16px;
+      position: relative;
+      z-index: 2;
+    }
+    .dashboard-card.big { grid-row: span 2; }
+    .dashboard-card b {
+      display: block;
+      font-size: 28px;
+    }
+    .dashboard-card small {
+      color: var(--muted);
+      display: block;
+      font-size: 11px;
+      margin-top: 7px;
+    }
+    .dashboard-card i {
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      border-radius: 999px;
+      display: block;
+      height: 7px;
+      margin-top: 20px;
+      width: 74%;
+    }
+    .dashboard .path { opacity: .7; }
+    .dashboard .n1 { right: 82px; top: 74px; }
+    .dashboard .n2 { right: 316px; top: 202px; }
+    .dashboard .p1 { right: 130px; top: 90px; }
+    .dashboard .p2 { animation-delay: 1s; right: 340px; top: 226px; }
+
+    @media (max-width: 1180px) {
+      .concepts { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      main { padding: 24px 14px 48px; }
+      .hero { grid-template-columns: 1fr; }
+      .visual { min-height: 320px; }
+      .metrics, .services { grid-template-columns: 1fr 1fr; }
+      .links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Minimal blue telecom motion concepts</h1>
+    <p class="intro">These follow your prompt: white background, blue accents, SVG city/network visuals, path drawing, pulsing nodes, floating particles, magnetic-style CTAs, and Apple/Stripe-inspired spacious motion. Text stays clean and protected.</p>
+
+    <div class="concepts">
+      <article class="concept city">
+        <div class="screen">
+          <div class="nav"><div class="brand"><span class="logo"></span>BSTEL</div><div class="links"><i></i><i></i><i></i></div><span class="nav-cta"></span></div>
+          <section class="hero">
+            <div class="copy">
+              <span class="pill"><i></i> Minimal smart city connectivity</span>
+              <h2>High-speed networks for always-on cities.</h2>
+              <p>Clean text, SVG city skyline, animated path drawing, pulsing nodes and soft particles inside a separate visual canvas.</p>
+              <div class="actions"><span class="btn primary"></span><span class="btn secondary"></span></div>
+            </div>
+            <div class="visual">
+              <div class="stage">
+                <svg viewBox="0 0 560 360" aria-hidden="true">
+                  <g class="skyline" transform="translate(30 174)">
+                    <rect x="0" y="58" width="38" height="96" rx="4" />
+                    <rect class="dark" x="52" y="12" width="56" height="142" rx="5" />
+                    <rect x="124" y="44" width="46" height="110" rx="4" />
+                    <path class="green" d="M196 154 L228 24 L260 154 Z" />
+                    <rect x="288" y="34" width="64" height="120" rx="5" />
+                    <rect x="370" y="68" width="42" height="86" rx="4" />
+                    <rect class="dark" x="430" y="0" width="58" height="154" rx="5" />
+                  </g>
+                  <path class="path blue" d="M18 286 C 120 238, 166 300, 250 238 S 386 154, 540 198" />
+                  <path class="path cyan" d="M30 112 C 128 62, 214 116, 292 88 S 430 58, 540 102" />
+                  <path class="path green" d="M40 316 C 162 260, 256 334, 344 276 S 442 220, 538 248" />
+                </svg>
+                <span class="node n1"></span><span class="node cyan n2"></span><span class="node green n3"></span>
+                <span class="particle p1"></span><span class="particle cyan p2"></span><span class="particle green p3"></span>
+                <div class="glass g1"><h4>City-wide coverage</h4><i></i><i></i><i></i></div>
+                <div class="glass g2"><h4>Fiber routes</h4><i></i><i></i></div>
+              </div>
+            </div>
+          </section>
+          <div class="metrics"><span class="metric"><b>130+</b><small>Districts</small></span><span class="metric"><b>24x7</b><small>NOC</small></span><span class="metric"><b>IP-1</b><small>Licensed</small></span><span class="metric"><b>17+</b><small>Years</small></span></div>
+          <div class="services"><span class="service"><span></span><strong>Fiber infrastructure</strong><small>Route design and rollout</small></span><span class="service"><span></span><strong>Managed WiFi</strong><small>Coverage and reliability</small></span><span class="service"><span></span><strong>Business internet</strong><small>Secure, scalable links</small></span></div>
+        </div>
+        <div class="body"><span class="tag">Option A</span><h3>Minimal Smart City</h3><p>Most aligned with your skyline + fiber path prompt. Clean, premium, and easy to implement beautifully.</p></div>
+      </article>
+
+      <article class="concept ribbon">
+        <div class="screen">
+          <div class="nav"><div class="brand"><span class="logo"></span>BSTEL</div><div class="links"><i></i><i></i><i></i></div><span class="nav-cta"></span></div>
+          <section class="hero">
+            <div class="copy">
+              <span class="pill"><i></i> Flowing fiber-optic data streams</span>
+              <h2>Connectivity that moves at business speed.</h2>
+              <p>Spacious white hero with animated fiber ribbons and nodes contained in the right-side stage, inspired by Stripe-style product visuals.</p>
+              <div class="actions"><span class="btn primary"></span><span class="btn secondary"></span></div>
+            </div>
+            <div class="visual">
+              <div class="stage">
+                <span class="fiber"></span><span class="fiber two"></span>
+                <svg viewBox="0 0 560 360" aria-hidden="true">
+                  <g class="skyline" transform="translate(36 192)">
+                    <rect x="0" y="42" width="44" height="90" rx="4" />
+                    <rect class="dark" x="66" y="0" width="62" height="132" rx="5" />
+                    <rect x="150" y="62" width="48" height="70" rx="4" />
+                    <rect class="green" x="230" y="22" width="52" height="110" rx="5" />
+                    <rect x="310" y="48" width="56" height="84" rx="4" />
+                    <rect class="dark" x="404" y="10" width="56" height="122" rx="5" />
+                  </g>
+                  <path class="path blue" d="M20 274 C 120 216, 184 264, 272 214 S 426 154, 540 184" />
+                  <path class="path green" d="M30 126 C 126 94, 210 132, 296 102 S 430 78, 540 118" />
+                </svg>
+                <span class="node n1"></span><span class="node cyan n2"></span><span class="node green n3"></span>
+                <span class="particle p1"></span><span class="particle cyan p2"></span><span class="particle green p3"></span>
+                <div class="glass g1"><h4>Data throughput</h4><i></i><i></i><i></i></div>
+                <div class="glass g2"><h4>Live links</h4><i></i><i></i></div>
+              </div>
+            </div>
+          </section>
+          <div class="metrics"><span class="metric"><b>Fiber</b><small>Routes</small></span><span class="metric"><b>WiFi</b><small>Coverage</small></span><span class="metric"><b>SLA</b><small>Business</small></span><span class="metric"><b>NOC</b><small>Support</small></span></div>
+          <div class="services"><span class="service"><span></span><strong>High-speed links</strong><small>Fast deployment</small></span><span class="service"><span></span><strong>Enterprise plans</strong><small>Business-grade uptime</small></span><span class="service"><span></span><strong>Coverage support</strong><small>Always connected</small></span></div>
+        </div>
+        <div class="body"><span class="tag">Option B</span><h3>Fiber Ribbon</h3><p>Most motion-forward while still not overlapping text. Feels fast and premium.</p></div>
+      </article>
+
+      <article class="concept dashboard">
+        <div class="screen">
+          <div class="nav"><div class="brand"><span class="logo"></span>BSTEL</div><div class="links"><i></i><i></i><i></i></div><span class="nav-cta"></span></div>
+          <section class="hero">
+            <div class="copy">
+              <span class="pill"><i></i> Premium SaaS-style service console</span>
+              <h2>One platform for internet, WiFi and support.</h2>
+              <p>More product/SaaS inspired: service cards, coverage metrics, animated network paths, and polished microinteractions.</p>
+              <div class="actions"><span class="btn primary"></span><span class="btn secondary"></span></div>
+            </div>
+            <div class="visual">
+              <div class="stage">
+                <svg viewBox="0 0 560 360" aria-hidden="true">
+                  <path class="path blue" d="M32 92 C 142 42, 214 98, 314 78 S 456 58, 540 108" />
+                  <path class="path cyan" d="M28 286 C 118 236, 224 292, 302 230 S 430 178, 538 204" />
+                </svg>
+                <div class="dashboard-card big"><b>99.9%</b><small>Network reliability view</small><i></i></div>
+                <div class="dashboard-card"><b>WiFi</b><small>Managed coverage</small><i></i></div>
+                <div class="dashboard-card"><b>Fiber</b><small>Business routes</small><i></i></div>
+                <span class="node n1"></span><span class="node green n2"></span>
+                <span class="particle p1"></span><span class="particle cyan p2"></span>
+              </div>
+            </div>
+          </section>
+          <div class="metrics"><span class="metric"><b>Plans</b><small>Clear options</small></span><span class="metric"><b>Coverage</b><small>Area map</small></span><span class="metric"><b>Business</b><small>Solutions</small></span><span class="metric"><b>Support</b><small>24x7</small></span></div>
+          <div class="services"><span class="service"><span></span><strong>Service plans</strong><small>Clean product display</small></span><span class="service"><span></span><strong>Coverage areas</strong><small>Interactive footprint</small></span><span class="service"><span></span><strong>Business solutions</strong><small>Enterprise-ready</small></span></div>
+        </div>
+        <div class="body"><span class="tag">Option C</span><h3>SaaS Network Console</h3><p>Best if you want the homepage to feel like a premium digital product rather than a traditional infrastructure company.</p></div>
+      </article>
+    </div>
+  </main>
+</body>
+</html>
