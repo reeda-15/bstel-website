@@ -232,9 +232,66 @@ button:disabled {
   opacity: 0.62;
 }
 
+.account-page {
+  min-height: 100vh;
+  padding: 48px 24px;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.settings-panel {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(27, 31, 36, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.settings-panel h1,
+.settings-panel h2 {
+  margin: 0 0 12px;
+}
+
+.settings-panel p {
+  color: #4f5863;
+  line-height: 1.5;
+}
+
+.settings-panel input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 10px;
+  border: 1px solid rgba(27, 31, 36, 0.18);
+  border-radius: 6px;
+  padding: 11px;
+  background: #fff;
+}
+
+.settings-panel button {
+  margin-top: 12px;
+  border: 0;
+  border-radius: 6px;
+  background: #1b1f24;
+  color: #fff;
+  padding: 11px 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.settings-message {
+  grid-column: 1 / -1;
+}
+
 @media (max-width: 680px) {
   .auction-page,
-  .auth-page {
+  .auth-page,
+  .account-page {
     padding: 18px;
   }
 
