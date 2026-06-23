@@ -33,6 +33,17 @@ export function AccountSettings({ email, phone }: { email: string | null; phone:
     }
   }
 
+  async function createSetupIntent() {
+    try {
+      const response = await fetch("/api/account/payment-methods/setup-intent", { method: "POST" });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || "Could not create setup intent");
+      setMessage("Stripe SetupIntent created. Next step: mount Stripe Elements with the returned client secret.");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Could not create setup intent");
+    }
+  }
+
   return (
     <main className="account-page">
       <section className="settings-grid">
@@ -123,6 +134,12 @@ export function AccountSettings({ email, phone }: { email: string | null; phone:
           <h2>Seller readiness</h2>
           <p>Company profile, company address, and verified 2FA are required before publishing listings.</p>
           <button onClick={checkSellerReadiness}>Check readiness</button>
+        </article>
+
+        <article className="settings-panel">
+          <h2>Saved payment methods</h2>
+          <p>Cards are saved securely through Stripe for paying won auctions.</p>
+          <button onClick={createSetupIntent}>Start adding card</button>
         </article>
 
         {message ? <p className="notice settings-message">{message}</p> : null}
