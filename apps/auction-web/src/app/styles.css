@@ -176,6 +176,229 @@ input {
   color: #777267;
 }
 
+.auth-page {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px;
+}
+
+.auth-panel {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #e7e5de;
+  border-radius: 8px;
+  box-shadow: 0 24px 80px rgba(31, 40, 52, 0.12);
+  max-width: 680px;
+  padding: 32px;
+  width: 100%;
+}
+
+.auth-panel h1 {
+  font-size: clamp(32px, 5vw, 60px);
+  letter-spacing: 0;
+  line-height: 0.95;
+  margin: 0;
+}
+
+.auth-copy {
+  color: #4f5863;
+  font-size: 18px;
+  line-height: 1.65;
+  max-width: 640px;
+}
+
+.back-link {
+  color: inherit;
+  display: inline-block;
+  font-weight: 800;
+  margin-bottom: 28px;
+  text-decoration: none;
+}
+
+.auth-tabs,
+.oauth-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 24px 0;
+}
+
+.oauth-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.auth-tabs button,
+.oauth-grid button,
+.primary-button,
+.secondary-button {
+  border: 1px solid rgba(27, 31, 36, 0.14);
+  border-radius: 6px;
+  cursor: pointer;
+  min-height: 44px;
+  padding: 10px 12px;
+}
+
+.auth-tabs button,
+.oauth-grid button,
+.secondary-button {
+  background: #ffffff;
+  color: #1b1a16;
+}
+
+.auth-tabs button.active,
+.primary-button {
+  background: #1b1a16;
+  color: #ffffff;
+}
+
+.auth-form {
+  display: grid;
+  gap: 14px;
+}
+
+.auth-form.compact {
+  margin-top: 12px;
+}
+
+.auth-form label {
+  color: #35404c;
+  display: grid;
+  font-size: 14px;
+  font-weight: 700;
+  gap: 7px;
+}
+
+.auth-form input,
+.settings-panel input {
+  background: #ffffff;
+  border: 1px solid rgba(27, 31, 36, 0.18);
+  border-radius: 6px;
+  min-height: 46px;
+  padding: 12px 14px;
+}
+
+.divider {
+  align-items: center;
+  color: #6c7682;
+  display: flex;
+  font-size: 12px;
+  font-weight: 800;
+  gap: 12px;
+  letter-spacing: 0.08em;
+  margin: 26px 0 18px;
+  text-transform: uppercase;
+}
+
+.divider::before,
+.divider::after {
+  background: rgba(27, 31, 36, 0.14);
+  content: "";
+  flex: 1;
+  height: 1px;
+}
+
+.phone-box {
+  background: #f6f8f7;
+  border: 1px solid rgba(27, 31, 36, 0.1);
+  border-radius: 8px;
+  margin-top: 24px;
+  padding: 18px;
+}
+
+.phone-box h2 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.auth-page .notice {
+  background: #ecf8ef;
+  border-color: #bfe7ca;
+  border-radius: 6px;
+  color: #246331;
+  line-height: 1.5;
+  margin: 18px 0 0;
+}
+
+.auth-page .notice.error {
+  background: #fff1f0;
+  border-color: #f0c2bd;
+  color: #9f241b;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.account-page {
+  min-height: 100vh;
+  padding: 48px 24px;
+}
+
+.settings-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin: 0 auto;
+  max-width: 1040px;
+}
+
+.settings-panel {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(27, 31, 36, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.settings-panel h1,
+.settings-panel h2 {
+  margin: 0 0 12px;
+}
+
+.settings-panel p {
+  color: #4f5863;
+  line-height: 1.5;
+}
+
+.settings-panel input {
+  box-sizing: border-box;
+  display: block;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.settings-panel button {
+  background: #1b1a16;
+  border: 0;
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 700;
+  margin-top: 12px;
+  padding: 11px 13px;
+}
+
+.settings-message {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 680px) {
+  .auction-page,
+  .auth-page,
+  .account-page {
+    padding: 18px;
+  }
+
+  .auth-panel {
+    padding: 22px;
+  }
+
+  .oauth-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .auction-page {
   min-height: 100vh;
   padding: 28px;

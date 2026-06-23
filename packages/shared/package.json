@@ -3,5 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "main": "./auction-rules.js",
-  "types": "./auction-rules.d.ts"
+  "types": "./auction-rules.d.ts",
+  "exports": {
+    "./account-rules": "./account-rules.js",
+    "./auction-rules": "./auction-rules.js",
+    "./realtime-events": "./realtime-events.js"
+  }
 }

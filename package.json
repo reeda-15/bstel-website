@@ -12,6 +12,7 @@
     "start": "next start",
     "test": "node --test src/lib/*.test.js packages/shared/*.test.js",
     "test:auction": "node --test packages/shared/*.test.js",
+    "test:account": "node --test packages/shared/account-rules.test.js",
     "auction:web": "npm run dev --workspace @paddle/auction-web",
     "auction:realtime": "npm run dev --workspace @paddle/realtime"
   },
