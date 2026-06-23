@@ -7,7 +7,6 @@
     "build": "next build --webpack",
     "start": "next start",
     "test": "node --test src/lib/*.test.js packages/shared/*.test.js",
-    "test:auction": "node --test packages/shared/auction-rules.test.js",
     "test:account": "node --test packages/shared/account-rules.test.js"
   },
   "dependencies": {

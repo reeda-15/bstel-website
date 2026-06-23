@@ -2,8 +2,8 @@
   "name": "@paddle/shared",
   "version": "0.1.0",
   "private": true,
-  "main": "./auction-rules.js",
-  "types": "./auction-rules.d.ts",
+  "main": "./account-rules.js",
+  "types": "./account-rules.d.ts",
   "exports": {
     "./account-rules": "./account-rules.js"
   }
