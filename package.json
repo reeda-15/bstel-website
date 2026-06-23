@@ -2,10 +2,15 @@
   "name": "bstel-website",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
+    "auction:web": "npm run dev --workspace @paddle/auction-web",
     "test": "node --test src/lib/*.test.js packages/shared/*.test.js",
     "test:account": "node --test packages/shared/account-rules.test.js"
   },
