@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@paddle/shared/*": ["../../packages/shared/*"],
+      "@paddle/db/*": ["../../packages/db/*"]
+    },
+    "noEmit": true
+  },
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "../../packages/**/*.ts", "../../packages/**/*.d.ts"],
+  "exclude": ["node_modules"]
+}

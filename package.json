@@ -2,11 +2,18 @@
   "name": "bstel-website",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "test": "node --test src/lib/*.test.js"
+    "test": "node --test src/lib/*.test.js packages/shared/*.test.js",
+    "test:auction": "node --test packages/shared/*.test.js",
+    "auction:web": "npm run dev --workspace @paddle/auction-web",
+    "auction:realtime": "npm run dev --workspace @paddle/realtime"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.3.0",

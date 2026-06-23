@@ -1,0 +1,7 @@
+{
+  "name": "@paddle/shared",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./auction-rules.js",
+  "types": "./auction-rules.d.ts"
+}
