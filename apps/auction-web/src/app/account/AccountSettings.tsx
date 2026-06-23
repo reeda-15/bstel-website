@@ -20,6 +20,19 @@ export function AccountSettings({ email, phone }: { email: string | null; phone:
     }
   }
 
+  async function checkSellerReadiness() {
+    try {
+      const response = await fetch("/api/seller/readiness");
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || "Readiness check failed");
+      setMessage(
+        payload.ok ? "Seller account is ready to publish." : `Missing: ${payload.missing.join(", ")}`
+      );
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Readiness check failed");
+    }
+  }
+
   return (
     <main className="account-page">
       <section className="settings-grid">
@@ -104,6 +117,12 @@ export function AccountSettings({ email, phone }: { email: string | null; phone:
           >
             Save shipping address
           </button>
+        </article>
+
+        <article className="settings-panel">
+          <h2>Seller readiness</h2>
+          <p>Company profile, company address, and verified 2FA are required before publishing listings.</p>
+          <button onClick={checkSellerReadiness}>Check readiness</button>
         </article>
 
         {message ? <p className="notice settings-message">{message}</p> : null}
