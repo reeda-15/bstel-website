@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #F6F5F1; font-family: 'Hanken Grotesk', system-ui, sans-serif; color: #1B1A16; -webkit-font-smoothing: antialiased; }
+  input::placeholder { color: #C2BEB3; }
+  @keyframes pdl-pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.82); } }
+  @keyframes pdl-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  .pdl-nav { margin-bottom: -92px; padding-top: 20px; pointer-events: none; }
+  .pdl-nav .pdl-shell-inner, .pdl-nav button, .pdl-nav input { pointer-events: auto; }
+  .pdl-hero { position: relative; width: 100%; min-height: 632px; border-radius: 0; overflow: hidden; margin: 0 0 34px; background: #090806; box-shadow: 0 28px 80px rgba(20,20,15,.20); isolation: isolate; }
+  .pdl-hero-video { position: absolute; inset: 0; background-image: url('assets/hero/auction-floor-hero-sharp.png'); background-size: cover; background-position: center; transform: none; transform-origin: center; }
+  .pdl-hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: radial-gradient(circle at 26% 44%, rgba(0,0,0,.10), rgba(0,0,0,.46) 56%, rgba(0,0,0,.72) 100%), linear-gradient(90deg, rgba(3,3,2,.84) 0%, rgba(8,8,6,.58) 36%, rgba(8,8,6,.20) 68%, rgba(4,4,3,.42) 100%), linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.42)); }
+  .pdl-hero::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(180deg, rgba(255,255,255,.05), transparent 28%, rgba(0,0,0,.16)); pointer-events: none; }
+  .pdl-hero-inner { position: relative; z-index: 3; min-height: 632px; display: flex; flex-direction: column; justify-content: space-between; padding: 148px 52px 28px; }
+  .pdl-hero-copy { position: relative; max-width: 650px; color: #fff; }
+  .pdl-hero-copy::before { content: ""; position: absolute; inset: -38px -48px -34px -48px; z-index: -1; background: radial-gradient(ellipse at 24% 36%, rgba(0,0,0,.72), rgba(0,0,0,.36) 47%, transparent 72%); filter: blur(2px); pointer-events: none; }
+  .pdl-hero-kicker { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,84,54,.18); border: 1px solid rgba(255,84,54,.38); color: #FF7B62; border-radius: 999px; padding: 8px 12px; font-size: 11.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; backdrop-filter: blur(12px); box-shadow: 0 12px 32px rgba(255,84,54,.14); }
+  .pdl-hero-title { margin: 18px 0 14px; font-family: 'Bricolage Grotesque'; font-weight: 800; font-size: clamp(48px, 6.4vw, 82px); line-height: .94; letter-spacing: -.05em; max-width: 760px; text-wrap: balance; text-shadow: 0 3px 18px rgba(0,0,0,.55), 0 18px 60px rgba(0,0,0,.62); }
+  .pdl-hero-sub { margin: 0; color: rgba(255,255,255,.88); font-size: 18.5px; line-height: 1.52; max-width: 560px; text-wrap: pretty; text-shadow: 0 2px 18px rgba(0,0,0,.62); }
+  .pdl-hero-actions { display: flex; align-items: center; gap: 13px; margin-top: 30px; flex-wrap: wrap; }
+  .pdl-hero-cta { display: inline-flex; align-items: center; gap: 12px; background: linear-gradient(135deg,#D9A448,#A97824); color: #fff; border: none; border-radius: 14px; padding: 15px 22px; font-family: 'Hanken Grotesk'; font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 0 14px 30px rgba(183,124,34,.32); }
+  .pdl-hero-stat { display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,.82); background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 11px 14px; backdrop-filter: blur(14px); font-size: 13px; font-weight: 700; }
+  .pdl-hero-strip { margin-top: 34px; display: grid; grid-template-columns: repeat(6, minmax(150px, 1fr)); gap: 12px; }
+  .pdl-hero-lot { appearance: none; text-align: left; font-family: 'Hanken Grotesk', system-ui, sans-serif; background: rgba(255,255,255,.92); border: 1px solid rgba(255,255,255,.32); border-radius: 14px; overflow: hidden; cursor: pointer; box-shadow: 0 18px 44px rgba(0,0,0,.28); transition: transform .18s, box-shadow .18s; padding: 0; }
+  .pdl-hero-lot:hover { transform: translateY(-3px); box-shadow: 0 24px 54px rgba(0,0,0,.36); }
+  .pdl-hero-lot-img { position: relative; height: 104px; overflow: hidden; background: #111; }
+  .pdl-hero-lot-img img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.98) contrast(1.04); }
+  .pdl-hero-lot-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.28)); }
+  .pdl-hero-lot-body { padding: 10px 11px 11px; color: #1B1A16; }
+  .pdl-hero-lot-title { font-size: 12px; font-weight: 800; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pdl-hero-lot-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; font-size: 11px; color: #6E6B62; }
+  .pdl-hero-lot-price { font-family: 'Bricolage Grotesque'; font-size: 18px; font-weight: 800; color: #1B1A16; letter-spacing: -.02em; }
+  .pdl-trust-strip { max-width: 1280px; margin: -10px auto 28px; padding: 0 28px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .pdl-trust-item { background: rgba(255,255,255,.82); border: 1px solid rgba(231,229,222,.86); border-radius: 16px; padding: 15px 16px; box-shadow: 0 18px 42px rgba(20,20,15,.07); backdrop-filter: blur(18px); }
+  .pdl-trust-kicker { display: flex; align-items: center; gap: 7px; color: #1B9C5B; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+  .pdl-trust-title { margin-top: 6px; font-size: 13.5px; font-weight: 800; color: #1B1A16; letter-spacing: -.01em; }
+  .pdl-lot-card { background: linear-gradient(180deg,#fff,#FBFAF7) !important; border-color: rgba(226,223,214,.88) !important; box-shadow: 0 12px 36px rgba(20,20,15,.075), inset 0 1px 0 rgba(255,255,255,.85) !important; }
+  .pdl-lot-card:hover { box-shadow: 0 22px 58px rgba(20,20,15,.15), inset 0 1px 0 rgba(255,255,255,.9) !important; border-color: #CDC6B7 !important; }
+  .pdl-lot-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #EFEBE2; border: 1px solid #EFEBE2; border-radius: 12px; overflow: hidden; margin-top: 14px; }
+  .pdl-lot-meta-cell { background: rgba(255,255,255,.92); padding: 10px 11px; min-width: 0; }
+  .pdl-lot-meta-label { font-size: 9.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #9A968B; white-space: nowrap; }
+  .pdl-lot-meta-value { margin-top: 3px; font-size: 12.2px; font-weight: 800; color: #1B1A16; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pdl-buyer-assurance { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; margin-top: 12px; }
+  .pdl-buyer-assurance div { background: #FAF9F6; border: 1px solid #EDEBE3; border-radius: 11px; padding: 10px; text-align: center; font-size: 11.5px; font-weight: 800; color: #54514A; line-height: 1.25; }
+  .pdl-viewer360 { position: relative; width: 100%; height: 430px; border-radius: 18px; overflow: hidden; background: radial-gradient(circle at 50% 44%, #2A2823 0%, #11100E 48%, #070706 100%); cursor: grab; user-select: none; touch-action: pan-y; perspective: 1200px; }
+  .pdl-viewer360:active { cursor: grabbing; }
+  .pdl-viewer360 img { position: absolute; inset: 8% 9% 12%; width: 82%; height: 80%; object-fit: contain; display: block; transition: transform .28s ease, filter .28s ease, opacity .28s ease; transform-origin: center; }
+  .pdl-viewer360::before { content: ""; position: absolute; left: 18%; right: 18%; bottom: 9%; height: 13%; background: radial-gradient(ellipse at center, rgba(0,0,0,.55), transparent 68%); filter: blur(7px); pointer-events: none; }
+  .pdl-viewer360::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.20)); pointer-events: none; }
+  .pdl-viewer360-badge { position: absolute; left: 16px; top: 16px; z-index: 2; display: inline-flex; align-items: center; gap: 9px; background: rgba(10,10,9,.72); color: #fff; padding: 9px 12px; border-radius: 999px; font-size: 12px; font-weight: 800; backdrop-filter: blur(12px); }
+  .pdl-viewer360-badge span { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.95); border-left-color: transparent; border-radius: 50%; display: inline-block; }
+  .pdl-viewer360-hint { position: absolute; right: 16px; bottom: 16px; z-index: 2; background: rgba(255,255,255,.92); color: #1B1A16; padding: 9px 12px; border-radius: 999px; font-size: 12px; font-weight: 800; }
+  .pdl-frame-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 11px; margin-top: 12px; }
+  .pdl-frame-thumb { position: relative; height: 92px; border: 2px solid transparent; border-radius: 13px; overflow: hidden; background: radial-gradient(circle at 50% 44%, #2A2823, #0E0D0C 72%); padding: 0; cursor: pointer; }
+  .pdl-frame-thumb-active { border-color: #073A58; box-shadow: 0 0 0 3px rgba(7,58,88,.12); }
+  .pdl-frame-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 9px 8px 15px; }
+  .pdl-frame-thumb span { position: absolute; left: 7px; bottom: 6px; background: rgba(255,255,255,.9); color: #1B1A16; border-radius: 999px; padding: 3px 7px; font-size: 9.5px; font-weight: 900; }
+  .pdl-viewer-controls { display: flex; align-items: center; gap: 11px; margin-top: 12px; color: #54514A; font-size: 12.5px; font-weight: 800; }
+  .pdl-viewer-progress { flex: 1; height: 4px; background: #DDD8CE; border-radius: 999px; overflow: hidden; }
+  .pdl-viewer-progress div { height: 100%; background: #073A58; border-radius: 999px; transition: width .22s ease; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: #D9D6CC; border-radius: 10px; border: 2px solid #F6F5F1; }
+  @media (max-width: 1180px) {
+    .pdl-hero-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .pdl-room-grid { grid-template-columns: minmax(0, 1fr) 340px !important; gap: 24px !important; }
+    .pdl-main-image { height: 380px !important; }
+    .pdl-bid-price { font-size: 38px !important; }
+  }
+  @media (max-width: 1120px) {
+    .pdl-room-grid { grid-template-columns: 1fr !important; }
+    .pdl-bid-column { position: static !important; display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(280px, 360px); align-items: start; }
+    .pdl-account-menu, .pdl-notif-menu { position: fixed !important; top: 82px !important; right: 18px !important; max-width: calc(100vw - 36px) !important; }
+  }
+  @media (max-width: 980px) {
+    .pdl-nav { margin-bottom: -148px; padding-top: 14px; }
+    .pdl-shell-inner { height: auto !important; min-height: 72px; flex-wrap: wrap; padding: 12px 18px !important; gap: 14px !important; }
+    .pdl-search { order: 5; flex: 1 0 100% !important; max-width: none !important; }
+    .pdl-actions { margin-left: auto !important; gap: 10px !important; }
+    .pdl-content { padding: 30px 20px 80px !important; }
+    .pdl-trust-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0 20px; }
+    .pdl-main-image { height: clamp(300px, 56vw, 420px) !important; }
+    .pdl-viewer360 { height: clamp(300px, 56vw, 420px) !important; }
+    .pdl-frame-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  @media (max-width: 720px) {
+    .pdl-hero { min-height: 700px; border-radius: 0; }
+    .pdl-hero-inner { min-height: 700px; padding: 178px 24px 22px; }
+    .pdl-hero-copy::before { inset: -28px -24px -26px -24px; }
+    .pdl-hero-title { font-size: 42px; }
+    .pdl-hero-sub { font-size: 15.5px; }
+    .pdl-hero-strip { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 3px; }
+    .pdl-hero-lot { flex: 0 0 190px; }
+    .pdl-shell-inner { align-items: center !important; }
+    .pdl-content { padding: 24px 16px 72px !important; }
+    .pdl-browse-title { font-size: 32px !important; }
+    .pdl-filters { width: 100%; overflow-x: auto; padding-bottom: 2px; }
+    .pdl-browse-grid { grid-template-columns: 1fr !important; gap: 18px !important; }
+    .pdl-trust-strip { grid-template-columns: 1fr; padding: 0 16px; }
+    .pdl-buyer-assurance { grid-template-columns: 1fr; }
+    .pdl-room-title { font-size: 25px !important; }
+    .pdl-main-image { height: 300px !important; border-radius: 16px !important; }
+    .pdl-viewer360 { height: 300px !important; border-radius: 16px !important; }
+    .pdl-thumbs { grid-template-columns: repeat(2, 1fr) !important; }
+    .pdl-thumbs img { height: 72px !important; }
+    .pdl-bid-column { grid-template-columns: 1fr !important; }
+    .pdl-bid-price { font-size: 36px !important; }
+    .pdl-account-menu, .pdl-notif-menu { top: 88px !important; right: 12px !important; }
+  }
+  @media (max-width: 520px) {
+    .pdl-hero { margin-bottom: 26px; }
+    .pdl-hero-inner { padding: 154px 18px 18px; }
+    .pdl-hero-copy::before { inset: -24px -18px -22px -18px; }
+    .pdl-hero-title { font-size: 36px; }
+    .pdl-hero-actions { align-items: stretch; }
+    .pdl-hero-cta { width: 100%; justify-content: center; }
+    .pdl-live-pill { display: none !important; }
+    .pdl-shell-inner { gap: 10px !important; padding: 10px 14px !important; }
+    .pdl-main-image { height: 250px !important; }
+    .pdl-viewer360 { height: 250px !important; }
+    .pdl-account-menu, .pdl-notif-menu { left: 12px !important; right: 12px !important; width: auto !important; }
+  }
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#F6F5F1">
+
+  <!-- ============ SIGN IN ============ -->
+  <sc-if value="{{ isSignin }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Sign in" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px;background:radial-gradient(120% 90% at 50% 0%,#FBFAF7,#F1EFE9)">
+    <div style="width:100%;max-width:430px">
+      <div style="display:flex;align-items:center;gap:11px;justify-content:center;margin-bottom:26px">
+        <div style="width:40px;height:40px;border-radius:12px;background:#1B1A16;display:flex;align-items:center;justify-content:center">
+          <div style="width:16px;height:16px;border-radius:50%;border:3.5px solid #FF5436"></div>
+        </div>
+        <span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:27px;letter-spacing:-.025em">Paddle</span>
+      </div>
+      <div style="background:#fff;border:1px solid #E7E5DE;border-radius:22px;padding:32px;box-shadow:0 24px 70px rgba(20,20,15,.10)">
+        <h1 style="margin:0 0 6px;font-family:'Bricolage Grotesque';font-weight:700;font-size:25px;letter-spacing:-.02em;text-align:center">Secure marketplace access</h1>
+        <p style="margin:0 0 22px;font-size:13.5px;color:#9A968B;text-align:center">Bid, sell, and settle won lots through verified auction accounts.</p>
+        <div style="font-size:12.5px;font-weight:600;color:#54514A;margin-bottom:6px">Email</div>
+        <input value="you@example.com" style="width:100%;border:1.5px solid #E7E5DE;border-radius:11px;padding:12px 14px;font-family:'Hanken Grotesk';font-size:14.5px;color:#1B1A16;outline:none;margin-bottom:14px" />
+        <div style="font-size:12.5px;font-weight:600;color:#54514A;margin-bottom:6px">Password</div>
+        <input type="password" value="demo1234" style="width:100%;border:1.5px solid #E7E5DE;border-radius:11px;padding:12px 14px;font-family:'Hanken Grotesk';font-size:14.5px;color:#1B1A16;outline:none;margin-bottom:18px" />
+        <button onClick="{{ signinBidder }}" style="width:100%;background:#1B1A16;color:#fff;border:none;border-radius:12px;padding:14px;font-family:'Hanken Grotesk';font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(27,26,22,.18)" style-hover="background:#000">Sign in securely</button>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0 4px">
+          <div style="background:#FAF9F6;border:1px solid #EDEBE3;border-radius:10px;padding:9px;text-align:center;font-size:11px;font-weight:700;color:#54514A">MFA ready</div>
+          <div style="background:#FAF9F6;border:1px solid #EDEBE3;border-radius:10px;padding:9px;text-align:center;font-size:11px;font-weight:700;color:#54514A">Stripe-ready</div>
+          <div style="background:#FAF9F6;border:1px solid #EDEBE3;border-radius:10px;padding:9px;text-align:center;font-size:11px;font-weight:700;color:#54514A">Verified lots</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;margin:20px 0 16px"><div style="flex:1;height:1px;background:#EDEBE3"></div><span style="font-size:11.5px;color:#B6B2A7;font-weight:600;letter-spacing:.04em">PREVIEW ACCOUNT TYPE</span><div style="flex:1;height:1px;background:#EDEBE3"></div></div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <button onClick="{{ signinBidder }}" style="display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:#FAF9F6;border:1px solid #EDEBE3;border-radius:13px;padding:13px 14px;cursor:pointer" style-hover="border-color:#1B1A16;background:#fff">
+            <div style="width:38px;height:38px;border-radius:11px;background:#E7F6EE;display:flex;align-items:center;justify-content:center;flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B9C5B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3l7 7-4 4-7-7z"></path><path d="M10 7L3 14v7h7l7-7"></path></svg></div>
+            <div style="flex:1"><div style="font-weight:700;font-size:14.5px;color:#1B1A16">Continue as Bidder</div><div style="font-size:12px;color:#9A968B;margin-top:1px">Browse, watch, and place live bids</div></div>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#C2BEB3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+          </button>
+          <button onClick="{{ signinSeller }}" style="display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:#FAF9F6;border:1px solid #EDEBE3;border-radius:13px;padding:13px 14px;cursor:pointer" style-hover="border-color:#1B1A16;background:#fff">
+            <div style="width:38px;height:38px;border-radius:11px;background:#ECEAF6;display:flex;align-items:center;justify-content:center;flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B47C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"></path><path d="M4 9v11h16V9"></path><path d="M9 13h6"></path></svg></div>
+            <div style="flex:1"><div style="font-weight:700;font-size:14.5px;color:#1B1A16">Continue as Seller</div><div style="font-size:12px;color:#9A968B;margin-top:1px">Create listings, publish, track results</div></div>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#C2BEB3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+          </button>
+          <button onClick="{{ signinAdmin }}" style="display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:#FAF9F6;border:1px solid #EDEBE3;border-radius:13px;padding:13px 14px;cursor:pointer" style-hover="border-color:#1B1A16;background:#fff">
+            <div style="width:38px;height:38px;border-radius:11px;background:#FBF0DA;display:flex;align-items:center;justify-content:center;flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B07A12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"></path></svg></div>
+            <div style="flex:1"><div style="font-weight:700;font-size:14.5px;color:#1B1A16">Continue as Admin</div><div style="font-size:12px;color:#9A968B;margin-top:1px">Moderate, cancel, and ban</div></div>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#C2BEB3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+          </button>
+        </div>
+      </div>
+      <p style="text-align:center;font-size:11.5px;color:#B6B2A7;margin-top:18px;line-height:1.5">Seller and admin accounts require company readiness and stronger security before money movement.</p>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ APP SHELL ============ -->
+  <sc-if value="{{ inApp }}" hint-placeholder-val="{{ true }}">
+  <div>
+  <!-- NAV -->
+  <div class="pdl-nav" style="position:relative;z-index:50;background:linear-gradient(180deg,rgba(0,0,0,.48),rgba(0,0,0,0));border-bottom:none;box-shadow:none">
+    <div class="pdl-shell-inner" style="width:100%;max-width:none;margin:0;padding:0 52px;height:54px;display:flex;align-items:center;gap:26px">
+      <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;cursor:pointer;flex:none">
+        <div style="width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center">
+          <div style="width:13px;height:13px;border-radius:50%;border:3px solid #FF5436"></div>
+        </div>
+        <span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:22px;letter-spacing:-.025em;color:#fff;text-shadow:0 4px 16px rgba(0,0,0,.35)">Paddle</span>
+      </div>
+
+      <div style="display:flex;gap:2px;flex:none">
+        <sc-for list="{{ navItems }}" as="nv" hint-placeholder-count="2">
+          <button onClick="{{ nv.onClick }}" style="background:none;border:none;cursor:pointer;padding:8px 12px 6px;font-family:'Hanken Grotesk';font-weight:600;font-size:14.5px;color:rgba(255,255,255,.82);display:flex;flex-direction:column;align-items:center;gap:7px">
+            {{ nv.label }}
+            <sc-if value="{{ nv.active }}" hint-placeholder-val="{{ false }}"><div style="height:2px;width:100%;background:#fff;border-radius:2px;box-shadow:0 0 14px rgba(255,255,255,.45)"></div></sc-if>
+          </button>
+        </sc-for>
+      </div>
+
+      <div class="pdl-search" style="flex:1;max-width:360px;display:flex;align-items:center;gap:9px;background:rgba(9,9,8,.50);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:10px 14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 28px rgba(0,0,0,.18);backdrop-filter:blur(14px)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9A968B" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4-4"></path></svg>
+        <input placeholder="Search live lots" style="border:none;outline:none;background:transparent;font-family:'Hanken Grotesk';font-size:14px;color:#fff;width:100%" />
+      </div>
+
+      <div class="pdl-actions" style="margin-left:auto;display:flex;align-items:center;gap:14px;flex:none">
+        <div class="pdl-live-pill" style="display:flex;align-items:center;gap:7px;background:rgba(255,84,54,.12);border:1px solid rgba(255,84,54,.18);padding:7px 12px;border-radius:999px">
+          <div style="width:7px;height:7px;border-radius:50%;background:#FF5436;animation:pdl-pulse 1.4s ease-in-out infinite"></div>
+          <span style="font-weight:700;font-size:12.5px;color:#FF5436;font-variant-numeric:tabular-nums">{{ liveCount }} live</span>
+        </div>
+
+        <div style="position:relative">
+          <button onClick="{{ toggleNotif }}" style="position:relative;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:10px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg>
+            <sc-if value="{{ hasUnread }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;top:7px;right:8px;min-width:15px;height:15px;padding:0 3px;border-radius:999px;background:#FF5436;color:#fff;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff">{{ unread }}</div></sc-if>
+          </button>
+          <sc-if value="{{ notifOpen }}" hint-placeholder-val="{{ false }}">
+            <div class="pdl-notif-menu" style="position:absolute;right:0;top:46px;width:362px;background:#fff;border:1px solid #E7E5DE;border-radius:16px;box-shadow:0 16px 48px rgba(20,20,15,.16);overflow:hidden;animation:pdl-in .16s ease;z-index:60">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #F0EEE8">
+                <h3 style="margin:0;font-family:'Hanken Grotesk';font-weight:700;font-size:14.5px">Notifications</h3>
+                <button onClick="{{ markAllRead }}" style="background:none;border:none;cursor:pointer;font-weight:600;font-size:12.5px;color:#FF5436;padding:0">Mark all read</button>
+              </div>
+              <div style="max-height:380px;overflow-y:auto">
+                <sc-for list="{{ notifications }}" as="n" hint-placeholder-count="4">
+                  <div style="{{ n.rowStyle }}">
+                    <div style="{{ n.iconStyle }}"><div style="width:8px;height:8px;border-radius:50%;background:currentColor"></div></div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:13px;line-height:1.4;color:#1B1A16">{{ n.text }}</div>
+                      <div style="font-size:11px;color:#9A968B;margin-top:3px">{{ n.timeText }}</div>
+                    </div>
+                    <sc-if value="{{ n.unread }}" hint-placeholder-val="{{ false }}"><div style="width:8px;height:8px;border-radius:50%;background:#FF5436;flex:none;margin-top:5px"></div></sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="position:relative">
+          <button onClick="{{ toggleAccount }}" style="display:flex;align-items:center;gap:8px;background:none;border:none;cursor:pointer;padding:0">
+            <div style="display:flex;flex-direction:column;align-items:flex-end;line-height:1.1">
+              <span style="font-size:12.5px;font-weight:700;color:#fff">You</span>
+              <span style="{{ roleChipStyle }}">{{ roleLabel }}</span>
+            </div>
+            <div style="width:38px;height:38px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:600;font-size:15px">{{ avatarInitial }}</div>
+          </button>
+          <sc-if value="{{ accountOpen }}" hint-placeholder-val="{{ false }}">
+            <div class="pdl-account-menu" style="position:absolute;right:0;top:50px;width:286px;background:#fff;border:1px solid #E7E5DE;border-radius:16px;box-shadow:0 18px 54px rgba(20,20,15,.18);overflow:hidden;animation:pdl-in .16s ease;z-index:60">
+              <div style="padding:14px 16px;border-bottom:1px solid #F0EEE8">
+                <div style="font-weight:700;font-size:13.5px">Signed in as You</div>
+                <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap"><span style="background:#E7F6EE;color:#1B9C5B;border-radius:999px;padding:4px 8px;font-size:10.5px;font-weight:800">Verified</span><span style="background:#FBF0DA;color:#B07A12;border-radius:999px;padding:4px 8px;font-size:10.5px;font-weight:800">Stripe-ready</span></div>
+                <div style="font-size:12px;color:#9A968B;margin-top:1px">Role · {{ roleLabel }}</div>
+              </div>
+              <div style="padding:10px 8px;border-bottom:1px solid #F0EEE8">
+                <button style="display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:10px;border-radius:10px;font-family:'Hanken Grotesk';font-weight:700;font-size:13.5px;color:#1B1A16" style-hover="background:#FAF9F6"><span>Profile & company</span><span style="font-size:11px;color:#1B9C5B">Ready</span></button>
+                <button style="display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:10px;border-radius:10px;font-family:'Hanken Grotesk';font-weight:700;font-size:13.5px;color:#1B1A16" style-hover="background:#FAF9F6"><span>Payment methods</span><span style="font-size:11px;color:#B07A12">Stripe</span></button>
+                <button style="display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:10px;border-radius:10px;font-family:'Hanken Grotesk';font-weight:700;font-size:13.5px;color:#1B1A16" style-hover="background:#FAF9F6"><span>Security & MFA</span><span style="font-size:11px;color:#1B9C5B">Protected</span></button>
+              </div>
+              <button onClick="{{ signOut }}" style="display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:12px 16px;font-family:'Hanken Grotesk';font-weight:600;font-size:13.5px;color:#1B1A16" style-hover="background:#FAF9F6">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="M16 17l5-5-5-5"></path><path d="M21 12H9"></path></svg>
+                Switch account
+              </button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- ===== BROWSE ===== -->
+    <sc-if value="{{ isBrowse }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="Browse">
+      <section class="pdl-hero" aria-label="Premium live auctions hero">
+        <div class="pdl-hero-video"></div>
+        <div class="pdl-hero-inner">
+          <div class="pdl-hero-copy">
+            <div class="pdl-hero-kicker">
+              <span style="width:7px;height:7px;border-radius:50%;background:#FF5436;animation:pdl-pulse 1.4s ease-in-out infinite"></span>
+              Live now
+            </div>
+            <h1 class="pdl-hero-title">Live auctions for exceptional lots</h1>
+            <p class="pdl-hero-sub">Bid in real time on verified watches, art, cars, cameras, and design objects with secure winner checkout.</p>
+            <div class="pdl-hero-actions">
+              <button onClick="{{ scrollToLots }}" class="pdl-hero-cta">
+                Explore live lots
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+              </button>
+              <div class="pdl-hero-stat">
+                <span style="width:7px;height:7px;border-radius:50%;background:#1B9C5B"></span>
+                {{ liveCount }} verified live lots
+              </div>
+              <div class="pdl-hero-stat">Stripe-ready checkout</div>
+            </div>
+          </div>
+          <div class="pdl-hero-strip">
+            <sc-for list="{{ heroItems }}" as="h" hint-placeholder-count="6">
+              <button onClick="{{ h.onOpen }}" class="pdl-hero-lot">
+                <div class="pdl-hero-lot-img">
+                  <img data-pdl-src="{{ h.imageUrl }}" alt="{{ h.title }}" />
+                  <div style="position:absolute;left:9px;top:9px;z-index:2;display:flex;align-items:center;gap:5px;background:rgba(27,26,22,.78);border-radius:999px;padding:4px 8px;color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.04em"><span style="width:5px;height:5px;border-radius:50%;background:#FF5436"></span>LIVE</div>
+                  <div style="position:absolute;right:9px;bottom:9px;z-index:2;background:rgba(255,255,255,.9);border-radius:999px;padding:3px 8px;color:#1B1A16;font-size:10px;font-weight:800">{{ h.cat }}</div>
+                </div>
+                <div class="pdl-hero-lot-body">
+                  <div class="pdl-hero-lot-title">{{ h.title }}</div>
+                  <div class="pdl-hero-lot-meta">
+                    <span>Current bid</span>
+                    <span>{{ h.countText }}</span>
+                  </div>
+                  <div class="pdl-hero-lot-price">{{ h.priceText }}</div>
+                </div>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <div class="pdl-trust-strip" aria-label="Buyer confidence">
+        <div class="pdl-trust-item">
+          <div class="pdl-trust-kicker"><span style="width:7px;height:7px;border-radius:50%;background:#1B9C5B"></span>Verified</div>
+          <div class="pdl-trust-title">Seller identity and lot review before bidding</div>
+        </div>
+        <div class="pdl-trust-item">
+          <div class="pdl-trust-kicker"><span style="width:7px;height:7px;border-radius:50%;background:#1B9C5B"></span>Protected</div>
+          <div class="pdl-trust-title">Secure Stripe checkout after the hammer falls</div>
+        </div>
+        <div class="pdl-trust-item">
+          <div class="pdl-trust-kicker"><span style="width:7px;height:7px;border-radius:50%;background:#1B9C5B"></span>Insured</div>
+          <div class="pdl-trust-title">Tracked shipping and settlement status for won lots</div>
+        </div>
+        <div class="pdl-trust-item">
+          <div class="pdl-trust-kicker"><span style="width:7px;height:7px;border-radius:50%;background:#1B9C5B"></span>Private client</div>
+          <div class="pdl-trust-title">Bid history, invoices, and watchlist in one account</div>
+        </div>
+      </div>
+
+      <div class="pdl-content" style="max-width:1280px;margin:0 auto;padding:0 28px 90px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:22px">
+        <div>
+          <h1 class="pdl-browse-title" style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:38px;letter-spacing:-.03em">Live now</h1>
+          <p style="margin:6px 0 0;font-size:15px;color:#6E6B62">{{ liveCount }} curated lots accepting bids. Authenticated sellers, secure winner checkout, insured handoff.</p>
+        </div>
+        <div class="pdl-filters" style="display:flex;gap:8px">
+          <div style="display:flex;align-items:center;gap:7px;background:#1B1A16;color:#fff;padding:9px 14px;border-radius:10px;font-weight:600;font-size:13.5px;cursor:default">Ending soon
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg>
+          </div>
+          <div style="background:#fff;border:1px solid #E7E5DE;padding:9px 14px;border-radius:10px;font-weight:600;font-size:13.5px;color:#6E6B62;cursor:default">Most bids</div>
+          <div style="background:#fff;border:1px solid #E7E5DE;padding:9px 14px;border-radius:10px;font-weight:600;font-size:13.5px;color:#6E6B62;cursor:default">Newly listed</div>
+        </div>
+      </div>
+      <div class="pdl-browse-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px">
+        <sc-for list="{{ browseItems }}" as="item" hint-placeholder-count="6">
+          <div class="pdl-lot-card" onClick="{{ item.onOpen }}" style="background:#fff;border:1px solid #E2DFD6;border-radius:20px;overflow:hidden;cursor:pointer;box-shadow:0 10px 30px rgba(20,20,15,.07);transition:box-shadow .18s,transform .18s,border-color .18s" style-hover="box-shadow:0 18px 44px rgba(20,20,15,.14);transform:translateY(-4px);border-color:#D8D3C7">
+            <div class="lotimg" style="{{ item.thumbStyle }}">
+              <img data-pdl-src="{{ item.imageUrl }}" alt="{{ item.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.96) contrast(1.03)" />
+              <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.22));pointer-events:none"></div>
+              <div style="position:absolute;top:12px;left:12px;display:flex;align-items:center;gap:6px;background:rgba(27,26,22,.78);backdrop-filter:blur(6px);padding:5px 10px;border-radius:999px">
+                <div style="width:6px;height:6px;border-radius:50%;background:#FF5436;animation:pdl-pulse 1.4s ease-in-out infinite"></div>
+                <span style="font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#fff">LIVE</span>
+              </div>
+              <button onClick="{{ item.onWatch }}" style="{{ item.watchStyle }}">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="{{ item.heartFill }}" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+              </button>
+              <div style="position:absolute;bottom:12px;left:12px;background:rgba(255,255,255,.92);padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;color:#1B1A16">{{ item.cat }}</div>
+              <div style="position:absolute;bottom:12px;right:12px;display:flex;align-items:center;gap:5px;background:rgba(27,26,22,.6);backdrop-filter:blur(6px);padding:4px 9px;border-radius:999px">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="2.5"></circle></svg>
+                <span style="font-size:11px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums">{{ item.viewers }}</span>
+              </div>
+            </div>
+            <div style="padding:18px 18px 17px">
+              <div style="font-weight:700;font-size:16.5px;line-height:1.32;min-height:44px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;letter-spacing:-.01em">{{ item.title }}</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:5px">
+                <div style="font-size:12.5px;color:#9A968B">@{{ item.seller }}</div>
+                <div style="font-size:11.5px;font-weight:800;color:#1B9C5B">Verified seller</div>
+              </div>
+              <div class="pdl-lot-meta">
+                <div class="pdl-lot-meta-cell">
+                  <div class="pdl-lot-meta-label">Estimate</div>
+                  <div class="pdl-lot-meta-value">{{ item.estimateText }}</div>
+                </div>
+                <div class="pdl-lot-meta-cell">
+                  <div class="pdl-lot-meta-label">Condition</div>
+                  <div class="pdl-lot-meta-value">{{ item.conditionText }}</div>
+                </div>
+                <div class="pdl-lot-meta-cell">
+                  <div class="pdl-lot-meta-label">Handoff</div>
+                  <div class="pdl-lot-meta-value">{{ item.handoffText }}</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-top:14px">
+                <div>
+                  <div style="font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#9A968B">Current bid</div>
+                  <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:29px;letter-spacing:-.025em;font-variant-numeric:tabular-nums;margin-top:1px">{{ item.priceText }}</div>
+                </div>
+                <div style="{{ item.countStyle }}">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2"></path><path d="M9 2h6"></path></svg>
+                  {{ item.countText }}
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:13px;padding-top:13px;border-top:1px solid #F0EEE8">
+                <span style="font-size:12.5px;color:#6E6B62;font-weight:500">{{ item.bidsText }}</span>
+                <span style="{{ item.reserveStyle }}">{{ item.reserveText }}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;margin-top:12px;color:#54514A;font-size:12px;font-weight:800">
+                <span style="width:7px;height:7px;border-radius:50%;background:#1B9C5B"></span>
+                {{ item.assuranceText }}
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== AUCTION ROOM ===== -->
+    <sc-if value="{{ isRoom }}" hint-placeholder-val="{{ false }}">
+    <div class="pdl-content" style="max-width:1280px;margin:0 auto;padding:38px 28px 90px">
+    <div data-screen-label="Auction room">
+      <button onClick="{{ goBack }}" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:7px;font-weight:600;font-size:14px;color:#6E6B62;padding:0;margin-bottom:18px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+        Back
+      </button>
+      <div class="pdl-room-grid" style="display:grid;grid-template-columns:1fr 384px;gap:32px;align-items:start">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <span style="font-size:12px;font-weight:700;color:#FF5436;letter-spacing:.03em">{{ room.cat }}</span>
+            <span style="font-size:12px;color:#C2BEB3">·</span>
+            <span style="font-size:12.5px;color:#9A968B">Lot {{ room.lotNo }}</span>
+          </div>
+          <h1 class="pdl-room-title" style="margin:0 0 18px;font-family:'Bricolage Grotesque';font-weight:700;font-size:30px;line-height:1.12;letter-spacing:-.025em">{{ room.title }}</h1>
+          <div class="pdl-viewer360" onPointerDown="{{ room.onSpinStart }}" onPointerMove="{{ room.onSpinMove }}" onPointerUp="{{ room.onSpinEnd }}" onPointerCancel="{{ room.onSpinEnd }}">
+            <img data-pdl-src="{{ room.activeFrameUrl }}" alt="{{ room.title }} 3D product overview {{ room.activeFrameLabel }}" style="{{ room.activeFrameStyle }}" />
+            <div class="pdl-viewer360-badge"><span></span>3D product overview</div>
+            <div class="pdl-viewer360-hint">{{ room.activeFrameLabel }} · drag to rotate</div>
+          </div>
+          <div class="pdl-frame-strip">
+            <sc-for list="{{ room.frames }}" as="frame" hint-placeholder-count="8">
+              <button onClick="{{ frame.onPick }}" class="{{ frame.className }}" title="{{ frame.label }}">
+                <img data-pdl-src="{{ frame.imageUrl }}" alt="{{ room.title }} {{ frame.label }}" style="{{ frame.imageStyle }}" />
+                <span>{{ frame.shortLabel }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <div class="pdl-viewer-controls">
+            <button onClick="{{ room.prevFrame }}" style="width:38px;height:34px;border:1px solid #D9D4CA;background:#fff;border-radius:9px;color:#1B1A16;font-weight:900;cursor:pointer">←</button>
+            <div class="pdl-viewer-progress"><div style="{{ room.frameProgressStyle }}"></div></div>
+            <button onClick="{{ room.nextFrame }}" style="width:38px;height:34px;border:1px solid #D9D4CA;background:#fff;border-radius:9px;color:#1B1A16;font-weight:900;cursor:pointer">→</button>
+            <span style="white-space:nowrap">{{ room.activeFrameLabel }}</span>
+          </div>
+          <div style="background:#fff;border:1px solid #E7E5DE;border-radius:16px;padding:22px;margin-top:24px">
+            <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #F0EEE8;padding-bottom:16px;margin-bottom:16px">
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:42px;height:42px;border-radius:12px;background:#EFEDE6;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:17px">{{ room.sellerInitial }}</div>
+                <div>
+                  <div style="font-weight:700;font-size:14.5px">@{{ room.seller }}</div>
+                  <div style="font-size:12px;color:#9A968B">Verified seller · 4.9 ★ · 312 lots sold</div>
+                </div>
+              </div>
+              <button style="background:#fff;border:1px solid #E7E5DE;border-radius:9px;padding:8px 14px;font-weight:600;font-size:13px;cursor:pointer">Follow</button>
+            </div>
+            <h3 style="margin:0 0 8px;font-family:'Hanken Grotesk';font-weight:700;font-size:15px">Description</h3>
+            <p style="margin:0;font-size:14.5px;line-height:1.6;color:#54514A;text-wrap:pretty">{{ room.description }}</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#F0EEE8;border:1px solid #F0EEE8;border-radius:12px;overflow:hidden;margin-top:18px">
+              <sc-for list="{{ room.specs }}" as="s" hint-placeholder-count="3">
+                <div style="background:#fff;padding:13px 15px">
+                  <div style="font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#9A968B">{{ s.k }}</div>
+                  <div style="font-size:14px;font-weight:600;margin-top:3px">{{ s.v }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        <div class="pdl-bid-column" style="position:sticky;top:88px;display:flex;flex-direction:column;gap:16px">
+          <div style="background:#F1F0ED;border:1px solid #E2E0DA;border-radius:2px;padding:26px 28px 28px;box-shadow:0 18px 48px rgba(20,20,15,.08);color:#17232B">
+            <div style="font-size:11px;font-weight:800;color:#8A8B87;margin-bottom:18px">Property from an Important Private Collection</div>
+            <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-bottom:20px;color:#737A7D;font-size:12px;font-weight:700">
+              <div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px">←</span><span>{{ room.prevLot }}</span></div>
+              <div style="font-family:Georgia,'Times New Roman',serif;font-size:26px;font-weight:600;color:#111">{{ room.receiptLot }}</div>
+              <div style="display:flex;align-items:center;gap:10px;justify-content:flex-end"><span>{{ room.nextLot }}</span><span style="font-size:18px">→</span></div>
+            </div>
+            <h2 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:29px;font-weight:400;line-height:1.12;color:#17232B">{{ room.receiptTitle }}</h2>
+            <p style="margin:7px 0 23px;font-size:15.5px;line-height:1.4;color:#4E5558">{{ room.receiptSub }}</p>
+            <div style="display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;border-bottom:1px solid #DAD8D2;padding:0 0 15px;margin-bottom:17px">
+              <div style="font-size:14px;color:#5F6669">Estimate:</div>
+              <div style="font-size:14.5px;color:#17232B;font-weight:700;text-align:right">{{ room.estimateText }} USD</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;margin-bottom:17px">
+              <div style="font-size:14px;color:#5F6669">Live auction ends in:</div>
+              <div style="font-size:14.5px;color:#17232B;font-weight:700;font-variant-numeric:tabular-nums;text-align:right">{{ room.countText }}</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;border-top:1px solid #DAD8D2;padding-top:15px;margin-bottom:17px">
+              <div style="font-size:14px;color:#5F6669">Current bid:</div>
+              <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;color:#17232B;font-weight:700;font-variant-numeric:tabular-nums;text-align:right">{{ room.priceText }}</div>
+            </div>
+            <div style="{{ room.leaderStyle }}">{{ room.leaderText }}</div>
+            <sc-if value="{{ room.canBid }}" hint-placeholder-val="{{ true }}">
+              <sc-if value="{{ room.statusShow }}" hint-placeholder-val="{{ false }}"><div style="{{ room.statusStyle }}">{{ room.statusText }}</div></sc-if>
+              <div style="display:grid;grid-template-columns:1fr 1.55fr;gap:8px;margin-top:15px">
+                <button onClick="{{ room.onSave }}" style="height:48px;border:1px solid #D4D2CC;background:#F9F8F4;color:#4D585E;font-family:'Hanken Grotesk';font-weight:800;font-size:12px;letter-spacing:.04em;cursor:pointer" style-hover="background:#fff">SAVE</button>
+                <button onClick="{{ placeBid }}" style="height:48px;border:none;background:#073A58;color:#fff;font-family:'Hanken Grotesk';font-weight:800;font-size:12px;letter-spacing:.04em;cursor:pointer" style-hover="background:#002B43">PLACE BID</button>
+              </div>
+              <div style="margin-top:14px;font-size:12px;color:#657074">or register to bid · minimum {{ room.minText }}</div>
+            </sc-if>
+            <sc-if value="{{ room.cantBid }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:15px;background:#fff;border:1px solid #E1DFD8;padding:14px;text-align:center">
+                <div style="font-weight:800;font-size:13px;color:#4D585E">{{ room.blockTitle }}</div>
+                <div style="font-size:12.5px;color:#7A8184;margin-top:3px;line-height:1.45">{{ room.blockSub }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ room.ended }}" hint-placeholder-val="{{ false }}"><div style="{{ room.resultStyle }}"><div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:17px">{{ room.resultTitle }}</div><div style="font-size:13.5px;margin-top:4px;opacity:.85">{{ room.resultSub }}</div></div></sc-if>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:0 20px;color:#17384C;font-size:13px;font-weight:800">
+            <div style="display:flex;align-items:center;gap:9px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17384C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><path d="M6 14h12v8H6z"></path></svg>
+              Print
+            </div>
+            <div style="display:flex;align-items:center;gap:9px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17384C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10H7z"></path><path d="M3 12h4"></path><path d="M17 12h4"></path><path d="M12 3v4"></path><path d="M12 17v4"></path></svg>
+              Currency Converter
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px;padding:0 20px">
+            <div style="width:34px;height:34px;border-radius:999px;background:#EEF0EE;border:1px solid #DEE2DF;display:flex;align-items:center;justify-content:center;color:#5A6970;flex:none">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5A6970" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.3L18.2 21l-1.7-7.1L22 9.1l-7.2-.6L12 2 9.2 8.5 2 9.1l5.5 4.8L5.8 21z"></path></svg>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:900;color:#17384C">Authenticity Guarantee</div>
+              <div style="font-size:12px;text-decoration:underline;color:#17384C;margin-top:3px">What is guaranteed?</div>
+              <div style="font-size:11.5px;color:#7A8184;margin-top:8px;line-height:1.45">Stripe secure settlement · invoice-ready receipt · insured handoff</div>
+            </div>
+          </div>
+          <div style="display:none;background:#fff;border:1px solid #E7E5DE;border-radius:18px;padding:22px;box-shadow:0 4px 20px rgba(20,20,15,.05)">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="display:flex;align-items:center;gap:7px;background:#FFEEE9;padding:6px 11px;border-radius:999px">
+                <div style="width:7px;height:7px;border-radius:50%;background:#FF5436;animation:pdl-pulse 1.4s ease-in-out infinite"></div>
+                <span style="font-size:11.5px;font-weight:700;letter-spacing:.04em;color:#FF5436">LIVE</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;color:#6E6B62">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="2.5"></circle></svg>
+                <span style="font-size:13px;font-weight:600;font-variant-numeric:tabular-nums">{{ room.viewers }} watching</span>
+              </div>
+            </div>
+            <div style="text-align:center;margin:20px 0 4px">
+              <div style="font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#9A968B">Ends in</div>
+              <div style="{{ room.countStyle }}">{{ room.countText }}</div>
+            </div>
+            <div style="height:1px;background:#F0EEE8;margin:18px 0"></div>
+            <div style="font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#9A968B">Current bid</div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:2px">
+              <div class="pdl-bid-price" style="font-family:'Bricolage Grotesque';font-weight:700;font-size:44px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1">{{ room.priceText }}</div>
+              <div style="{{ room.reserveStyle }}">{{ room.reserveText }}</div>
+            </div>
+            <div style="{{ room.leaderStyle }}">{{ room.leaderText }}</div>
+            <sc-if value="{{ room.canBid }}" hint-placeholder-val="{{ true }}">
+              <sc-if value="{{ room.statusShow }}" hint-placeholder-val="{{ false }}"><div style="{{ room.statusStyle }}">{{ room.statusText }}</div></sc-if>
+              <div style="margin-top:16px;font-size:12.5px;font-weight:600;color:#6E6B62">Your bid <span style="color:#9A968B">· min {{ room.minText }}</span></div>
+              <div style="display:flex;align-items:stretch;border:1.5px solid #E7E5DE;border-radius:12px;overflow:hidden;background:#fff;margin-top:7px">
+                <div style="display:flex;align-items:center;padding:0 14px;font-family:'Bricolage Grotesque';font-weight:600;color:#9A968B;font-size:19px">$</div>
+                <input value="{{ bidInput }}" onInput="{{ onBidInput }}" placeholder="{{ room.minDollars }}" inputmode="decimal" style="flex:1;min-width:0;border:none;outline:none;font-family:'Bricolage Grotesque';font-weight:600;font-size:21px;color:#1B1A16;padding:13px 6px 13px 0;background:transparent;font-variant-numeric:tabular-nums" />
+              </div>
+              <div style="display:flex;gap:8px;margin-top:9px">
+                <button onClick="{{ quickMin }}" style="flex:1;background:#F4F2EC;border:none;border-radius:9px;padding:9px;font-weight:600;font-size:13px;cursor:pointer" style-hover="background:#EBE8DF">Min</button>
+                <button onClick="{{ quickP25 }}" style="flex:1;background:#F4F2EC;border:none;border-radius:9px;padding:9px;font-weight:600;font-size:13px;cursor:pointer" style-hover="background:#EBE8DF">+$25</button>
+                <button onClick="{{ quickP100 }}" style="flex:1;background:#F4F2EC;border:none;border-radius:9px;padding:9px;font-weight:600;font-size:13px;cursor:pointer" style-hover="background:#EBE8DF">+$100</button>
+              </div>
+              <button onClick="{{ placeBid }}" style="margin-top:11px;width:100%;background:#1B1A16;color:#fff;border:none;border-radius:13px;padding:16px;font-family:'Hanken Grotesk';font-weight:700;font-size:16px;cursor:pointer;letter-spacing:-.01em" style-hover="background:#000">Place bid · {{ room.nextMinText }}</button>
+              <div style="display:flex;align-items:center;justify-content:center;gap:8px;background:#FAF9F6;border:1px solid #EDEBE3;border-radius:11px;margin-top:10px;padding:10px 12px;color:#54514A;font-size:12px;font-weight:700">
+                <span style="width:7px;height:7px;border-radius:50%;background:#1B9C5B"></span>
+                Payment method held for winner checkout
+              </div>
+              <div class="pdl-buyer-assurance">
+                <div>Stripe secure<br>settlement</div>
+                <div>Invoice-ready<br>receipt</div>
+                <div>Insured<br>handoff</div>
+              </div>
+              <div style="font-size:11.5px;color:#9A968B;text-align:center;margin-top:9px;line-height:1.4">Bids are binding. Server time decides the winner the instant the clock hits zero.</div>
+            </sc-if>
+            <sc-if value="{{ room.cantBid }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:16px;background:#F4F2EC;border-radius:12px;padding:15px;text-align:center">
+                <div style="font-weight:700;font-size:13.5px;color:#54514A">{{ room.blockTitle }}</div>
+                <div style="font-size:12.5px;color:#9A968B;margin-top:3px;line-height:1.45">{{ room.blockSub }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ room.ended }}" hint-placeholder-val="{{ false }}"><div style="{{ room.resultStyle }}"><div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:17px">{{ room.resultTitle }}</div><div style="font-size:13.5px;margin-top:4px;opacity:.85">{{ room.resultSub }}</div></div></sc-if>
+          </div>
+          <div style="background:#fff;border:1px solid #E7E5DE;border-radius:18px;padding:18px 20px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+              <h3 style="margin:0;font-family:'Hanken Grotesk';font-weight:700;font-size:14.5px">Live activity</h3>
+              <span style="font-size:12px;color:#9A968B;font-weight:600;font-variant-numeric:tabular-nums">{{ room.bidCount }} bids</span>
+            </div>
+            <div style="max-height:300px;overflow-y:auto">
+              <sc-for list="{{ room.feed }}" as="b" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid #F4F2EC">
+                  <div style="{{ b.dotStyle }}">{{ b.initial }}</div>
+                  <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13.5px">{{ b.label }}</div><div style="font-size:11.5px;color:#9A968B;font-variant-numeric:tabular-nums">{{ b.timeText }}</div></div>
+                  <div style="font-family:'Bricolage Grotesque';font-weight:600;font-size:15px;font-variant-numeric:tabular-nums">{{ b.amountText }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="font-size:11px;color:#C2BEB3;text-align:center;margin-top:10px">Bidder identities are masked per lot · sellers see real details</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== BIDDER DASHBOARD ===== -->
+    <sc-if value="{{ isDash }}" hint-placeholder-val="{{ false }}">
+    <div class="pdl-content" style="max-width:1280px;margin:0 auto;padding:38px 28px 90px">
+    <div data-screen-label="Bidder dashboard">
+      <h1 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:34px;letter-spacing:-.03em">Your dashboard</h1>
+      <p style="margin:6px 0 24px;font-size:15px;color:#6E6B62">Track the lots you're in, your watchlist, and what's happening right now.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px">
+        <sc-for list="{{ dashStats }}" as="st" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #E7E5DE;border-radius:16px;padding:18px 20px">
+            <div style="{{ st.numStyle }}">{{ st.num }}</div>
+            <div style="font-weight:700;font-size:14px;margin-top:2px">{{ st.label }}</div>
+            <div style="font-size:12.5px;color:#9A968B;margin-top:1px">{{ st.sub }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:26px">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:600;font-size:19px">Auctions you're bidding on</h2><span style="font-size:12.5px;color:#9A968B;font-weight:600">{{ biddingCount }} active</span></div>
+            <div style="background:#fff;border:1px solid #E7E5DE;border-radius:16px;overflow:hidden">
+              <sc-for list="{{ biddingRows }}" as="r" hint-placeholder-count="4">
+                <div onClick="{{ r.onOpen }}" style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid #F4F2EC;cursor:pointer" style-hover="background:#FAF9F6">
+                  <div class="lotimg" style="{{ r.thumbStyle }}"><img data-pdl-src="{{ r.imageUrl }}" alt="{{ r.title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block" /></div>
+                  <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.title }}</div><div style="font-size:12px;color:#9A968B;margin-top:2px">@{{ r.seller }} · {{ r.bidsText }}</div></div>
+                  <div style="text-align:right;flex:none"><div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:17px;font-variant-numeric:tabular-nums">{{ r.priceText }}</div><div style="{{ r.countStyle }}">{{ r.countText }}</div></div>
+                  <div style="{{ r.statusStyle }}">{{ r.statusText }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:600;font-size:19px">Watchlist</h2><span style="font-size:12.5px;color:#9A968B;font-weight:600">{{ watchCount }} lots</span></div>
+            <div style="background:#fff;border:1px solid #E7E5DE;border-radius:16px;overflow:hidden">
+              <sc-for list="{{ watchRows }}" as="r" hint-placeholder-count="3">
+                <div onClick="{{ r.onOpen }}" style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid #F4F2EC;cursor:pointer" style-hover="background:#FAF9F6">
+                  <div class="lotimg" style="{{ r.thumbStyle }}"><img data-pdl-src="{{ r.imageUrl }}" alt="{{ r.title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block" /></div>
+                  <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.title }}</div><div style="font-size:12px;color:#9A968B;margin-top:2px">@{{ r.seller }}</div></div>
+                  <div style="text-align:right;flex:none"><div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:16px;font-variant-numeric:tabular-nums">{{ r.priceText }}</div><div style="{{ r.countStyle }}">{{ r.countText }}</div></div>
+                  <button onClick="{{ r.onWatch }}" style="flex:none;background:#FFEEE9;border:none;width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#FF5436"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"></path></svg></button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <h2 style="margin:0 0 12px;font-family:'Bricolage Grotesque';font-weight:600;font-size:19px">Recent results</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <sc-for list="{{ resultRows }}" as="r" hint-placeholder-count="2">
+                <div style="background:#fff;border:1px solid #E7E5DE;border-radius:14px;padding:16px"><div style="{{ r.badgeStyle }}">{{ r.outcome }}</div><div style="font-weight:600;font-size:14px;margin-top:10px;line-height:1.3">{{ r.title }}</div><div style="font-size:12.5px;color:#9A968B;margin-top:4px">Final · <span style="font-family:'Bricolage Grotesque';font-weight:600;color:#1B1A16">{{ r.priceText }}</span></div></div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        <div style="position:sticky;top:88px;background:#fff;border:1px solid #E7E5DE;border-radius:16px;overflow:hidden">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid #F0EEE8"><h3 style="margin:0;font-family:'Hanken Grotesk';font-weight:700;font-size:15px">Notifications</h3><button onClick="{{ markAllRead }}" style="background:none;border:none;cursor:pointer;font-weight:600;font-size:12.5px;color:#FF5436;padding:0">Mark all read</button></div>
+          <div style="max-height:560px;overflow-y:auto">
+            <sc-for list="{{ notifications }}" as="n" hint-placeholder-count="5">
+              <div style="{{ n.rowStyle }}"><div style="{{ n.iconStyle }}"><div style="width:8px;height:8px;border-radius:50%;background:currentColor"></div></div><div style="flex:1;min-width:0"><div style="font-size:13.5px;line-height:1.4">{{ n.text }}</div><div style="font-size:11.5px;color:#9A968B;margin-top:3px">{{ n.timeText }}</div></div><sc-if value="{{ n.unread }}" hint-placeholder-val="{{ false }}"><div style="width:8px;height:8px;border-radius:50%;background:#FF5436;flex:none;margin-top:5px"></div></sc-if></div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== SELLER STUDIO ===== -->
+    <sc-if value="{{ isSeller }}" hint-placeholder-val="{{ false }}">
+    <div class="pdl-content" style="max-width:1280px;margin:0 auto;padding:38px 28px 90px">
+    <div data-screen-label="Seller studio">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px">
+        <div><h1 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:34px;letter-spacing:-.03em">Seller studio</h1><p style="margin:6px 0 0;font-size:15px;color:#6E6B62">Manage your listings, publish drafts, and track results.</p></div>
+        <button onClick="{{ openComposer }}" style="display:flex;align-items:center;gap:8px;background:#1B1A16;color:#fff;border:none;border-radius:12px;padding:12px 18px;font-family:'Hanken Grotesk';font-weight:700;font-size:14.5px;cursor:pointer" style-hover="background:#000"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>New listing</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px">
+        <sc-for list="{{ sellerStats }}" as="st" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #E7E5DE;border-radius:16px;padding:18px 20px"><div style="{{ st.numStyle }}">{{ st.num }}</div><div style="font-weight:700;font-size:14px;margin-top:2px">{{ st.label }}</div><div style="font-size:12.5px;color:#9A968B;margin-top:1px">{{ st.sub }}</div></div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:26px">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:600;font-size:19px">Drafts</h2><span style="font-size:12.5px;color:#9A968B;font-weight:600">{{ draftCount }} not published</span></div>
+          <div style="background:#fff;border:1px solid #E7E5DE;border-radius:16px;overflow:hidden">
+            <sc-for list="{{ draftRows }}" as="d" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:1px solid #F4F2EC">
+                <div style="{{ d.thumbStyle }}"></div>
+                <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14.5px">{{ d.title }}</div><div style="font-size:12px;color:#9A968B;margin-top:2px">{{ d.cat }} · start {{ d.startText }} · {{ d.durText }}</div></div>
+                <div style="{{ d.readyStyle }}">{{ d.readyText }}</div>
+                <button onClick="{{ d.onPublish }}" style="{{ d.publishStyle }}">Publish</button>
+              </div>
+            </sc-for>
+            <sc-if value="{{ noDrafts }}" hint-placeholder-val="{{ false }}"><div style="padding:26px;text-align:center;font-size:13.5px;color:#9A968B">No drafts. Hit “New listing” to create one.</div></sc-if>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:600;font-size:19px">Your live listings</h2><span style="font-size:12.5px;color:#9A968B;font-weight:600">{{ sellerLiveCount }} live</span></div>
+          <div style="background:#fff;border:1px solid #E7E5DE;border-radius:16px;overflow:hidden">
+            <sc-for list="{{ sellerLiveRows }}" as="r" hint-placeholder-count="2">
+              <div onClick="{{ r.onOpen }}" style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:1px solid #F4F2EC;cursor:pointer" style-hover="background:#FAF9F6">
+                <div class="lotimg" style="{{ r.thumbStyle }}"><img data-pdl-src="{{ r.imageUrl }}" alt="{{ r.title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block" /></div>
+                <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.title }}</div><div style="font-size:12px;color:#9A968B;margin-top:2px">{{ r.bidsText }} · {{ r.viewersText }}</div></div>
+                <div style="text-align:right;flex:none"><div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:17px;font-variant-numeric:tabular-nums">{{ r.priceText }}</div><div style="{{ r.reserveStyleSmall }}">{{ r.reserveText }}</div></div>
+                <div style="{{ r.countChip }}">{{ r.countText }}</div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ noSellerLive }}" hint-placeholder-val="{{ false }}"><div style="padding:26px;text-align:center;font-size:13.5px;color:#9A968B">No live listings yet.</div></sc-if>
+          </div>
+        </div>
+        <div>
+          <h2 style="margin:0 0 12px;font-family:'Bricolage Grotesque';font-weight:600;font-size:19px">Sold &amp; results</h2>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+            <sc-for list="{{ sellerResults }}" as="r" hint-placeholder-count="3">
+              <div style="background:#fff;border:1px solid #E7E5DE;border-radius:14px;padding:16px"><div style="{{ r.badgeStyle }}">{{ r.outcome }}</div><div style="font-weight:600;font-size:14px;margin-top:10px;line-height:1.3">{{ r.title }}</div><div style="font-size:12.5px;color:#9A968B;margin-top:4px">{{ r.sub }} · <span style="font-family:'Bricolage Grotesque';font-weight:600;color:#1B1A16">{{ r.priceText }}</span></div></div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== ADMIN MODERATION ===== -->
+    <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+    <div class="pdl-content" style="max-width:1280px;margin:0 auto;padding:38px 28px 90px">
+    <div data-screen-label="Admin moderation">
+      <h1 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:34px;letter-spacing:-.03em">Moderation</h1>
+      <p style="margin:6px 0 24px;font-size:15px;color:#6E6B62">Marketplace health, live activity, and the controls to keep it fair.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px">
+        <sc-for list="{{ adminStats }}" as="st" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #E7E5DE;border-radius:16px;padding:18px 20px"><div style="{{ st.numStyle }}">{{ st.num }}</div><div style="font-weight:700;font-size:14px;margin-top:2px">{{ st.label }}</div><div style="font-size:12.5px;color:#9A968B;margin-top:1px">{{ st.sub }}</div></div>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <div style="background:#fff;border:1px solid #E7E5DE;border-radius:16px;padding:20px">
+            <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px">
+              <div><div style="font-family:'Hanken Grotesk';font-weight:700;font-size:15px">Bids per minute</div><div style="font-size:12px;color:#9A968B;margin-top:2px">Rolling 60-second window · live</div></div>
+              <div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:30px;letter-spacing:-.02em;color:#FF5436;font-variant-numeric:tabular-nums;line-height:1">{{ bpm }}</div>
+            </div>
+            <div style="display:flex;align-items:flex-end;gap:4px;height:64px">
+              <sc-for list="{{ bpmBars }}" as="bar" hint-placeholder-count="12"><div style="{{ bar.style }}"></div></sc-for>
+            </div>
+          </div>
+          <div>
+            <h2 style="margin:0 0 12px;font-family:'Bricolage Grotesque';font-weight:600;font-size:19px">Active auctions</h2>
+            <div style="background:#fff;border:1px solid #E7E5DE;border-radius:16px;overflow:hidden">
+              <sc-for list="{{ adminAuctions }}" as="a" hint-placeholder-count="5">
+                <div style="{{ a.rowStyle }}">
+                  <div class="lotimg" style="{{ a.thumbStyle }}"><img data-pdl-src="{{ a.imageUrl }}" alt="{{ a.title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block" /></div>
+                  <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ a.title }}</div><div style="font-size:12px;color:#9A968B;margin-top:2px">@{{ a.seller }} · {{ a.bidsText }}</div></div>
+                  <div style="text-align:right;flex:none;width:96px"><div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:15px;font-variant-numeric:tabular-nums">{{ a.priceText }}</div><div style="{{ a.countStyle }}">{{ a.countText }}</div></div>
+                  <button onClick="{{ a.onCancel }}" style="{{ a.cancelStyle }}">{{ a.cancelLabel }}</button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <div style="background:#fff;border:1px solid #E7E5DE;border-radius:16px;overflow:hidden">
+            <div style="padding:15px 18px;border-bottom:1px solid #F0EEE8"><h3 style="margin:0;font-family:'Hanken Grotesk';font-weight:700;font-size:15px">Ending soonest</h3></div>
+            <sc-for list="{{ endingSoon }}" as="e" hint-placeholder-count="4">
+              <div style="display:flex;align-items:center;gap:11px;padding:12px 18px;border-bottom:1px solid #F4F2EC"><div style="{{ e.dotStyle }}"></div><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ e.title }}</div></div><div style="{{ e.countStyle }}">{{ e.countText }}</div></div>
+            </sc-for>
+          </div>
+          <div style="background:#fff;border:1px solid #E7E5DE;border-radius:16px;overflow:hidden">
+            <div style="padding:15px 18px;border-bottom:1px solid #F0EEE8"><h3 style="margin:0;font-family:'Hanken Grotesk';font-weight:700;font-size:15px">Users</h3></div>
+            <sc-for list="{{ adminUsers }}" as="u" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:11px;padding:12px 18px;border-bottom:1px solid #F4F2EC">
+                <div style="{{ u.avatarStyle }}">{{ u.initial }}</div>
+                <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13.5px">{{ u.name }}</div><div style="font-size:11.5px;color:#9A968B">{{ u.handle }} · {{ u.roles }}</div></div>
+                <sc-if value="{{ u.flagged }}" hint-placeholder-val="{{ false }}"><div style="font-size:10.5px;font-weight:700;color:#B07A12;background:#FBF0DA;padding:3px 8px;border-radius:999px">Flagged</div></sc-if>
+                <button onClick="{{ u.onBan }}" style="{{ u.banStyle }}">{{ u.banLabel }}</button>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </sc-if>
+
+  </div>
+  </div>
+  </sc-if>
+
+  <!-- ===== COMPOSER MODAL ===== -->
+  <sc-if value="{{ composerOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:90;background:rgba(27,26,22,.42);backdrop-filter:blur(3px);display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto">
+    <div style="width:100%;max-width:560px;background:#fff;border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.3);animation:pdl-in .2s ease">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #F0EEE8">
+        <h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:20px;letter-spacing:-.02em">New listing</h2>
+        <button onClick="{{ closeComposer }}" style="background:#F4F2EC;border:none;width:34px;height:34px;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#54514A" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"></path></svg></button>
+      </div>
+      <div style="padding:24px">
+        <div style="font-size:12.5px;font-weight:600;color:#54514A;margin-bottom:6px">Title</div>
+        <input value="{{ composer.title }}" onInput="{{ cTitle }}" placeholder="e.g. Rolleiflex 2.8F TLR, serviced" style="width:100%;border:1.5px solid #E7E5DE;border-radius:11px;padding:11px 13px;font-family:'Hanken Grotesk';font-size:14.5px;outline:none;margin-bottom:16px" />
+        <div style="font-size:12.5px;font-weight:600;color:#54514A;margin-bottom:6px">Category</div>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px">
+          <sc-for list="{{ composerCats }}" as="c" hint-placeholder-count="6"><button onClick="{{ c.onPick }}" style="{{ c.style }}">{{ c.label }}</button></sc-for>
+        </div>
+        <div style="display:flex;gap:14px;margin-bottom:16px">
+          <div style="flex:1"><div style="font-size:12.5px;font-weight:600;color:#54514A;margin-bottom:6px">Starting price</div><div style="display:flex;align-items:center;border:1.5px solid #E7E5DE;border-radius:11px;overflow:hidden"><span style="padding:0 12px;color:#9A968B;font-family:'Bricolage Grotesque';font-weight:600">$</span><input value="{{ composer.startD }}" onInput="{{ cStart }}" inputmode="decimal" placeholder="900" style="flex:1;min-width:0;border:none;outline:none;padding:11px 12px 11px 0;font-family:'Bricolage Grotesque';font-weight:600;font-size:15px" /></div></div>
+          <div style="flex:1"><div style="font-size:12.5px;font-weight:600;color:#54514A;margin-bottom:6px">Reserve <span style="color:#B6B2A7;font-weight:500">(optional)</span></div><div style="display:flex;align-items:center;border:1.5px solid #E7E5DE;border-radius:11px;overflow:hidden"><span style="padding:0 12px;color:#9A968B;font-family:'Bricolage Grotesque';font-weight:600">$</span><input value="{{ composer.reserveD }}" onInput="{{ cReserve }}" inputmode="decimal" placeholder="none" style="flex:1;min-width:0;border:none;outline:none;padding:11px 12px 11px 0;font-family:'Bricolage Grotesque';font-weight:600;font-size:15px" /></div></div>
+        </div>
+        <div style="font-size:12.5px;font-weight:600;color:#54514A;margin-bottom:6px">Duration</div>
+        <div style="display:flex;gap:7px;margin-bottom:18px">
+          <sc-for list="{{ composerDurations }}" as="d" hint-placeholder-count="4"><button onClick="{{ d.onPick }}" style="{{ d.style }}">{{ d.label }}</button></sc-for>
+        </div>
+        <div style="font-size:12.5px;font-weight:600;color:#54514A;margin-bottom:6px">Photos <span style="color:#B6B2A7;font-weight:500">(up to 5)</span></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px">
+          <div style="height:84px;border:1.5px dashed #D9D6CC;border-radius:12px;background:#FAF9F6;display:flex;align-items:center;justify-content:center;color:#9A968B;font-weight:700;font-size:12px">Photo</div>
+          <div style="height:84px;border:1.5px dashed #D9D6CC;border-radius:12px;background:#FAF9F6;display:flex;align-items:center;justify-content:center;color:#9A968B;font-weight:700;font-size:12px">Photo</div>
+          <div style="height:84px;border:1.5px dashed #D9D6CC;border-radius:12px;background:#FAF9F6;display:flex;align-items:center;justify-content:center;color:#9A968B;font-weight:700;font-size:12px">Photo</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;padding:18px 24px;border-top:1px solid #F0EEE8">
+        <button onClick="{{ saveDraft }}" style="background:#fff;border:1.5px solid #E7E5DE;border-radius:11px;padding:11px 18px;font-family:'Hanken Grotesk';font-weight:700;font-size:14px;cursor:pointer">Save draft</button>
+        <button onClick="{{ publishListing }}" style="background:#1B1A16;color:#fff;border:none;border-radius:11px;padding:11px 20px;font-family:'Hanken Grotesk';font-weight:700;font-size:14px;cursor:pointer" style-hover="background:#000">Publish now</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- toast -->
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:50%;bottom:30px;transform:translateX(-50%);z-index:100;background:#1B1A16;color:#fff;padding:13px 20px;border-radius:13px;font-weight:600;font-size:14px;box-shadow:0 14px 40px rgba(0,0,0,.28);display:flex;align-items:center;gap:11px;animation:pdl-in .22s ease">
+      <div style="{{ toastDotStyle }}"></div>{{ toast }}
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1240,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const now = Date.now();
+    const S = 1000, M = 60 * S, H = 60 * M, D = 24 * H;
+    this.MY = 'your.studio';
+    const img = {
+      a1: 'assets/lots/leica-camera.png',
+      a2: 'assets/lots/teak-lounge-chair.png',
+      a3: 'assets/lots/cartier-watch.png',
+      a4: 'assets/lots/jazz-vinyl.png',
+      a5: 'assets/lots/rolex-watch.png',
+      a6: 'assets/lots/wishbone-chairs.png',
+      a7: 'assets/lots/jordan-sneakers.png',
+      a8: 'assets/lots/hasselblad-camera.png',
+      a9: 'assets/lots/cartier-watch.png',
+      a10: 'assets/lots/wishbone-chairs.png'
+    };
+    const mk = (id, title, seller, cat, price, bids, viewers, ends, reserve, reserveMet, youLeading, youBidding, watching, mine) => ({
+      id, title, seller, cat, imageUrl: img[id] || 'assets/lots/rolex-watch.png',
+      currentPriceCents: price, startPriceCents: Math.max(1000, price - bids * 250),
+      bidCount: bids, viewers, endsAt: now + ends,
+      reserveCents: reserve, reserveMet: !!reserveMet,
+      youLeading: !!youLeading, youBidding: !!youBidding,
+      leader: youLeading ? 'You' : 'Bidder #1', watching: !!watching,
+      mine: !!mine, cancelled: false,
+      bidders: ['Bidder #1', 'Bidder #2', 'Bidder #3'], feed: []
+    });
+    this.state = {
+      role: null, screen: 'signin', backTo: 'browse',
+      activeId: null, now, bidInput: '', toast: null, toastTone: 'live', viewerFrame: 0,
+      notifOpen: false, accountOpen: false, composerOpen: false,
+      composer: { title: '', cat: 'Watches', startD: '', reserveD: '', mins: 1440 },
+      auctions: [
+        mk('a1', 'Leica M6 Rangefinder, 1984 — original leatherette', 'kanto.cameras', 'Cameras', 184000, 23, 47, 5 * M + 12 * S, 200000, false, true, true, true, false),
+        mk('a2', 'Mid-century teak lounge chair & ottoman', 'nord.studio', 'Furniture', 62000, 14, 19, 47 * S, 50000, true, false, false, false, false),
+        mk('a3', 'Omega Speedmaster Professional "Moonwatch"', 'tempus.co', 'Watches', 410000, 38, 88, 2 * H + 14 * M, 450000, false, false, true, true, false),
+        mk('a4', 'First pressing — Blue Note jazz LP, 1959', 'wax.archive', 'Vinyl', 28000, 9, 12, 6 * M + 20 * S, null, true, false, false, true, false),
+        mk('a5', 'Cartier Tank Solo, stainless steel', 'maison.lux', 'Jewelry', 268000, 31, 64, 18 * M + 40 * S, 300000, false, true, true, true, false),
+        mk('a6', 'Eames aluminum group desk, refinished', 'nord.studio', 'Furniture', 94000, 17, 22, 1 * H + 2 * M, null, true, false, false, false, false),
+        mk('a7', 'Air Jordan 1 "Chicago" 1985 OG, size 9', 'grail.kicks', 'Sneakers', 530000, 52, 140, 9 * M + 5 * S, 600000, false, false, true, false, false),
+        mk('a8', 'Hasselblad 500C/M medium-format kit', 'kanto.cameras', 'Cameras', 142000, 12, 18, 3 * H + 25 * M, null, true, false, false, true, false),
+        mk('a9', 'Tag Heuer Carrera reissue, boxed', this.MY, 'Watches', 158000, 11, 27, 24 * M, 180000, false, false, false, false, true),
+        mk('a10', 'Pair of Wegner CH24 wishbone chairs', this.MY, 'Furniture', 76000, 8, 14, 52 * M, null, true, false, false, false, true)
+      ],
+      drafts: [
+        { id: 'd1', title: 'Rolleiflex 2.8F TLR, serviced', cat: 'Cameras', startD: '900', reserveD: '1200', mins: 1440, ready: true },
+        { id: 'd2', title: 'Vintage Omega Seamaster, 1968', cat: 'Watches', startD: '600', reserveD: '', mins: 4320, ready: false }
+      ],
+      users: [
+        { id: 'u1', name: 'Ava Chen', handle: '@ava.bids', roles: 'Bidder', status: 'active' },
+        { id: 'u2', name: 'Nordic Studio', handle: '@nord.studio', roles: 'Seller', status: 'active' },
+        { id: 'u3', name: 'Quick Flips', handle: '@quick.flips', roles: 'Bidder', status: 'active', flagged: true },
+        { id: 'u4', name: 'Grail Kicks', handle: '@grail.kicks', roles: 'Seller · Bidder', status: 'active' },
+        { id: 'u5', name: 'Kanto Cameras', handle: '@kanto.cameras', roles: 'Seller', status: 'active' }
+      ],
+      notifications: [
+        { id: 'n1', type: 'outbid', title: 'Omega Speedmaster Professional', t: now - 88 * S, read: false },
+        { id: 'n2', type: 'reserve', title: 'Mid-century teak lounge chair', t: now - 6 * M, read: false },
+        { id: 'n3', type: 'won', title: 'Polaroid SX-70, refurbished', amount: 41000, t: now - 2 * H, read: true },
+        { id: 'n4', type: 'outbid', title: 'Air Jordan 1 "Chicago" 1985 OG', t: now - 3 * H, read: true },
+        { id: 'n5', type: 'lost', title: 'Vintage brass sextant', t: now - 1 * D, read: true }
+      ]
+    };
+    this.CAT = {
+      Cameras: { g1: '#9CC9FF', g2: '#2F7BFF', ink: '#1763E0' },
+      Furniture: { g1: '#FFC487', g2: '#FF8324', ink: '#F2731A' },
+      Watches: { g1: '#C3A8FF', g2: '#7B4DFF', ink: '#6C3DF6' },
+      Vinyl: { g1: '#FF9ECB', g2: '#FF4FA3', ink: '#E83A8E' },
+      Jewelry: { g1: '#FFE066', g2: '#FFBE12', ink: '#E0980A' },
+      Sneakers: { g1: '#86E89A', g2: '#1FD24A', ink: '#15A93E' }
+    };
+    this._bidTimes = [];
+    for (let i = 0; i < 38; i++) this._bidTimes.push(now - Math.floor(Math.random() * 60000));
+  }
+
+  componentDidMount() { this.seedFeeds(); this.loadBackendAuctions(); this._iv = setInterval(() => this.tick(), 1000); }
+  componentWillUnmount() { clearInterval(this._iv); clearTimeout(this._tt); }
+
+  async loadBackendAuctions() {
+    try {
+      const res = await fetch('/api/auctions', { headers: { accept: 'application/json' } });
+      const payload = await res.json();
+      if (!res.ok) throw new Error(payload.error || 'Could not load auctions');
+      if (!Array.isArray(payload.auctions)) return;
+      const mapped = payload.auctions.map((row, index) => this._fromApiAuction(row, index)).filter(Boolean);
+      if (!mapped.length) return;
+      const activeId = mapped.some(a => a.id === this.state.activeId) ? this.state.activeId : mapped[0].id;
+      this.setState({ auctions: mapped, activeId });
+      setTimeout(() => this.seedFeeds(), 0);
+    } catch (error) {
+      this._toast('Using local auction data until backend is available', 'coral');
+    }
+  }
+
+  _fromApiAuction(row, index) {
+    if (!row || !row.id) return null;
+    const bidCount = Number(row.bid_count || row.bidCount || 0);
+    const currentPriceCents = Number(row.current_price_cents || row.currentPriceCents || row.starting_price_cents || 0);
+    const reserveCents = row.reserve_price_cents == null ? null : Number(row.reserve_price_cents);
+    const category = row.category || row.cat || ['Watches', 'Cameras', 'Furniture', 'Vinyl', 'Jewelry', 'Sneakers'][index % 6];
+    const seller = row.seller_handle || row.seller || ('seller.' + String(index + 1));
+    const endsAt = row.ends_at ? new Date(row.ends_at).getTime() : Date.now() + (index + 1) * 3600000;
+    return {
+      id: String(row.id),
+      title: row.title || 'Untitled auction',
+      imageUrl: row.image_url || row.imageUrl || 'assets/lots/rolex-watch.png',
+      seller,
+      cat: category,
+      currentPriceCents,
+      startPriceCents: Number(row.starting_price_cents || row.startPriceCents || currentPriceCents),
+      bidCount,
+      viewers: Number(row.viewers || 12 + index * 7),
+      endsAt,
+      reserveCents,
+      reserveMet: reserveCents == null || currentPriceCents >= reserveCents,
+      youLeading: false,
+      youBidding: false,
+      leader: bidCount > 0 ? 'Bidder #1' : null,
+      watching: false,
+      mine: seller === this.MY,
+      cancelled: row.status === 'cancelled',
+      bidders: ['Bidder #1', 'Bidder #2', 'Bidder #3'],
+      feed: []
+    };
+  }
+
+  seedFeeds() {
+    const now = this.state.now;
+    this.state.auctions.forEach(a => {
+      const n = Math.min(a.bidCount, 7); let amt = a.currentPriceCents; const feed = [];
+      for (let i = 0; i < n; i++) {
+        const you = (i === 0 && a.youLeading);
+        const label = you ? 'You' : a.bidders[i % 3];
+        feed.push({ label, amount: amt, t: now - (i * 41 + 6) * 1000, you });
+        amt -= [100, 200, 200, 300, 100, 500][i % 6];
+      }
+      a.feed = feed;
+    });
+    this.setState({});
+  }
+
+  _label(a) {
+    if (Math.random() < 0.28 && a.bidders.length < 6) { const nm = 'Bidder #' + (a.bidders.length + 1); a.bidders.push(nm); return nm; }
+    let nm = a.bidders[Math.floor(Math.random() * a.bidders.length)];
+    if (nm === a.leader && a.bidders.length > 1) nm = a.bidders[(a.bidders.indexOf(nm) + 1) % a.bidders.length];
+    return nm;
+  }
+
+  _inject(a, byYou, amountCents, now, evs) {
+    if (now >= a.endsAt || a.cancelled) return false;
+    const inc = [100, 100, 100, 200, 200, 500][Math.floor(Math.random() * 6)];
+    const amount = byYou ? amountCents : a.currentPriceCents + inc;
+    const wasLeading = a.youLeading;
+    const label = byYou ? 'You' : this._label(a);
+    a.currentPriceCents = amount; a.bidCount++; a.leader = label; a.youLeading = byYou;
+    if (byYou) a.youBidding = true;
+    if (a.reserveCents != null && amount >= a.reserveCents) a.reserveMet = true;
+    if (Math.random() < 0.4) a.viewers = Math.max(4, a.viewers + (Math.random() < 0.5 ? 1 : -1));
+    a.feed = [{ label, amount, t: now, you: byYou }, ...a.feed].slice(0, 14);
+    this._bidTimes.push(now);
+    if (this._bidTimes.length > 400) this._bidTimes = this._bidTimes.slice(-200);
+    if (!byYou && (wasLeading || a.youBidding)) {
+      evs.notif.unshift({ id: 'n' + now + Math.floor(Math.random() * 999), type: 'outbid', title: a.title, t: now, read: false });
+      if (wasLeading && this.state.role === 'bidder') evs.toast = { text: 'You were outbid on this lot', tone: 'coral' };
+    }
+    return true;
+  }
+
+  tick() {
+    const now = Date.now();
+    const evs = { notif: [], toast: null };
+    this.state.auctions.forEach(a => {
+      if (now >= a.endsAt || a.cancelled) return;
+      const active = a.id === this.state.activeId && this.state.screen === 'room';
+      if (Math.random() < (active ? 0.34 : 0.085)) this._inject(a, false, null, now, evs);
+    });
+    const ns = { now, auctions: this.state.auctions.slice() };
+    if (evs.notif.length) ns.notifications = [...evs.notif, ...this.state.notifications].slice(0, 30);
+    if (evs.toast) { ns.toast = evs.toast.text; ns.toastTone = evs.toast.tone; this._clearToastSoon(); }
+    this.setState(ns);
+  }
+
+  _clearToastSoon() { clearTimeout(this._tt); this._tt = setTimeout(() => this.setState({ toast: null }), 2600); }
+  _toast(t, tone) { this.setState({ toast: t, toastTone: tone || 'live' }); this._clearToastSoon(); }
+  _active() { return this.state.auctions.find(a => a.id === this.state.activeId); }
+
+  // ---- navigation / auth ----
+  homeFor(role) { return role === 'seller' ? 'seller' : (role === 'admin' ? 'admin' : 'browse'); }
+  signInAs(role) { this.setState({ role, screen: this.homeFor(role), notifOpen: false, accountOpen: false }); try { window.scrollTo(0, 0); setTimeout(() => window.scrollTo(0, 0), 0); } catch (e) {} }
+  signOut() { this.setState({ role: null, screen: 'signin', accountOpen: false, notifOpen: false }); try { window.scrollTo(0, 0); setTimeout(() => window.scrollTo(0, 0), 0); } catch (e) {} }
+  goHome() { this.setState({ screen: this.homeFor(this.state.role), notifOpen: false, accountOpen: false }); try { window.scrollTo(0, 0); } catch (e) {} }
+  go(screen) { this.setState({ screen, notifOpen: false, accountOpen: false }); try { window.scrollTo(0, 0); } catch (e) {} }
+  openRoom(id) { this.setState({ screen: 'room', activeId: id, bidInput: '', viewerFrame: 0, backTo: this.state.screen === 'room' ? this.state.backTo : this.state.screen, notifOpen: false, accountOpen: false }); try { window.scrollTo(0, 0); } catch (e) {} }
+  goBack() { this.go(this.state.backTo || 'browse'); }
+
+  setViewerFrame(i) {
+    const a = this._active(); if (!a) return;
+    const total = this._overviewFrames(a).length;
+    this.setState({ viewerFrame: (i + total) % total });
+  }
+  spinFrame(delta) { this.setViewerFrame(this.state.viewerFrame + delta); }
+  spinStart(e) { this._spinX = e && e.clientX != null ? e.clientX : 0; this._spinDown = true; }
+  spinMove(e) {
+    if (!this._spinDown || !e || e.clientX == null) return;
+    const diff = e.clientX - this._spinX;
+    if (Math.abs(diff) < 28) return;
+    this.spinFrame(diff > 0 ? 1 : -1);
+    this._spinX = e.clientX;
+  }
+  spinEnd() { this._spinDown = false; }
+
+  toggleWatch(id) { const a = this.state.auctions.find(x => x.id === id); if (a) a.watching = !a.watching; this.setState({ auctions: this.state.auctions.slice() }); }
+
+  async placeBid() {
+    const a = this._active(); if (!a) return;
+    if (Date.now() >= a.endsAt) { this._toast('This lot has already ended', 'coral'); return; }
+    const min = a.currentPriceCents + 100;
+    let cents = this.state.bidInput ? Math.round(parseFloat(this.state.bidInput) * 100) : min;
+    if (isNaN(cents) || cents < min) { this._toast('Enter at least ' + this.fmt(min), 'coral'); return; }
+    try {
+      const res = await fetch('/api/bids', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', accept: 'application/json' },
+        body: JSON.stringify({ auctionId: a.id, bidderId: '4a403e6e-7dab-4d70-bf0a-c67773665e30', amountCents: cents, bidCount: a.bidCount })
+      });
+      const payload = await res.json();
+      if (!res.ok) throw new Error(payload.error || 'Bid rejected');
+      const committed = payload.bid || {};
+      const committedAmount = Number(committed.current_price_cents || committed.amount_cents || cents);
+      const evs = { notif: [], toast: null };
+      this._inject(a, true, committedAmount, Date.now(), evs);
+      if (committed.bid_count != null) a.bidCount = Number(committed.bid_count);
+    this.setState({ auctions: this.state.auctions.slice(), bidInput: '', toast: "Bid placed — you're the highest bidder", toastTone: 'green' });
+      this._clearToastSoon();
+    } catch (error) {
+      this._toast(error instanceof Error ? error.message : 'Bid rejected', 'coral');
+    }
+  }
+  setQuick(d) { const a = this._active(); if (!a) return; this.setState({ bidInput: ((a.currentPriceCents + 100 + d) / 100).toString() }); }
+
+  // ---- composer ----
+  openComposer() { this.setState({ composerOpen: true, composer: { title: '', cat: 'Watches', startD: '', reserveD: '', mins: 1440 } }); }
+  closeComposer() { this.setState({ composerOpen: false }); }
+  setComposer(patch) { this.setState({ composer: { ...this.state.composer, ...patch } }); }
+  _newAuctionFromComposer() {
+    const c = this.state.composer;
+    const now = Date.now();
+    const start = Math.round((parseFloat(c.startD) || 0) * 100);
+    const reserve = c.reserveD ? Math.round(parseFloat(c.reserveD) * 100) : null;
+    return {
+      id: 'new' + now, title: c.title, seller: this.MY, cat: c.cat,
+      currentPriceCents: start, startPriceCents: start, bidCount: 0, viewers: 1,
+      endsAt: now + c.mins * 60000, reserveCents: reserve, reserveMet: reserve == null,
+      youLeading: false, youBidding: false, leader: null, watching: false, mine: true, cancelled: false,
+      bidders: ['Bidder #1', 'Bidder #2', 'Bidder #3'], feed: []
+    };
+  }
+  publishListing() {
+    const c = this.state.composer;
+    if (!c.title.trim()) { this._toast('Add a title first', 'coral'); return; }
+    if (!c.startD || isNaN(parseFloat(c.startD))) { this._toast('Set a starting price', 'coral'); return; }
+    const a = this._newAuctionFromComposer();
+    this.setState({ auctions: [a, ...this.state.auctions], composerOpen: false, screen: 'seller', toast: 'Listing published — it’s now live', toastTone: 'green' });
+    this._clearToastSoon();
+  }
+  saveDraft() {
+    const c = this.state.composer;
+    if (!c.title.trim()) { this._toast('Add a title first', 'coral'); return; }
+    const d = { id: 'd' + Date.now(), title: c.title, cat: c.cat, startD: c.startD, reserveD: c.reserveD, mins: c.mins, ready: !!(c.title && c.startD) };
+    this.setState({ drafts: [d, ...this.state.drafts], composerOpen: false, toast: 'Saved to drafts', toastTone: 'live' });
+    this._clearToastSoon();
+  }
+  publishDraft(id) {
+    const d = this.state.drafts.find(x => x.id === id); if (!d) return;
+    if (!d.startD) { this._toast('Add a starting price before publishing', 'coral'); return; }
+    const now = Date.now();
+    const start = Math.round((parseFloat(d.startD) || 0) * 100);
+    const reserve = d.reserveD ? Math.round(parseFloat(d.reserveD) * 100) : null;
+    const a = { id: 'pub' + now, title: d.title, seller: this.MY, cat: d.cat, currentPriceCents: start, startPriceCents: start, bidCount: 0, viewers: 1, endsAt: now + (d.mins || 1440) * 60000, reserveCents: reserve, reserveMet: reserve == null, youLeading: false, youBidding: false, leader: null, watching: false, mine: true, cancelled: false, bidders: ['Bidder #1', 'Bidder #2', 'Bidder #3'], feed: [] };
+    this.setState({ auctions: [a, ...this.state.auctions], drafts: this.state.drafts.filter(x => x.id !== id), toast: 'Draft published — now live', toastTone: 'green' });
+    this._clearToastSoon();
+  }
+
+  // ---- admin actions ----
+  cancelAuction(id) {
+    const a = this.state.auctions.find(x => x.id === id); if (!a) return;
+    a.cancelled = true;
+    this.setState({ auctions: this.state.auctions.slice(), toast: 'Auction cancelled', toastTone: 'coral' });
+    this._clearToastSoon();
+  }
+  banUser(id) {
+    const u = this.state.users.find(x => x.id === id); if (!u) return;
+    u.status = u.status === 'banned' ? 'active' : 'banned';
+    if (u.status === 'banned') {
+      const handle = u.handle.replace('@', '');
+      this.state.auctions.forEach(a => { if (a.seller === handle) a.cancelled = true; });
+    }
+    this.setState({ users: this.state.users.slice(), auctions: this.state.auctions.slice(), toast: u.status === 'banned' ? 'User banned · live lots pulled' : 'Ban lifted', toastTone: u.status === 'banned' ? 'coral' : 'green' });
+    this._clearToastSoon();
+  }
+
+  // ---- formatting helpers ----
+  fmt(c) { return '$' + Math.round(c / 100).toLocaleString('en-US'); }
+  _cd(endsAt, full) {
+    let diff = endsAt - this.state.now;
+    if (diff <= 0) return { ended: true, urgent: true, text: 'Ended' };
+    const s = Math.floor(diff / 1000);
+    const d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+    const urgent = diff < 60000, soon = diff < 5 * 60000;
+    let text;
+    if (full) { if (d > 0) text = d + 'd ' + h + 'h ' + m + 'm'; else text = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0'); }
+    else { if (d > 0) text = d + 'd ' + h + 'h'; else if (h > 0) text = h + 'h ' + m + 'm'; else if (m > 0) text = m + 'm ' + String(sec).padStart(2, '0') + 's'; else text = sec + 's'; }
+    return { ended: false, urgent, soon, text };
+  }
+  _ago(t) {
+    const s = Math.floor((this.state.now - t) / 1000);
+    if (s < 5) return 'just now'; if (s < 60) return s + 's ago';
+    const m = Math.floor(s / 60); if (m < 60) return m + 'm ago';
+    const h = Math.floor(m / 60); if (h < 24) return h + 'h ago';
+    return Math.floor(h / 24) + 'd ago';
+  }
+  _pill(bg, ink) { return 'display:inline-flex;align-items:center;gap:5px;background:' + bg + ';color:' + ink + ';font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap'; }
+  _reserve(a) {
+    if (a.reserveCents == null) return { text: 'No reserve', style: this._pill('#E7F6EE', '#1B9C5B') };
+    if (a.reserveMet) return { text: 'Reserve met', style: this._pill('#E7F6EE', '#1B9C5B') };
+    return { text: 'Reserve not met', style: this._pill('#FBF0DA', '#B07A12') };
+  }
+  _countChip(cd, big) {
+    if (big) { const col = cd.urgent ? '#FF5436' : (cd.soon ? '#B07A12' : '#1B1A16'); return "font-family:'Bricolage Grotesque';font-weight:700;font-size:38px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.05;margin-top:3px;color:" + col; }
+    const bg = cd.urgent ? '#FFEEE9' : '#F4F2EC'; const col = cd.urgent ? '#FF5436' : '#54514A';
+    return 'display:inline-flex;align-items:center;gap:5px;background:' + bg + ';color:' + col + ';font-size:12.5px;font-weight:700;padding:5px 10px;border-radius:9px;font-variant-numeric:tabular-nums;white-space:nowrap';
+  }
+  _miniCount(cd) { const col = cd.ended ? '#9A968B' : (cd.urgent ? '#FF5436' : '#6E6B62'); return 'font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:3px;color:' + col; }
+  _feedDot(label, you) {
+    if (you) return "width:30px;height:30px;border-radius:9px;background:#1B1A16;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;flex:none";
+    const palette = ['#7B4DFF', '#2F7BFF', '#1FD24A', '#FF8324', '#FF4FA3', '#FF6B2C'];
+    const n = parseInt((label.match(/\d+/) || [1])[0], 10);
+    const c = palette[(n - 1) % palette.length];
+    return 'width:30px;height:30px;border-radius:9px;background:' + c + '22;color:' + c + ";display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:12px;flex:none";
+  }
+  _thumbBig(a) { const c = this.CAT[a.cat] || { g1: '#EFEDE6', g2: '#DDD9CE' }; return 'position:relative;overflow:hidden;height:224px;background:linear-gradient(135deg,' + c.g1 + ',' + c.g2 + ')'; }
+  _thumbMini(a) { const c = this.CAT[a.cat] || { g1: '#EFEDE6', g2: '#DDD9CE' }; return 'position:relative;overflow:hidden;width:54px;height:54px;border-radius:11px;flex:none;background:linear-gradient(135deg,' + c.g1 + ',' + c.g2 + ')'; }
+  _thumbSm(cat) { const c = this.CAT[cat] || { g1: '#EFEDE6', g2: '#DDD9CE' }; return 'position:relative;overflow:hidden;width:44px;height:44px;border-radius:10px;flex:none;background:linear-gradient(135deg,' + c.g1 + ',' + c.g2 + ')'; }
+  _watchBtn(on) { return 'position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;' + (on ? 'background:#FF5436;color:#fff' : 'background:rgba(255,255,255,.92);color:#1B1A16'); }
+
+  _durText(mins) { if (mins % 1440 === 0) return (mins / 1440) + 'd'; if (mins % 60 === 0) return (mins / 60) + 'h'; return mins + 'm'; }
+
+  _premiumMeta(a) {
+    const low = Math.max(10000, Math.round(a.currentPriceCents * .92 / 10000) * 10000);
+    const high = Math.max(low + 10000, Math.round(a.currentPriceCents * 1.28 / 10000) * 10000);
+    const conditionByCat = {
+      Cameras: 'CLA checked',
+      Furniture: 'Restored',
+      Watches: 'Serviced',
+      Vinyl: 'NM / VG+',
+      Jewelry: 'Excellent',
+      Sneakers: 'Deadstock'
+    };
+    const handoffByCat = {
+      Cameras: 'Insured',
+      Furniture: 'White glove',
+      Watches: 'Vault ship',
+      Vinyl: 'Archival pack',
+      Jewelry: 'Secure ship',
+      Sneakers: 'Auth ship'
+    };
+    return {
+      estimateText: this.fmt(low) + '-' + this.fmt(high),
+      conditionText: conditionByCat[a.cat] || 'Reviewed',
+      handoffText: handoffByCat[a.cat] || 'Insured',
+      assuranceText: 'Buyer protected checkout'
+    };
+  }
+
+  _viewerFrames(a) {
+    const src = a.imageUrl || 'assets/lots/rolex-watch.png';
+    return [
+      { label: 'Front view', shortLabel: 'Front', imageUrl: src, style: 'transform:scale(1.04) translateX(0);filter:saturate(.98) contrast(1.04)', thumbStyle: 'transform:scale(1.05) translateX(0);filter:saturate(.98) contrast(1.04)' },
+      { label: '30 degree left', shortLabel: '30°', imageUrl: src, style: 'transform:scale(1.13) translateX(-5%);filter:saturate(.94) contrast(1.06)', thumbStyle: 'transform:scale(1.18) translateX(-8%);filter:saturate(.94) contrast(1.06)' },
+      { label: 'Left profile', shortLabel: 'Left', imageUrl: src, style: 'transform:scale(1.21) translateX(-13%);filter:brightness(.95) contrast(1.08)', thumbStyle: 'transform:scale(1.25) translateX(-16%);filter:brightness(.95) contrast(1.08)' },
+      { label: 'Rear angle', shortLabel: 'Rear', imageUrl: src, style: 'transform:scale(1.26) translateX(12%);filter:saturate(.9) contrast(1.1)', thumbStyle: 'transform:scale(1.28) translateX(12%);filter:saturate(.9) contrast(1.1)' },
+      { label: 'Right profile', shortLabel: 'Right', imageUrl: src, style: 'transform:scale(1.20) translateX(8%);filter:brightness(1.04) contrast(1.05)', thumbStyle: 'transform:scale(1.2) translateX(8%);filter:brightness(1.04) contrast(1.05)' },
+      { label: 'Detail angle', shortLabel: 'Detail', imageUrl: src, style: 'transform:scale(1.32) translateX(-2%);filter:saturate(1.02) contrast(1.08)', thumbStyle: 'transform:scale(1.34) translateX(-2%);filter:saturate(1.02) contrast(1.08)' },
+      { label: 'Crown detail', shortLabel: 'Detail', imageUrl: src, style: 'transform:scale(1.28) translateX(15%);filter:saturate(.96) brightness(1.05)', thumbStyle: 'transform:scale(1.3) translateX(15%);filter:saturate(.96) brightness(1.05)' },
+      { label: 'Front return', shortLabel: 'Front', imageUrl: src, style: 'transform:scale(1.05) translateX(0);filter:saturate(1.05) contrast(1.02)', thumbStyle: 'transform:scale(1.08) translateX(0);filter:saturate(1.05) contrast(1.02)' }
+    ];
+  }
+
+  _overviewFrames(a) {
+    const src = a.imageUrl || 'assets/lots/rolex-watch.png';
+    const side = this._sideOverviewAsset(a) || src;
+    const rear = this._rearOverviewAsset(a);
+    return [
+      { label: 'Front 3D overview', shortLabel: 'Front', imageUrl: src, style: 'transform:rotateY(0deg) scale(.96);filter:saturate(1) contrast(1.04) drop-shadow(0 28px 34px rgba(0,0,0,.34))', thumbStyle: 'transform:rotateY(0deg) scale(.9);filter:saturate(1) contrast(1.04)' },
+      { label: 'Side view reference', shortLabel: 'Side', imageUrl: side, style: 'transform:scale(.96);filter:saturate(1) contrast(1.05) drop-shadow(18px 28px 34px rgba(0,0,0,.32))', thumbStyle: 'transform:scale(.92);filter:saturate(1) contrast(1.05)' },
+      { label: 'Back view reference', shortLabel: 'Back', imageUrl: rear, style: 'transform:scale(.94);filter:drop-shadow(0 28px 34px rgba(0,0,0,.18))', thumbStyle: 'transform:scale(.92);filter:none' },
+      { label: 'Detail overview', shortLabel: 'Detail', imageUrl: src, style: 'transform:rotateY(0deg) scale(1.16) translateY(-1%);filter:saturate(1.04) contrast(1.08) drop-shadow(0 28px 34px rgba(0,0,0,.34))', thumbStyle: 'transform:scale(1.08);filter:saturate(1.04) contrast(1.08)' }
+    ];
+  }
+
+  _sideOverviewAsset(a) {
+    const key = (a && a.imageUrl) || '';
+    if (key.indexOf('leica-camera.png') > -1) return 'assets/lots/leica-side-generated.png';
+    if (key.indexOf('hasselblad-camera.png') > -1) return 'assets/lots/hasselblad-side-generated.png';
+    if (key.indexOf('teak-lounge-chair.png') > -1) return 'assets/lots/teak-side-generated.png';
+    if (key.indexOf('wishbone-chairs.png') > -1) return 'assets/lots/wishbone-side-generated.png';
+    if (key.indexOf('cartier-watch.png') > -1) return 'assets/lots/cartier-side-generated.png';
+    if (key.indexOf('jordan-sneakers.png') > -1) return 'assets/lots/jordan-side-generated.png';
+    if ((a && a.cat) === 'Watches' || (a && a.cat) === 'Jewelry') return 'assets/lots/watch-side-generated.png';
+    return null;
+  }
+
+  _rearOverviewAsset(a) {
+    const key = (a && a.imageUrl) || '';
+    const cat = (a && a.cat) || '';
+    if (key.indexOf('leica-camera.png') > -1) return 'assets/lots/leica-back-generated.png';
+    if (key.indexOf('hasselblad-camera.png') > -1) return 'assets/lots/hasselblad-back-generated.png';
+    if (key.indexOf('teak-lounge-chair.png') > -1) return 'assets/lots/teak-back-generated.png';
+    if (key.indexOf('wishbone-chairs.png') > -1) return 'assets/lots/wishbone-back-generated.png';
+    if (key.indexOf('cartier-watch.png') > -1) return 'assets/lots/cartier-back-generated.png';
+    if (key.indexOf('jordan-sneakers.png') > -1) return 'assets/lots/jordan-back-generated.png';
+    if (cat === 'Watches' || cat === 'Jewelry') return 'assets/lots/watch-back-generated.png';
+    const title = cat === 'Cameras' ? 'Camera rear' : (cat === 'Watches' || cat === 'Jewelry' ? 'Caseback' : (cat === 'Furniture' ? 'Rear profile' : 'Rear view'));
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620"><defs><linearGradient id="card" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="%23ffffff"/><stop offset="1" stop-color="%23f2efe8"/></linearGradient><linearGradient id="metal" x1="0" x2="1"><stop offset="0" stop-color="%238d8f8e"/><stop offset=".48" stop-color="%23f8f4eb"/><stop offset="1" stop-color="%23676a69"/></linearGradient></defs><rect width="900" height="620" fill="%23f6f4ef"/><rect x="128" y="76" width="644" height="468" rx="22" fill="url(%23card)" stroke="%23ddd8ce" stroke-width="3"/><text x="450" y="134" text-anchor="middle" fill="%23918b80" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="3">REAR VIEW REFERENCE</text><ellipse cx="450" cy="415" rx="188" ry="34" fill="%23000000" opacity=".10"/><g transform="translate(450 300)"><rect x="-168" y="-92" width="336" height="184" rx="28" fill="%23e7e1d5" stroke="url(%23metal)" stroke-width="16"/><rect x="-118" y="-50" width="236" height="100" rx="14" fill="%23f7f3ea" stroke="%23b6aea0" stroke-width="7"/><circle cx="0" cy="0" r="34" fill="none" stroke="%239c9486" stroke-width="9"/><circle cx="0" cy="0" r="14" fill="%23b8b0a2"/><rect x="-138" y="-126" width="88" height="28" rx="10" fill="%23cfc7ba"/><rect x="54" y="-126" width="84" height="28" rx="10" fill="%23cfc7ba"/></g><text x="450" y="492" text-anchor="middle" fill="%231b1a16" font-family="Arial, sans-serif" font-size="34" font-weight="800">' + title + '</text><text x="450" y="530" text-anchor="middle" fill="%236e6b62" font-family="Arial, sans-serif" font-size="18">Rear photo not uploaded yet</text></svg>';
+    return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+  }
+
+  _browseItem(a) {
+    const cd = this._cd(a.endsAt, false); const r = this._reserve(a);
+    const meta = this._premiumMeta(a);
+    return {
+      id: a.id, title: a.title, imageUrl: a.imageUrl || 'assets/lots/rolex-watch.png', seller: a.seller, cat: a.cat, viewers: a.viewers, mainSlotId: a.id + '-main',
+      priceText: this.fmt(a.currentPriceCents), bidsText: a.bidCount + ' bids',
+      countText: cd.text, countStyle: this._countChip(cd, false),
+      estimateText: meta.estimateText, conditionText: meta.conditionText, handoffText: meta.handoffText, assuranceText: meta.assuranceText,
+      reserveText: r.text, reserveStyle: r.style,
+      thumbStyle: this._thumbBig(a), watchStyle: this._watchBtn(a.watching), heartFill: a.watching ? 'currentColor' : 'none',
+      onOpen: () => this.openRoom(a.id), onWatch: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.toggleWatch(a.id); }
+    };
+  }
+
+  _roomItem(a) {
+    if (!a) return null;
+    const cd = this._cd(a.endsAt, true); const r = this._reserve(a);
+    const meta = this._premiumMeta(a);
+    const min = a.currentPriceCents + 100;
+    const role = this.state.role;
+    let canBid = false, blockTitle = '', blockSub = '';
+    if (!cd.ended) {
+      if (a.mine || a.seller === this.MY) { blockTitle = 'This is your listing'; blockSub = 'You can\'t bid on a lot you\'re selling.'; }
+      else if (role === 'admin') { blockTitle = 'Moderation account'; blockSub = 'Admins moderate the marketplace and cannot place bids.'; }
+      else { canBid = true; }
+    }
+    let statusShow = false, statusText = '', statusStyle = '';
+    if (canBid) {
+      if (a.youLeading) { statusShow = true; statusText = "✓ You're the highest bidder"; statusStyle = 'margin-top:14px;background:#E7F6EE;color:#1B9C5B;font-weight:700;font-size:13.5px;padding:11px 14px;border-radius:11px;text-align:center'; }
+      else if (a.youBidding) { statusShow = true; statusText = "You've been outbid — raise your bid"; statusStyle = 'margin-top:14px;background:#FFEEE9;color:#FF5436;font-weight:700;font-size:13.5px;padding:11px 14px;border-radius:11px;text-align:center'; }
+    }
+    const leaderText = a.leader === 'You' ? 'You hold the top bid' : (a.leader ? a.leader + ' is leading' : 'No bids yet — be the first');
+    const leaderStyle = 'font-size:13px;font-weight:600;margin-top:7px;color:' + (a.leader === 'You' ? '#1B9C5B' : '#9A968B');
+    let resultTitle = '', resultSub = '', resultStyle = '';
+    if (cd.ended) {
+      const youWon = a.leader === 'You';
+      const reserveFail = a.reserveCents != null && a.currentPriceCents < a.reserveCents;
+      if (reserveFail) { resultTitle = 'Ended — reserve not met'; resultSub = 'No sale. The reserve price was not reached.'; resultStyle = 'margin-top:16px;background:#FBF0DA;color:#8A5E0E;border-radius:13px;padding:18px;text-align:center'; }
+      else if (youWon) { resultTitle = 'You won this lot 🎉'; resultSub = 'Final price ' + this.fmt(a.currentPriceCents); resultStyle = 'margin-top:16px;background:#E7F6EE;color:#147A47;border-radius:13px;padding:18px;text-align:center'; }
+      else { resultTitle = 'Ended — won by ' + (a.leader || 'no bidder'); resultSub = 'Final price ' + this.fmt(a.currentPriceCents); resultStyle = 'margin-top:16px;background:#F4F2EC;color:#54514A;border-radius:13px;padding:18px;text-align:center'; }
+    }
+    const lotIndex = this.state.auctions.indexOf(a) + 1;
+    const rawFrames = this._overviewFrames(a);
+    const activeFrameIndex = Math.min(rawFrames.length - 1, Math.max(0, this.state.viewerFrame || 0));
+    const activeFrame = rawFrames[activeFrameIndex] || rawFrames[0];
+    const frames = rawFrames.map((f, i) => ({
+      imageUrl: f.imageUrl, label: f.label, shortLabel: f.shortLabel,
+      imageStyle: f.thumbStyle,
+      className: 'pdl-frame-thumb' + (i === activeFrameIndex ? ' pdl-frame-thumb-active' : ''),
+      onPick: () => this.setViewerFrame(i)
+    }));
+    const specByCat = {
+      Cameras: [{ k: 'Condition', v: 'Excellent' }, { k: 'Year', v: 'c. 1984' }, { k: 'Includes', v: 'Cap, strap' }],
+      Furniture: [{ k: 'Condition', v: 'Restored' }, { k: 'Material', v: 'Teak' }, { k: 'Origin', v: 'Denmark' }],
+      Watches: [{ k: 'Condition', v: 'Serviced' }, { k: 'Box', v: 'Yes' }, { k: 'Papers', v: 'Yes' }],
+      Vinyl: [{ k: 'Grade', v: 'NM / VG+' }, { k: 'Press', v: 'First' }, { k: 'Year', v: '1959' }],
+      Jewelry: [{ k: 'Metal', v: 'Steel' }, { k: 'Condition', v: 'Excellent' }, { k: 'Box', v: 'Yes' }],
+      Sneakers: [{ k: 'Size', v: 'US 9' }, { k: 'Condition', v: 'Deadstock' }, { k: 'Year', v: '1985' }]
+    };
+    return {
+      title: a.title, imageUrl: a.imageUrl || 'assets/lots/rolex-watch.png', seller: a.seller, sellerInitial: a.seller.charAt(0).toUpperCase(), cat: a.cat, lotNo: '#' + String(1000 + lotIndex),
+      receiptTitle: a.title.split(' — ')[0], receiptSub: a.cat + ' · ' + meta.conditionText + ' · ' + meta.handoffText, receiptLot: String(lotIndex).padStart(2, '0'), prevLot: String(Math.max(1, lotIndex - 1)).padStart(2, '0'), nextLot: String(Math.min(this.state.auctions.length, lotIndex + 1)).padStart(2, '0'), estimateText: meta.estimateText,
+      frames, activeFrameUrl: activeFrame.imageUrl, activeFrameStyle: activeFrame.style, activeFrameLabel: activeFrame.label, frameProgressStyle: 'width:' + Math.round((activeFrameIndex + 1) / rawFrames.length * 100) + '%',
+      prevFrame: () => this.spinFrame(-1), nextFrame: () => this.spinFrame(1), onSpinStart: (e) => this.spinStart(e), onSpinMove: (e) => this.spinMove(e), onSpinEnd: () => this.spinEnd(),
+      onSave: () => this.toggleWatch(a.id),
+      viewers: a.viewers, bidCount: a.bidCount, priceText: this.fmt(a.currentPriceCents),
+      countText: cd.text, countStyle: this._countChip(cd, true),
+      reserveText: r.text, reserveStyle: r.style, leaderText, leaderStyle,
+      canBid, cantBid: !cd.ended && !canBid, ended: cd.ended,
+      blockTitle, blockSub, statusShow, statusText, statusStyle,
+      minDollars: String(Math.round(min / 100)), minText: this.fmt(min),
+      nextMinText: this.fmt(this.state.bidInput ? Math.max(min, Math.round(parseFloat(this.state.bidInput) * 100) || 0) : min),
+      resultTitle, resultSub, resultStyle,
+      description: 'A genuinely special example, photographed as found and described honestly. Functionally checked and ready to ship insured within two business days of settlement. Every figure on this page reflects committed, server-validated bids only.',
+      specs: specByCat[a.cat] || [{ k: 'Condition', v: 'Good' }, { k: 'Provenance', v: 'Documented' }, { k: 'Shipping', v: 'Insured' }],
+      mainSlotId: a.id + '-main', thumbA: a.id + '-t1', thumbB: a.id + '-t2', thumbC: a.id + '-t3', thumbD: a.id + '-t4',
+      feed: a.feed.map(b => ({ label: b.label, initial: b.you ? 'Y' : (b.label.match(/\d+/) || ['B'])[0], amountText: this.fmt(b.amount), timeText: b.you ? 'Your bid · ' + this._ago(b.t) : this._ago(b.t), dotStyle: this._feedDot(b.label, b.you) }))
+    };
+  }
+
+  _bidderRow(a) {
+    const cd = this._cd(a.endsAt, false);
+    let statusText, statusStyle;
+    if (cd.ended) { statusText = 'Ended'; statusStyle = this._pill('#F0EEE8', '#9A968B'); }
+    else if (a.youLeading) { statusText = 'Leading'; statusStyle = this._pill('#E7F6EE', '#1B9C5B'); }
+    else { statusText = 'Outbid'; statusStyle = this._pill('#FFEEE9', '#FF5436'); }
+    return { title: a.title, imageUrl: a.imageUrl || 'assets/lots/rolex-watch.png', seller: a.seller, bidsText: a.bidCount + ' bids', priceText: this.fmt(a.currentPriceCents), countText: cd.text, countStyle: this._miniCount(cd), statusText, statusStyle, slotId: a.id + '-main', thumbStyle: this._thumbMini(a), onOpen: () => this.openRoom(a.id), onWatch: (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.toggleWatch(a.id); } };
+  }
+
+  _notif(n) {
+    const map = {
+      outbid: { ink: '#FF5436', text: 'You were outbid on “' + n.title + '”' },
+      reserve: { ink: '#1B9C5B', text: 'Reserve met on “' + n.title + '” — you\'re watching' },
+      won: { ink: '#1B9C5B', text: 'You won “' + n.title + '” for ' + (n.amount ? this.fmt(n.amount) : '') },
+      lost: { ink: '#9A968B', text: 'Auction ended — you didn\'t win “' + n.title + '”' },
+      cancelled: { ink: '#B07A12', text: '“' + n.title + '” was cancelled' }
+    };
+    const m = map[n.type] || map.outbid;
+    return { text: m.text, timeText: this._ago(n.t), unread: !n.read, iconStyle: 'width:30px;height:30px;border-radius:9px;flex:none;display:flex;align-items:center;justify-content:center;color:' + m.ink + ';background:' + m.ink + '18', rowStyle: 'display:flex;gap:12px;padding:14px 16px;border-bottom:1px solid #F4F2EC;' + (n.read ? '' : 'background:#FCFBF8') };
+  }
+
+  renderVals() {
+    const { screen, now, role } = this.state;
+    const A = this.state.auctions;
+    const liveLots = A.filter(a => now < a.endsAt && !a.cancelled);
+    const live = liveLots.length;
+    const unread = this.state.notifications.filter(n => !n.read).length;
+    const statNum = (n, tone) => "font-family:'Bricolage Grotesque';font-weight:700;font-size:36px;letter-spacing:-.02em;line-height:1;color:" + tone;
+
+    // role chip
+    const roleLabel = role === 'seller' ? 'Seller' : (role === 'admin' ? 'Admin' : 'Bidder');
+    const roleChipStyle = 'font-size:10.5px;font-weight:700;letter-spacing:.03em;color:' + (role === 'admin' ? '#B07A12' : (role === 'seller' ? '#5B47C2' : '#1B9C5B'));
+
+    // nav items
+    let navItems = [];
+    if (role === 'admin') navItems = [{ label: 'Overview', onClick: () => this.go('admin'), active: screen === 'admin' }, { label: 'Browse', onClick: () => this.go('browse'), active: screen === 'browse' || screen === 'room' }];
+    else if (role === 'seller') navItems = [{ label: 'Browse', onClick: () => this.go('browse'), active: screen === 'browse' || screen === 'room' }, { label: 'Seller studio', onClick: () => this.go('seller'), active: screen === 'seller' }];
+    else navItems = [{ label: 'Browse', onClick: () => this.go('browse'), active: screen === 'browse' || screen === 'room' }, { label: 'Dashboard', onClick: () => this.go('dash'), active: screen === 'dash' }];
+
+    // bidder dash
+    const leadingNow = A.filter(a => a.youLeading && now < a.endsAt && !a.cancelled).length;
+    const activeBids = A.filter(a => a.youBidding && now < a.endsAt && !a.cancelled).length;
+    const watchN = A.filter(a => a.watching).length;
+    const dashStats = [
+      { num: String(activeBids), label: 'Active bids', sub: 'across live lots', numStyle: statNum(activeBids, '#1B1A16') },
+      { num: String(leadingNow), label: 'Leading now', sub: 'highest bidder', numStyle: statNum(leadingNow, '#1B9C5B') },
+      { num: String(watchN), label: 'Watching', sub: 'on your list', numStyle: statNum(watchN, '#1B1A16') },
+      { num: '4', label: 'Won', sub: 'all time', numStyle: statNum(4, '#1B1A16') }
+    ];
+    const biddingRows = A.filter(a => a.youBidding).map(a => this._bidderRow(a));
+    const watchRows = A.filter(a => a.watching).map(a => this._bidderRow(a));
+    const resultRows = [
+      { outcome: 'Won', title: 'Polaroid SX-70, refurbished', priceText: '$410', badgeStyle: this._pill('#E7F6EE', '#1B9C5B') },
+      { outcome: 'Not won', title: 'Vintage brass sextant', priceText: '$185', badgeStyle: this._pill('#F0EEE8', '#9A968B') }
+    ];
+
+    // seller studio
+    const myLive = A.filter(a => a.seller === this.MY && now < a.endsAt && !a.cancelled);
+    const raised = myLive.reduce((s, a) => s + a.currentPriceCents, 0);
+    const sellerStats = [
+      { num: String(myLive.length), label: 'Live listings', sub: 'accepting bids', numStyle: statNum(myLive.length, '#1B1A16') },
+      { num: String(this.state.drafts.length), label: 'Drafts', sub: 'not published', numStyle: statNum(this.state.drafts.length, '#B07A12') },
+      { num: this.fmt(raised), label: 'Bid volume', sub: 'live lots', numStyle: statNum(0, '#1B9C5B') },
+      { num: '37', label: 'Sold', sub: 'all time', numStyle: statNum(37, '#1B1A16') }
+    ];
+    const draftRows = this.state.drafts.map(d => ({
+      title: d.title, cat: d.cat, startText: '$' + (d.startD || '—'), durText: this._durText(d.mins || 1440),
+      thumbStyle: this._thumbMini({ cat: d.cat }),
+      readyText: d.ready ? 'Ready' : 'Needs photo', readyStyle: d.ready ? this._pill('#E7F6EE', '#1B9C5B') : this._pill('#FBF0DA', '#B07A12'),
+      onPublish: () => this.publishDraft(d.id),
+      publishStyle: 'flex:none;background:#1B1A16;color:#fff;border:none;border-radius:9px;padding:8px 14px;font-family:\'Hanken Grotesk\';font-weight:700;font-size:13px;cursor:pointer'
+    }));
+    const sellerLiveRows = myLive.map(a => { const cd = this._cd(a.endsAt, false); const r = this._reserve(a); return { title: a.title, imageUrl: a.imageUrl || 'assets/lots/rolex-watch.png', slotId: a.id + '-main', bidsText: a.bidCount + ' bids', viewersText: a.viewers + ' watching', priceText: this.fmt(a.currentPriceCents), reserveText: r.text, reserveStyleSmall: 'font-size:11px;font-weight:700;margin-top:3px;color:' + (a.reserveCents == null || a.reserveMet ? '#1B9C5B' : '#B07A12'), countChip: this._countChip(cd, false), countText: cd.text, thumbStyle: this._thumbMini(a), onOpen: () => this.openRoom(a.id) }; });
+    const sellerResults = [
+      { outcome: 'Sold', title: 'Bauhaus desk lamp, 1930s', sub: '14 bids', priceText: '$1,240', badgeStyle: this._pill('#E7F6EE', '#1B9C5B') },
+      { outcome: 'Sold', title: 'Seiko 6139 chronograph', sub: '29 bids', priceText: '$2,050', badgeStyle: this._pill('#E7F6EE', '#1B9C5B') },
+      { outcome: 'No sale', title: 'Art deco wall clock', sub: 'reserve not met', priceText: '$320', badgeStyle: this._pill('#FBF0DA', '#B07A12') }
+    ];
+
+    // admin
+    const recentBids = this._bidTimes.filter(t => now - t < 60000);
+    const bpm = recentBids.length;
+    const buckets = new Array(12).fill(0);
+    recentBids.forEach(t => { const idx = Math.min(11, Math.floor((now - t) / 5000)); buckets[11 - idx]++; });
+    const maxB = Math.max(1, ...buckets);
+    const bpmBars = buckets.map(v => ({ style: 'flex:1;background:#1B1A16;border-radius:3px 3px 0 0;height:' + Math.max(7, Math.round(v / maxB * 100)) + '%;min-height:7px' }));
+    const liveBidders = liveLots.reduce((s, a) => s + a.viewers, 0);
+    const adminStats = [
+      { num: String(live), label: 'Active auctions', sub: 'currently live', numStyle: statNum(live, '#1B1A16') },
+      { num: String(bpm), label: 'Bids / min', sub: 'last 60 seconds', numStyle: statNum(bpm, '#FF5436') },
+      { num: String(liveBidders), label: 'Live viewers', sub: 'across all rooms', numStyle: statNum(liveBidders, '#1B1A16') },
+      { num: String(this.state.users.filter(u => u.flagged && u.status !== 'banned').length), label: 'Flagged', sub: 'need review', numStyle: statNum(0, '#B07A12') }
+    ];
+    const adminAuctions = liveLots.map(a => {
+      const cd = this._cd(a.endsAt, false);
+      return { title: a.title, imageUrl: a.imageUrl || 'assets/lots/rolex-watch.png', seller: a.seller, slotId: a.id + '-main', bidsText: a.bidCount + ' bids', priceText: this.fmt(a.currentPriceCents), countText: cd.text, countStyle: this._miniCount(cd), thumbStyle: this._thumbSm(a.cat), rowStyle: 'display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid #F4F2EC', onCancel: () => this.cancelAuction(a.id), cancelLabel: 'Cancel', cancelStyle: 'flex:none;background:#FFEEE9;color:#FF5436;border:none;border-radius:9px;padding:8px 13px;font-family:\'Hanken Grotesk\';font-weight:700;font-size:12.5px;cursor:pointer' };
+    });
+    const endingSoon = liveLots.slice().sort((x, y) => x.endsAt - y.endsAt).slice(0, 5).map(a => { const cd = this._cd(a.endsAt, false); return { title: a.title, dotStyle: this._thumbSm(a.cat).replace('44px', '32px').replace('44px', '32px'), countStyle: this._countChip(cd, false), countText: cd.text }; });
+    const adminUsers = this.state.users.map(u => {
+      const banned = u.status === 'banned';
+      return { name: u.name, handle: u.handle, roles: banned ? 'Banned' : u.roles, initial: u.name.charAt(0), flagged: !!u.flagged && !banned,
+        avatarStyle: 'width:32px;height:32px;border-radius:9px;flex:none;display:flex;align-items:center;justify-content:center;font-family:\'Bricolage Grotesque\';font-weight:700;font-size:13px;' + (banned ? 'background:#F4F2EC;color:#B6B2A7' : 'background:#EFEDE6;color:#1B1A16'),
+        onBan: () => this.banUser(u.id), banLabel: banned ? 'Unban' : 'Ban',
+        banStyle: 'flex:none;border:none;border-radius:9px;padding:7px 13px;font-family:\'Hanken Grotesk\';font-weight:700;font-size:12.5px;cursor:pointer;' + (banned ? 'background:#E7F6EE;color:#1B9C5B' : 'background:#1B1A16;color:#fff') };
+    });
+
+    const roleCards = [
+      { title: 'Continue as Bidder', desc: 'Browse, watch, and place live bids', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B9C5B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3l7 7-4 4-7-7z"></path><path d="M10 7L3 14v7h7l7-7"></path></svg>', iconStyle: 'width:38px;height:38px;border-radius:11px;background:#E7F6EE;display:flex;align-items:center;justify-content:center;flex:none', onPick: () => this.signInAs('bidder') },
+      { title: 'Continue as Seller', desc: 'Create listings, publish, track results', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B47C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"></path><path d="M4 9v11h16V9"></path><path d="M9 13h6"></path></svg>', iconStyle: 'width:38px;height:38px;border-radius:11px;background:#ECEAF6;display:flex;align-items:center;justify-content:center;flex:none', onPick: () => this.signInAs('seller') },
+      { title: 'Continue as Admin', desc: 'Moderate, cancel, and ban', icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B07A12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"></path></svg>', iconStyle: 'width:38px;height:38px;border-radius:11px;background:#FBF0DA;display:flex;align-items:center;justify-content:center;flex:none', onPick: () => this.signInAs('admin') }
+    ];
+
+    const catList = ['Watches', 'Cameras', 'Furniture', 'Sneakers', 'Vinyl', 'Jewelry'];
+    const composerCats = catList.map(c => ({ label: c, onPick: () => this.setComposer({ cat: c }), style: 'border:1.5px solid ' + (this.state.composer.cat === c ? '#1B1A16' : '#E7E5DE') + ';background:' + (this.state.composer.cat === c ? '#1B1A16' : '#fff') + ';color:' + (this.state.composer.cat === c ? '#fff' : '#54514A') + ';border-radius:999px;padding:7px 14px;font-family:\'Hanken Grotesk\';font-weight:600;font-size:13px;cursor:pointer' }));
+    const durs = [{ label: '1 hour', mins: 60 }, { label: '1 day', mins: 1440 }, { label: '3 days', mins: 4320 }, { label: '7 days', mins: 10080 }];
+    const composerDurations = durs.map(d => ({ label: d.label, onPick: () => this.setComposer({ mins: d.mins }), style: 'flex:1;border:1.5px solid ' + (this.state.composer.mins === d.mins ? '#1B1A16' : '#E7E5DE') + ';background:' + (this.state.composer.mins === d.mins ? '#1B1A16' : '#fff') + ';color:' + (this.state.composer.mins === d.mins ? '#fff' : '#54514A') + ';border-radius:10px;padding:9px;font-family:\'Hanken Grotesk\';font-weight:600;font-size:13px;cursor:pointer' }));
+
+    const toastTone = this.state.toastTone;
+    const toastDotStyle = 'width:8px;height:8px;border-radius:50%;background:' + (toastTone === 'green' ? '#3BD17F' : '#FF5436');
+
+    return {
+      isSignin: screen === 'signin', inApp: screen !== 'signin',
+      isBrowse: screen === 'browse', isRoom: screen === 'room', isDash: screen === 'dash', isSeller: screen === 'seller', isAdmin: screen === 'admin',
+      signinBidder: () => this.signInAs('bidder'), signinSeller: () => this.signInAs('seller'), signinAdmin: () => this.signInAs('admin'),
+      navItems, goHome: () => this.goHome(), goBack: () => this.goBack(),
+      liveCount: live, unread, hasUnread: unread > 0,
+      roleLabel, roleChipStyle, avatarInitial: 'Y',
+      notifOpen: this.state.notifOpen, accountOpen: this.state.accountOpen,
+      toggleNotif: () => this.setState({ notifOpen: !this.state.notifOpen, accountOpen: false }),
+      toggleAccount: () => this.setState({ accountOpen: !this.state.accountOpen, notifOpen: false }),
+      signOut: () => this.signOut(),
+      browseItems: liveLots.map(a => this._browseItem(a)),
+      heroItems: liveLots.slice(0, 6).map(a => { const cd = this._cd(a.endsAt, false); return { title: a.title, imageUrl: a.imageUrl || 'assets/lots/rolex-watch.png', cat: a.cat, priceText: this.fmt(a.currentPriceCents), countText: cd.text, onOpen: () => this.openRoom(a.id) }; }),
+      scrollToLots: () => { const el = document.querySelector('.pdl-browse-grid'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); },
+      room: screen === 'room' ? this._roomItem(this._active()) : null,
+      bidInput: this.state.bidInput, onBidInput: (e) => this.setState({ bidInput: e.target.value.replace(/[^0-9.]/g, '') }),
+      placeBid: () => this.placeBid(), quickMin: () => this.setQuick(0), quickP25: () => this.setQuick(2500), quickP100: () => this.setQuick(10000),
+      dashStats, biddingRows, biddingCount: biddingRows.length, watchRows, watchCount: watchRows.length, resultRows,
+      notifications: this.state.notifications.map(n => this._notif(n)),
+      markAllRead: () => this.setState({ notifications: this.state.notifications.map(n => ({ ...n, read: true })) }),
+      sellerStats, draftRows, draftCount: this.state.drafts.length, noDrafts: this.state.drafts.length === 0,
+      sellerLiveRows, sellerLiveCount: myLive.length, noSellerLive: myLive.length === 0, sellerResults,
+      openComposer: () => this.openComposer(), closeComposer: () => this.closeComposer(),
+      composerOpen: this.state.composerOpen, composer: this.state.composer,
+      cTitle: (e) => this.setComposer({ title: e.target.value }), cStart: (e) => this.setComposer({ startD: e.target.value.replace(/[^0-9.]/g, '') }), cReserve: (e) => this.setComposer({ reserveD: e.target.value.replace(/[^0-9.]/g, '') }),
+      composerCats, composerDurations, publishListing: () => this.publishListing(), saveDraft: () => this.saveDraft(),
+      adminStats, bpm: String(bpm), bpmBars, adminAuctions, endingSoon, adminUsers,
+      toast: this.state.toast, toastDotStyle
+    };
+  }
+}
+</script>
+</body>
+</html>

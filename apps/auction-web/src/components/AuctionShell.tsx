@@ -55,16 +55,16 @@ export function AuctionShell() {
         <div className="brand-mark">P</div>
         <div>
           <strong>Paddle</strong>
-          <span>Backend foundation</span>
+          <span>Live marketplace</span>
         </div>
         <div className="live-pill">{liveCount} live</div>
       </nav>
 
       <section className="hero">
-        <p className="eyebrow">Supabase + Socket.IO architecture</p>
-        <h1>Live auctions now read through backend API routes.</h1>
+        <p className="eyebrow">Verified live auctions</p>
+        <h1>Bid on curated lots as the room moves.</h1>
         <p>
-          This is the first real implementation milestone: the frontend no longer needs hardcoded auction cards once Supabase credentials and schema are applied.
+          Browse active lots, follow current prices, and enter each sale with confidence from verified sellers and real-time bidding controls.
         </p>
       </section>
 
